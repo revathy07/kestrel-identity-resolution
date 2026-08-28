@@ -10,6 +10,7 @@ env/
 
 # Generated data
 data/generated-small/
+data/tmp/
 data/*.csv
 data/*.json
 data/*.jsonl
@@ -17,6 +18,8 @@ data/*.xlsx
 
 # Generated outputs
 outputs/*
+!outputs/README.md
+outputs-small/
 
 # Environment / OS
 .env

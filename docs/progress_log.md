@@ -36,7 +36,8 @@ The 1% fixture used 3,000 people and 4,200 rows.
   was based only on ticket rows capable of exposing an account reference.
 - Shuffling revealed that near-duplicate verification was order-dependent (1.33%). Counting
   distinct content variants per record ID fixed the observed rate to exactly 1.00%.
-- Final development result: **66 PASS, 0 FAIL, 0 WARN**; four unit tests also passed.
+- Final development result: **66 PASS, 0 FAIL, 0 WARN**. The focused test suite has
+  since expanded to 15 passing tests.
 
 ## 4. Full-scale run
 
@@ -54,14 +55,15 @@ Measured full-scale results:
 
 - 300,000 distinct invented people; 25.00% have multiple records; 500 have six or more.
 - 8,400 exact duplicates (2.00%) and 4,200 near duplicates (1.00%).
-- 10,751 of 126,315 true pairs have zero usable evidence (8.51%).
-- 933 of 21,366 nonblank ticket account IDs are orphans (4.37%).
-- 21,000 bot rows (5.00%), 1,500 QA rows, and 2,553 late events (3.19%).
-- Poison counts: 3,000 placeholder phones, 4,195 default DOBs, 900 corporate-email rows,
+- 10,845 of 126,315 true pairs have zero usable evidence (8.5857%).
+- 931 of 21,386 nonblank ticket account IDs are orphans (4.35%).
+- 21,000 bot rows (5.00%), 1,500 QA rows, and 2,550 late events (3.19%).
+- Poison counts: 3,000 placeholder phones, 4,191 default DOBs, 900 corporate-email rows,
   40,000 kiosk-device rows, and 1,500 staff-test emails.
 - The largest single poison frequency is 40,000, while naive transitive union expands that
-  connected poisoned component to 95,370 rows; the independent verifier reproduces it.
-- Independent verifier result: **66 PASS, 0 FAIL, 0 WARN**.
+  connected poisoned component to 104,136 rows and 78,448 hidden entities; the independent
+  verifier reproduces it.
+- Final independent compliance result: **90 PASS, 0 FAIL, 0 WARN, 0 NOT VERIFIABLE**.
 
 ## 5. Next engineering stage
 
