@@ -32,7 +32,8 @@ requirements.txt                pinned runtime dependency
 
 See [data/README.md](data/README.md) for the role and format of every dataset file,
 [docs/dataset_generator_audit.md](docs/dataset_generator_audit.md) for requirement-level
-evidence, and [docs/progress_log.md](docs/progress_log.md) for the development record.
+evidence, [docs/progress_log.md](docs/progress_log.md) for the development record, and
+[approach_tried.md](approach_tried.md) for three measured approaches that were abandoned.
 
 ## Quick start
 
