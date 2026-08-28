@@ -67,8 +67,8 @@ Measured full-scale results:
 
 ## 5. Next engineering stage
 
-The next stage is the assessment solution, not more data generation: identifier profiling,
-worthless-value detection, candidate blocking, MCT scoring, capped transitive clustering,
+The next stage after dataset generation was identifier profiling and worthless-value
+detection, followed by candidate blocking, MCT scoring, capped transitive clustering,
 labelled evaluation, and the required written deliverables.
 
 ## 6. Rigorous audit corrections
@@ -83,3 +83,21 @@ labelled evaluation, and the required written deliverables.
 - Replaced incidence-based hard-negative scoring with explicitly labelled pairs over unique
   unordered post-Rule-2 candidates; full-scale result is 17,330/301,504 (5.7479%).
 - Final independent audit: **90 PASS, 0 FAIL, 0 WARN, 0 NOT VERIFIABLE**.
+
+## 7. Identifier profiling and Rule 2
+
+- Added isolated readers for CSV, JSON Lines, multi-sheet Excel with a title row, and nested
+  social identity payloads. Readers retain raw values and source record IDs.
+- Added an explicit mapping of available and unavailable canonical concepts for every source.
+- Used a disk-backed exact aggregation so no candidate pairs are materialized.
+- Full seed-42 result: **420,000 records**, **17 observed identifier concepts**, and **2,094
+  Rule 2 values** occurring on more than 40 physical records.
+- The registry affects 330,000 records and removes **4,001,386,930 potential pair
+  incidences**, leaving 1,476,529. Incidences are not unique record pairs.
+- The registry naturally discovered the 40,000-record device, 4,191-record DOB,
+  3,000-record phone, and 1,500- and 900-record email patterns without hard-coded values.
+- All **28 tests** pass, including the strict 40/41 boundary, global cross-source counting,
+  all five source formats, deterministic hashing, truth-file isolation, and byte-identical
+  source files after profiling.
+- Phase 1 stops before fuzzy normalization, candidate blocking, MCT scoring, matching,
+  clustering, dashboards, or final evaluation.

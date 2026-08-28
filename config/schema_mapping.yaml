@@ -1,0 +1,103 @@
+{
+  "version": 1,
+  "description": "Canonical concepts for profiling only. Raw source columns remain unchanged.",
+  "canonical_concepts": [
+    "source_record_id",
+    "email",
+    "hashed_email",
+    "phone",
+    "first_name",
+    "last_name",
+    "full_name",
+    "date_of_birth",
+    "device_id",
+    "account_reference",
+    "payment_token",
+    "address_line1",
+    "address_line2",
+    "city",
+    "postcode",
+    "country",
+    "provider_id"
+  ],
+  "sources": {
+    "app_users": {
+      "path": "app_users.csv",
+      "format": "csv",
+      "record_id": "account_id",
+      "identifiers": {
+        "account_id": "account_reference",
+        "email": "email",
+        "phone": "phone",
+        "first_name": "first_name",
+        "last_name": "last_name",
+        "dob": "date_of_birth",
+        "device_id": "device_id",
+        "city": "city",
+        "country": "country"
+      },
+      "unavailable": ["hashed_email", "full_name", "payment_token", "address_line1", "address_line2", "postcode", "provider_id"]
+    },
+    "store_customers": {
+      "path": "store_customers.csv",
+      "format": "csv",
+      "record_id": "customer_id",
+      "identifiers": {
+        "app_account_ref": "account_reference",
+        "customer_email_address": "email",
+        "contact_no": "phone",
+        "first": "first_name",
+        "last": "last_name",
+        "dob": "date_of_birth",
+        "device": "device_id",
+        "line1": "address_line1",
+        "line2": "address_line2",
+        "city": "city",
+        "postcode": "postcode",
+        "country": "country"
+      },
+      "unavailable": ["hashed_email", "full_name", "payment_token", "provider_id"]
+    },
+    "ticketing": {
+      "path": "ticketing.jl",
+      "format": "jsonl",
+      "record_id": "booking_id",
+      "identifiers": {
+        "account_id": "account_reference",
+        "full_name": "full_name",
+        "email": "email",
+        "phone": "phone",
+        "device_id": "device_id",
+        "city": "city"
+      },
+      "unavailable": ["hashed_email", "first_name", "last_name", "date_of_birth", "payment_token", "address_line1", "address_line2", "postcode", "country", "provider_id"]
+    },
+    "subscriptions": {
+      "path": "subscriptions.xlsx",
+      "format": "excel",
+      "sheet": "subscriptions",
+      "header_marker": "subscription_id",
+      "record_id": "subscription_id",
+      "identifiers": {
+        "email": "email",
+        "subscriber_name": "full_name",
+        "billing_name": "full_name",
+        "payment_token": "payment_token",
+        "country": "country"
+      },
+      "unavailable": ["hashed_email", "phone", "first_name", "last_name", "date_of_birth", "device_id", "account_reference", "address_line1", "address_line2", "city", "postcode", "provider_id"]
+    },
+    "social_logins": {
+      "path": "social_logins.json",
+      "format": "nested_json",
+      "record_id": "identity_payload.provider_id",
+      "identifiers": {
+        "identity_payload.verified_email": "email",
+        "identity_payload.hashed_email": "hashed_email",
+        "identity_payload.display_name": "full_name",
+        "identity_payload.provider_id": "provider_id"
+      },
+      "unavailable": ["phone", "first_name", "last_name", "date_of_birth", "device_id", "account_reference", "payment_token", "address_line1", "address_line2", "city", "postcode", "country"]
+    }
+  }
+}

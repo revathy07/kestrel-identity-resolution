@@ -1,0 +1,72 @@
+{
+  "phase": "identifier_profiling_and_rule2_detection",
+  "total_records_profiled": 420000,
+  "source_counts": {
+    "app_users": 120000,
+    "store_customers": 80000,
+    "ticketing": 80000,
+    "subscriptions": 50000,
+    "social_logins": 90000
+  },
+  "identifier_concept_count": 17,
+  "rule2_threshold": 40,
+  "rule2_value_count": 2094,
+  "potential_pair_incidences_before_rule2": 4002863459,
+  "potential_pair_incidences_removed_by_rule2": 4001386930,
+  "potential_pair_incidences_remaining_after_rule2": 1476529,
+  "records_affected_by_at_least_one_rule2_value": 330000,
+  "missing_value_semantics": {
+    "actual_null": true,
+    "empty_or_whitespace": true,
+    "case_insensitive_null_like_tokens": [
+      "\"\"",
+      "''",
+      "none",
+      "null"
+    ],
+    "raw_values_modified": false
+  },
+  "five_most_important_identifier_risks": [
+    "Unfiltered exact values imply 4,002,863,459 potential pair incidences; the same record pair may occur under several concepts.",
+    "Rule 2 marks 2,094 concept/value keys as worthless and removes 4,001,386,930 potential incidences.",
+    "330,000 records contain at least one high-frequency value that must never carry matching weight by itself.",
+    "The largest high-frequency value is KIO…-1 (device_id, 40,000 records).",
+    "The highest missingness is store_customers.app_account_ref at 93.75%."
+  ],
+  "observations": [
+    {
+      "category": "missing_identifiers",
+      "finding": "The highest missingness is store_customers.app_account_ref at 93.75%."
+    },
+    {
+      "category": "shared_identifiers",
+      "finding": "330,000 records contain at least one high-frequency value that must never carry matching weight by itself."
+    },
+    {
+      "category": "suspicious_defaults",
+      "finding": "Frequency profiling discovered 2,094 Rule 2 values without a list of known placeholders or defaults."
+    },
+    {
+      "category": "cross_source_schema",
+      "finding": "Available canonical concepts by source: app_users=10, store_customers=13, ticketing=7, subscriptions=5, social_logins=5."
+    },
+    {
+      "category": "identifier_reliability",
+      "finding": "The concept with the most Rule 2 values is first_name (905 values)."
+    },
+    {
+      "category": "never_use_alone",
+      "finding": "Every registry entry has zero matching weight under Rule 2 and must not be used alone."
+    },
+    {
+      "category": "combination_only",
+      "finding": "Names, addresses, cities, postcodes, countries, dates of birth, and other shared fields may become useful only in combination after the later scoring design is justified."
+    }
+  ],
+  "limitations": [
+    "Potential pair counts are incidences, not unique unordered record pairs.",
+    "Profiling keys are intentionally conservative and are not final matching normalization.",
+    "No match/non-match decisions, fuzzy comparisons, blocking, scoring, or clustering are performed."
+  ],
+  "identifier_frequency_rows": 1595336
+}

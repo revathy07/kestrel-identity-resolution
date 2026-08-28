@@ -1,0 +1,1 @@
+"""Kestrel identity-resolution implementation."""

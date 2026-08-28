@@ -1,0 +1,6 @@
+source,path,format,parsed_row_count,expected_row_count,row_count_reconciled
+app_users,app_users.csv,csv,120000,120000,yes
+store_customers,store_customers.csv,csv,80000,80000,yes
+ticketing,ticketing.jl,jsonl,80000,80000,yes
+subscriptions,subscriptions.xlsx,excel,50000,50000,yes
+social_logins,social_logins.json,nested_json,90000,90000,yes

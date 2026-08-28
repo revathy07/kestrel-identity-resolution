@@ -9,8 +9,8 @@ building a defensible identity-matching layer across five disconnected customer 
 |---|---|
 | Synthetic dataset generation | Complete |
 | Independent dataset verification | Complete |
-| Identity profiling and Rule 2 suppression | Next |
-| Candidate generation and MCT scoring | Not started |
+| Identifier profiling and Rule 2 detection | Complete |
+| Candidate generation and MCT scoring | Next |
 | Capped clustering and evaluation | Not started |
 | Memo and presentation | Not started |
 
@@ -21,10 +21,13 @@ of the downstream identity-resolution assessment.
 
 ```text
 data/generated/                 verified full-scale synthetic dataset
+config/schema_mapping.yaml      profiling-only canonical field mapping
 docs/                           audit evidence and development log
-outputs/                        generated analysis outputs (not committed)
+outputs/                        compact reports; large intermediates ignored
 scripts/generate_synthetic_dataset.py
 scripts/verify_synthetic_dataset.py
+src/ingestion/                  isolated normal-source readers
+src/profiling/                  identifier profiler and Rule 2 registry
 src/validate_generated_data.py independent compliance validator
 tests/                          focused generator and validator tests
 requirements.txt                pinned runtime dependency
@@ -63,6 +66,23 @@ python src/validate_generated_data.py --data-dir data/generated --output-dir out
 
 Generation is deterministic with seed 42 unless another seed is supplied.
 
+## Phase 1: identifier profiling and Rule 2
+
+Run the isolated profiler from the repository root:
+
+```bash
+python -m src.profiling.profile_identifiers --data-dir data/generated --output-dir outputs/profiling
+```
+
+The full run profiles all 420,000 records and discovers 2,094 concept/value keys occurring
+on more than 40 physical records. Those keys affect 330,000 records and account for
+4,001,386,930 potential pair incidences. These are incidences, not unique pairs, because
+two records can share more than one identifier.
+
+The profiler reads only the five normal source systems. It does not require evaluation
+truth, construct candidate pairs, make match decisions, perform fuzzy normalization, score
+pairs, or build clusters. See [the Phase 1 report](outputs/profiling/profiling_report.md).
+
 ## Verified dataset
 
 The committed full-scale fixture contains 300,000 invented people and 420,000 physical
@@ -84,7 +104,8 @@ resolver.
 - The environment dependency is pinned in `requirements.txt`.
 - The generator accepts `--seed`, `--scale`, and `--output-dir` arguments.
 - Validators are read-only and return a nonzero exit status when a mandatory check fails.
-- Temporary fixtures, caches, and generated validation reports are excluded from Git.
+- Temporary fixtures, caches, and large reproducible frequency tables are excluded from Git.
+- The automated suite contains 28 tests, including profiling isolation and input immutability.
 
 ## AI usage
 

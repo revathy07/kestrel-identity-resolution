@@ -47,8 +47,11 @@ expose another customer's data.
 **What replaced it.** Identifier frequencies are profiled before matching, and any value
 appearing on more than 40 physical rows receives zero weight under Rule 2. Removing those
 high-frequency values reduces the measured candidate set to **301,504 pairs**, only
-**0.0371%** of the naive total. The production-style candidate and scoring pipeline will be
-built on this suppressed evidence set.
+**0.0371%** of the generator's naive unique-pair total. The completed Phase 1 profiler also
+finds **2,094 high-frequency concept/value keys** across all profiled fields and calculates
+that they account for **4,001,386,930 potential pair incidences**. Incidences can count the
+same record pair under multiple concepts, so they are intentionally reported separately
+from unique candidate pairs. The later candidate and scoring pipeline will use the registry.
 
 The supporting measurements are recorded in
 [the progress log](docs/progress_log.md),

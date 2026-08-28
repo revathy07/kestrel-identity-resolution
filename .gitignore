@@ -19,6 +19,15 @@ data/*.xlsx
 # Generated outputs
 outputs/*
 !outputs/README.md
+!outputs/profiling/
+outputs/profiling/*
+!outputs/profiling/README.md
+!outputs/profiling/source_summary.csv
+!outputs/profiling/column_profile.csv
+!outputs/profiling/worthless_values.csv
+!outputs/profiling/rule2_registry.json
+!outputs/profiling/data_quality_summary.json
+!outputs/profiling/profiling_report.md
 outputs-small/
 
 # Environment / OS
