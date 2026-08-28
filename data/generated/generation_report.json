@@ -1,0 +1,91 @@
+{
+  "generation_parameters": {
+    "scale": 1.0,
+    "seed": 42,
+    "expected_people": 300000,
+    "expected_rows": 420000
+  },
+  "row_counts": {
+    "app_users": 120000,
+    "store_customers": 80000,
+    "ticketing": 80000,
+    "subscriptions": 50000,
+    "social_logins": 90000
+  },
+  "total_row_count": 420000,
+  "injected_problem_rates": {
+    "exact_duplicate_rate": 0.02,
+    "near_duplicate_rate": 0.01,
+    "bot_rate": 0.05,
+    "internal_test_rate": 0.005,
+    "late_event_rate": 0.032,
+    "impossible_value_rate": 0.003,
+    "zero_evidence_duplicate_rate": 0.08
+  },
+  "measured_problem_rates": {
+    "measured_zero_evidence_duplicate_pair_rate": 0.08585678660491627,
+    "zero_evidence_pairs": 10845,
+    "true_duplicate_pairs": 126315,
+    "zero_evidence_by_source_pair": {
+      "app_users+ticketing": 10845
+    },
+    "canonical_duplicate_links": 99000,
+    "canonical_unrecoverable_links": 10845,
+    "canonical_unrecoverable_rate": 0.10954545454545454,
+    "candidate_pair_incidences_before_deduplication": 815691623,
+    "different_person_candidate_incidences": 815321759,
+    "unique_unordered_naive_candidate_pairs": 813387806,
+    "pairs_created_only_through_rule2_values": 813086302,
+    "pairs_created_only_through_poison_identifiers": 812770310,
+    "rule2_unique_candidate_pairs": 301504,
+    "candidate_percentage_after_rule2": 0.0003706768134166004,
+    "explicit_hard_negative_pairs": 20000,
+    "explicit_hard_negative_candidate_pairs": 17330,
+    "explicit_hard_negative_rate_rule2": 0.05747850774782424,
+    "rule2_high_frequency_value_count": 53,
+    "duplicate_evidence_mode_counts": {
+      "no_usable_evidence": 10845,
+      "phone_country_code": 8123,
+      "multiple_or_other_evidence": 2458,
+      "email_plus_suffix": 4736,
+      "device_only": 12162,
+      "name_city_only": 11475,
+      "exact_verified_email": 20017,
+      "email_case_variation": 4731,
+      "email_dotted_local_part": 4728,
+      "exact_email": 15699,
+      "phone_spaced": 4026
+    }
+  },
+  "true_number_of_distinct_people": 300000,
+  "true_duplicate_rate_people_with_multiple_records": 0.25,
+  "people_with_six_or_more_records": 500,
+  "poison_cluster_sizes": {
+    "placeholder_phone": 3000,
+    "default_dob": 4191,
+    "corporate_email": 900,
+    "kiosk_device": 40000,
+    "test_email": 1500
+  },
+  "largest_poisoned_cluster_naive_matcher": 104136,
+  "largest_poisoned_cluster_distinct_true_people": 78448,
+  "largest_poisoned_cluster_causes": [
+    "device:KIOSK-DEVICE-1",
+    "dob:1970-01-01",
+    "email:bookings@events.example",
+    "email:qa+001@staff.test",
+    "phone:0000000000"
+  ],
+  "estimated_largest_poisoned_cluster": 104136,
+  "definitions": {
+    "naive_candidate": "Each exact normalized email, phone, device, account reference, payment token, hash, default DOB, or name+city token creates an incidence. Unique candidates are unordered pairs of distinct source-record keys. Rule 2 removes every value occurring on more than 40 physical rows before the explicit-hard-negative percentage is calculated.",
+    "naive_cluster": "Rows are unioned transitively on every naive-candidate evidence token, including default DOB, placeholder phone, kiosk device, corporate email, and staff-test email. The reported largest cluster is the largest connected component containing a poison value.",
+    "zero_evidence": "A pair is unrecoverable when its rows share no normalized non-poison evidence token occurring on at most 40 physical rows. Pairwise uses every same-person combination; canonical uses a star of intentionally generated source-record links per multi-record person.",
+    "canonical_links": "For each human with multiple unique source-record keys, the first generated key is the anchor and one hidden link connects it to every additional key. This is a smaller denominator than all pairwise combinations for people with three or more records.",
+    "missing_identifier": "Actual null, empty/whitespace, quoted-empty, and case-insensitive null/None strings are missing. Emails are artifact-parsed and normalized before a nonempty edge can be created.",
+    "explicit_hard_negative": "Only source-record pairs listed in hard_negatives.json, verified to have different hidden person IDs, count as explicit hard negatives.",
+    "ground_truth": "person_map.csv includes every physical row; entity_type separates invented humans from automated traffic.",
+    "reserved_phone_range": "+999 is unassigned and cannot route to a real subscriber.",
+    "timestamp_semantics": "Offset/epoch formats use UTC; LOCAL_TEXT is the same instant rendered at UTC+05:30 with the offset marker deliberately omitted."
+  }
+}
