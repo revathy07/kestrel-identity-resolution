@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "description": "Derived matching normalization. Raw values remain unchanged and no fuzzy comparison is performed.",
+  "principles": [
+    "Preserve every raw source value.",
+    "Represent missing, invalid and valid values separately.",
+    "Do not infer missing phone country codes.",
+    "Preserve email dots and plus suffixes.",
+    "Do not apply fuzzy name or address logic.",
+    "Do not use evaluation truth or scenario labels."
+  ],
+  "missing_tokens": ["", "\"\"", "''", "null", "none"],
+  "email": {
+    "case_fold": true,
+    "preserve_local_part_dots": true,
+    "preserve_plus_suffix": true,
+    "extract_single_address_from_export_text": true
+  },
+  "phone": {
+    "minimum_digits": 7,
+    "maximum_digits": 15,
+    "remove_safe_punctuation": true,
+    "infer_country_code": false
+  },
+  "date_of_birth": {
+    "accepted_formats": ["%Y-%m-%d", "%d-%m-%Y", "%Y/%m/%d"],
+    "reference_date": "2026-04-03",
+    "maximum_plausible_age": 120
+  },
+  "country_aliases": {
+    "IN": "IN",
+    "IND": "IN",
+    "INDIA": "IN",
+    "US": "US",
+    "USA": "US",
+    "UNITEDSTATES": "US",
+    "GB": "GB",
+    "GBR": "GB",
+    "UK": "GB",
+    "UNITEDKINGDOM": "GB",
+    "AU": "AU",
+    "AUS": "AU",
+    "AUSTRALIA": "AU"
+  },
+  "concept_strategies": {
+    "source_record_id": "identifier",
+    "email": "email",
+    "hashed_email": "sha256_hash",
+    "phone": "phone",
+    "first_name": "name",
+    "last_name": "name",
+    "full_name": "name",
+    "date_of_birth": "date_of_birth",
+    "device_id": "identifier",
+    "account_reference": "identifier",
+    "payment_token": "identifier",
+    "address_line1": "address",
+    "address_line2": "address",
+    "city": "city",
+    "postcode": "postcode",
+    "country": "country",
+    "provider_id": "identifier"
+  }
+}

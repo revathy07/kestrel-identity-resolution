@@ -8,6 +8,7 @@
 *.jsonl text eol=lf
 *.jl text eol=lf
 *.xlsx binary
+*.gz binary
 
 # Keep GitHub language statistics focused on implementation code.
 data/generated/** linguist-generated=true

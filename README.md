@@ -10,7 +10,9 @@ building a defensible identity-matching layer across five disconnected customer 
 | Synthetic dataset generation | Complete |
 | Independent dataset verification | Complete |
 | Identifier profiling and Rule 2 detection | Complete |
-| Candidate generation and MCT scoring | Next |
+| Derived identifier normalization | Complete |
+| Candidate blocking | Next |
+| MCT scoring | Not started |
 | Capped clustering and evaluation | Not started |
 | Memo and presentation | Not started |
 
@@ -28,6 +30,7 @@ scripts/generate_synthetic_dataset.py
 scripts/verify_synthetic_dataset.py
 src/ingestion/                  isolated normal-source readers
 src/profiling/                  identifier profiler and Rule 2 registry
+src/normalization/              derived, traceable identifier normalization
 src/validate_generated_data.py independent compliance validator
 tests/                          focused generator and validator tests
 requirements.txt                pinned runtime dependency
@@ -83,6 +86,24 @@ The profiler reads only the five normal source systems. It does not require eval
 truth, construct candidate pairs, make match decisions, perform fuzzy normalization, score
 pairs, or build clusters. See [the Phase 1 report](outputs/profiling/profiling_report.md).
 
+## Phase 4: derived normalization
+
+Create the traceable normalized identifier table from the repository root:
+
+```bash
+python -m src.normalization.normalize_identifiers --data-dir data/generated --output-dir outputs/normalization
+```
+
+The full run emits 3,550,000 long-form identifier observations from 420,000 source records:
+3,123,383 valid, 426,389 missing, and 228 structurally invalid. It changes 1,186,293 valid
+derived values while leaving all raw inputs byte-identical. The 228 invalid values are
+store-email fields containing export artifacts but no address; they are flagged rather than
+silently repaired.
+
+Normalization preserves email dots and plus suffixes, never infers phone country codes,
+performs no fuzzy name/address comparison, and records transformations and quality flags.
+See [the normalization report](outputs/normalization/normalization_report.md).
+
 ## Verified dataset
 
 The committed full-scale fixture contains 300,000 invented people and 420,000 physical
@@ -105,7 +126,8 @@ resolver.
 - The generator accepts `--seed`, `--scale`, and `--output-dir` arguments.
 - Validators are read-only and return a nonzero exit status when a mandatory check fails.
 - Temporary fixtures, caches, and large reproducible frequency tables are excluded from Git.
-- The automated suite contains 28 tests, including profiling isolation and input immutability.
+- The automated suite contains 42 tests, including profiling/normalization isolation,
+  deterministic output and byte-level input immutability.
 
 ## AI usage
 

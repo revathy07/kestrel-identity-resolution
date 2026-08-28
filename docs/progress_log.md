@@ -101,3 +101,21 @@ labelled evaluation, and the required written deliverables.
   source files after profiling.
 - Phase 1 stops before fuzzy normalization, candidate blocking, MCT scoring, matching,
   clustering, dashboards, or final evaluation.
+
+## 8. Derived identifier normalization
+
+- Added documented per-concept normalization rules that preserve raw values and distinguish
+  valid, missing and invalid observations.
+- Emails are case-folded after single-address extraction while preserving dots and plus
+  suffixes. Phones lose safe display punctuation without inferred country codes.
+- Names and addresses receive Unicode, case and whitespace handling only; no fuzzy
+  comparison is performed. Countries map through documented ISO aliases, and DOBs are
+  parsed to ISO while implausible ages remain visible as quality flags.
+- The full run processed **420,000 source records** and emitted **3,550,000 identifier
+  observations**: 3,123,383 valid, 426,389 missing and 228 invalid.
+- Normalization changed 1,186,293 valid derived values and attached at least one quality
+  flag to 121,367 observations.
+- All five raw source fingerprints matched before and after the run. The deterministic
+  compressed output is 45.2 MiB and its SHA-256 is recorded in the manifest.
+- All **42 tests** pass. Phase 4 creates no pairs, fuzzy similarities, MCT scores, match
+  decisions or clusters.

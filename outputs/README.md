@@ -14,3 +14,6 @@ Do not place source datasets or hand-edited results in this directory.
 
 Phase 1 outputs and their publication policy are documented in
 [`profiling/README.md`](profiling/README.md).
+
+Phase 4 normalization outputs are documented in
+[`normalization/README.md`](normalization/README.md).

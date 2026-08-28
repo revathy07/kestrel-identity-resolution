@@ -1,0 +1,63 @@
+{
+  "phase": "derived_identifier_normalization",
+  "normalizer_version": 1,
+  "total_source_records": 420000,
+  "source_counts": {
+    "app_users": 120000,
+    "store_customers": 80000,
+    "ticketing": 80000,
+    "subscriptions": 50000,
+    "social_logins": 90000
+  },
+  "identifier_observations": 3550000,
+  "status_counts": {
+    "invalid": 228,
+    "missing": 426389,
+    "valid": 3123383
+  },
+  "changed_observations": 1186293,
+  "quality_flagged_observations": 121367,
+  "configuration_sha256": "5b12dbecc0f49286402c0093d3309db20c8a74a2c30e1bd7000596cb30aed34a",
+  "source_fingerprints_before_and_after": {
+    "app_users": {
+      "relative_path": "app_users.csv",
+      "size_bytes": 18717697,
+      "sha256": "a5133526fe32b946b14ea8fd35fcf5490b7199658631a5cafcbeebf426d8392f"
+    },
+    "store_customers": {
+      "relative_path": "store_customers.csv",
+      "size_bytes": 14813099,
+      "sha256": "560bbe10be087900d90861a4fb1e82d83f57217bbd191aabc44254037cb0e521"
+    },
+    "ticketing": {
+      "relative_path": "ticketing.jl",
+      "size_bytes": 24997605,
+      "sha256": "a66b68e4d19b56b6b1b02e93472586af7fff2cec44e4158e72b124b2491551bd"
+    },
+    "subscriptions": {
+      "relative_path": "subscriptions.xlsx",
+      "size_bytes": 3531383,
+      "sha256": "e07b4bcf705ad961cb8a334981914df30162b839bbfe3135a3ca7bd309269779"
+    },
+    "social_logins": {
+      "relative_path": "social_logins.json",
+      "size_bytes": 22196779,
+      "sha256": "164cc4ec43752d12b9ee40aa02f529f18b1ab5377bfd4a47c8856a438f88d5ff"
+    }
+  },
+  "source_files_unchanged": true,
+  "normalized_output": {
+    "path": "normalized_identifiers.csv.gz",
+    "compression": "gzip",
+    "rows": 3550000,
+    "size_bytes": 47374047,
+    "sha256": "8f3445e1bd1c27f4b9e4c388fd1f20680bfa7343eea58781f379a1da0acaf70f"
+  },
+  "phase_boundaries": {
+    "candidate_pairs_created": false,
+    "fuzzy_similarity_calculated": false,
+    "mct_scores_calculated": false,
+    "match_decisions_created": false,
+    "clusters_created": false
+  }
+}

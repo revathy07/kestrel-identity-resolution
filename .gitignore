@@ -28,6 +28,13 @@ outputs/profiling/*
 !outputs/profiling/rule2_registry.json
 !outputs/profiling/data_quality_summary.json
 !outputs/profiling/profiling_report.md
+!outputs/normalization/
+outputs/normalization/*
+!outputs/normalization/README.md
+!outputs/normalization/normalization_summary.csv
+!outputs/normalization/normalization_issues.csv
+!outputs/normalization/normalization_manifest.json
+!outputs/normalization/normalization_report.md
 outputs-small/
 
 # Environment / OS
