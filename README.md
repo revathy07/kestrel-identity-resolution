@@ -44,6 +44,7 @@ requirements.txt                pinned runtime dependency
 See [data/README.md](data/README.md) for the role and format of every dataset file,
 [docs/dataset_generator_audit.md](docs/dataset_generator_audit.md) for requirement-level
 evidence, [docs/progress_log.md](docs/progress_log.md) for the development record, and
+[approach.md](approach.md) for the presentation-ready solution narrative and
 [approach_tried.md](approach_tried.md) for measured approaches that were abandoned. The
 complete Phase 5 implementation and verification narrative is in
 [docs/phase_5_candidate_blocking_report.md](docs/phase_5_candidate_blocking_report.md).
