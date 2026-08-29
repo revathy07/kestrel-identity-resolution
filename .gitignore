@@ -56,6 +56,15 @@ outputs/scoring/*
 !outputs/scoring/mct_development_evaluation.md
 !outputs/scoring/mct_evaluation.json
 !outputs/scoring/mct_evaluation.md
+!outputs/clustering/
+outputs/clustering/*
+!outputs/clustering/README.md
+!outputs/clustering/cluster_size_distribution.csv
+!outputs/clustering/quarantined_components.csv
+!outputs/clustering/clustering_manifest.json
+!outputs/clustering/clustering_report.md
+!outputs/clustering/cluster_evaluation.json
+!outputs/clustering/cluster_evaluation.md
 outputs-small/
 
 # Environment / OS

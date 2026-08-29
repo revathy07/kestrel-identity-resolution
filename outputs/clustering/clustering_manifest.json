@@ -1,0 +1,71 @@
+{
+  "phase": "capped_transitive_clustering",
+  "clusterer_version": 1,
+  "rule1_maximum_source_records": 12,
+  "total_source_records": 420000,
+  "scored_pair_decision_counts": {
+    "leave_separate": 101243,
+    "human_review": 22263,
+    "auto_merge": 81041
+  },
+  "auto_merge_edges": 81041,
+  "proposed_component_count": 355762,
+  "accepted_component_count": 355762,
+  "accepted_singleton_count": 306948,
+  "accepted_merged_component_count": 48814,
+  "accepted_auto_merge_edges": 81041,
+  "records_collapsed_by_accepted_merges": 64238,
+  "quarantined_component_count": 0,
+  "quarantined_record_count": 0,
+  "rejected_auto_merge_edges": 0,
+  "partial_merges_from_quarantined_components": 0,
+  "threshold_adjustments_for_rule1": 0,
+  "final_resolved_identity_count": 355762,
+  "largest_accepted_component_size": 6,
+  "largest_proposed_component": {
+    "proposed_component_id": "CMP-5799f918cb210ecd5c48",
+    "source_record_count": 6,
+    "auto_merge_edge_count": 15,
+    "source_counts": {
+      "app_users": 1,
+      "social_logins": 4,
+      "ticketing": 1
+    },
+    "cluster_status": "accepted_merged",
+    "evidence_features": {
+      "exact_device_id": 15,
+      "exact_email": 1,
+      "exact_phone": 15,
+      "exact_verified_email": 14,
+      "name_city": 15
+    }
+  },
+  "inputs": {
+    "normalized": {
+      "path": "outputs/normalization/normalized_identifiers.csv.gz",
+      "sha256": "b7b0ce1b2fefee13dffbf2b7d80fc3769cdf337ffa6b33ee9c6baee6f2975c54"
+    },
+    "scored_pairs": {
+      "path": "outputs/scoring/scored_candidate_pairs.csv.gz",
+      "sha256": "9bd370fd099a01660fe82330ec93b461c31972f234b22b052febf2d314955824"
+    },
+    "configuration": {
+      "path": "config/clustering_rules.yaml",
+      "sha256": "3d2fe5c0bc3aa0790902e21388ee543d3476b9608f8aa777ad2cfa1987a421b9"
+    }
+  },
+  "assignment_output": {
+    "path": "cluster_assignments.csv.gz",
+    "compression": "gzip",
+    "rows": 420000,
+    "size_bytes": 10559971,
+    "sha256": "d68344a62457da9cf2d472ec8120812562530dd7cdc0abfaf784bbb0881ec3f2"
+  },
+  "phase_boundaries": {
+    "transitive_merging_performed": true,
+    "rule1_cluster_size_cap_applied": true,
+    "oversized_components_partially_merged": false,
+    "evaluation_labels_read": false,
+    "human_review_pairs_merged": false
+  }
+}

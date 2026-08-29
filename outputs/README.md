@@ -23,3 +23,6 @@ Phase 5 production blocking and isolated evaluation outputs are documented in
 
 Phase 6 production MCT scoring and frozen labelled evaluation outputs are documented in
 [`scoring/README.md`](scoring/README.md).
+
+Phase 7 transitive clustering, Rule 1 quarantine and isolated cluster evaluation outputs are
+documented in [`clustering/README.md`](clustering/README.md).

@@ -13,11 +13,12 @@ building a defensible identity-matching layer across five disconnected customer 
 | Derived identifier normalization | Complete |
 | Candidate blocking | Complete |
 | MCT scoring and labelled pair evaluation | Complete |
-| Capped clustering | Next |
-| Memo and presentation | Not started |
+| Rule 1 capped clustering and evaluation | Complete |
+| Business count, memo and presentation | Next |
 
-The repository currently completes deterministic candidate generation and explainable MCT
-pair scoring. It does not yet claim completion of capped clustering or the final assessment.
+The repository currently completes deterministic candidate generation, explainable MCT
+pair scoring, and Rule 1 capped transitive clustering. It does not yet claim completion of
+the business-count recommendation or final assessment deliverables.
 
 ## Repository layout
 
@@ -33,6 +34,7 @@ src/profiling/                  identifier profiler and Rule 2 registry
 src/normalization/              derived, traceable identifier normalization
 src/blocking/                   truth-isolated candidate generation
 src/scoring/                    explainable pair features and MCT decisions
+src/clustering/                 transitive components and Rule 1 quarantine
 src/evaluation/                 post-generation synthetic-label measurement
 src/validate_generated_data.py independent compliance validator
 tests/                          focused generator and validator tests
@@ -152,6 +154,21 @@ to 74.7950% when true matches sent to review are included. None of the 20,000 ex
 negatives auto-merge. See [the Phase 6 report](docs/phase_6_mct_scoring_report.md) and
 [the frozen evaluation](outputs/scoring/mct_evaluation.md).
 
+## Phase 7: Rule 1 capped clustering
+
+Form transitive components from auto-merge edges only:
+
+```bash
+python -m src.clustering.cluster_records --normalized-path outputs/normalization/normalized_identifiers.csv.gz --scored-path outputs/scoring/scored_candidate_pairs.csv.gz --output-dir outputs/clustering
+```
+
+The full run forms 355,762 components: 48,814 accepted merged components and 306,948
+singletons. No component exceeds Rule 1's 12-record cap; the largest contains six records
+from one hidden entity. Evaluation reports 81,863 implied merged record pairs at 100.0000%
+precision, zero mixed-person clusters and 0/20,000 hard negatives connected transitively.
+See [the Phase 7 report](docs/phase_7_capped_clustering_report.md) and
+[the cluster evaluation](outputs/clustering/cluster_evaluation.md).
+
 ## Verified dataset
 
 The committed full-scale fixture contains 300,000 invented people and 420,000 physical
@@ -174,7 +191,7 @@ resolver.
 - The generator accepts `--seed`, `--scale`, and `--output-dir` arguments.
 - Validators are read-only and return a nonzero exit status when a mandatory check fails.
 - Temporary fixtures, caches, and large reproducible frequency tables are excluded from Git.
-- The automated suite contains 63 tests, including profiling/normalization/blocking/scoring isolation,
+- The automated suite contains 70 tests, including profiling/normalization/blocking/scoring/clustering isolation,
   deterministic output and byte-level input immutability.
 
 ## AI usage

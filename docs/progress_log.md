@@ -165,3 +165,22 @@ labelled evaluation, and the required written deliverables.
 - Phase 6 remains truth-isolated in production and forms no connected components. Rule 1's
   12-record cap is intentionally deferred to Phase 7.
 - All **63 automated tests** pass.
+
+## 11. Rule 1 capped transitive clustering
+
+- Added deterministic union-find clustering over Phase 6 auto-merge edges only; review and
+  leave-separate pairs cannot create components.
+- Implemented Rule 1 after full transitive union: size 12 is accepted, size 13 or more is
+  rejected and quarantined in full, with no partial merge and no threshold adjustment.
+- Full run: **420,000 records**, **81,041 auto-merge edges**, **355,762 proposed/final
+  components**, **48,814 merged components**, and **306,948 singletons**.
+- **Zero components hit the size cap**. The largest contains six records from one hidden
+  entity: one app record, one ticket record and four social-login records.
+- Accepted transitive closure implies **81,863 record pairs**, all true same-entity pairs:
+  **100.0000% cluster precision**, zero false merged pairs and zero mixed-person components.
+- Human true-pair cluster recall is 51.5085%; lower recall is the deliberate cost of not
+  silently accepting review or conflicted links.
+- All **20,000 explicit hard negatives remain apart** after transitivity.
+- Production assignments are truth-isolated and byte-deterministic; the row-level file is
+  local while compact reports and hashes are publishable.
+- All **70 automated tests** pass.

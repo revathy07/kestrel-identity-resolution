@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "description": "Deterministic Phase 7 transitive clustering with the assessment's mandatory full-component quarantine.",
+  "auto_merge_minimum": 0.88,
+  "accepted_edge_decision": "auto_merge",
+  "maximum_accepted_source_records": 12,
+  "oversized_component_action": "reject_in_full_and_quarantine",
+  "principles": [
+    "Only Phase 6 auto-merge edges participate in connected components.",
+    "A component containing 12 source records is accepted.",
+    "A component containing 13 or more source records is rejected in full and quarantined.",
+    "No edge or subset from an oversized component is merged.",
+    "The MCT threshold is never raised to make a component fit.",
+    "Human-review and leave-separate pairs never create cluster edges.",
+    "No evaluation label or hidden identity is a clustering input."
+  ]
+}
