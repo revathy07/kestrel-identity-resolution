@@ -1,0 +1,43 @@
+{
+  "phase": "fellegi_sunter_mct_scoring",
+  "scorer_version": 1,
+  "candidate_pairs_scored": 204547,
+  "thresholds": {
+    "auto_merge_minimum": 0.88,
+    "human_review_minimum": 0.62
+  },
+  "decision_counts": {
+    "auto_merge": 99247,
+    "human_review": 19226,
+    "leave_separate": 86074
+  },
+  "mean_mct_score": 0.599976,
+  "unseen_event_counts": {},
+  "inputs": {
+    "pair_features": {
+      "path": "outputs/scoring/scored_candidate_pairs.csv.gz",
+      "sha256": "9bd370fd099a01660fe82330ec93b461c31972f234b22b052febf2d314955824"
+    },
+    "configuration": {
+      "path": "outputs/fellegi_sunter/fs_model.json",
+      "sha256": "2620ecddfaba1d7e0a6532e4cbf9bce16356cb3f95b92077944813987c70f816"
+    }
+  },
+  "scored_output": {
+    "path": "fs_scored_candidate_pairs.csv.gz",
+    "compression": "gzip",
+    "rows": 204547,
+    "size_bytes": 3251022,
+    "sha256": "72034d83c0f70dbb8de7b9c5e017e8ffc2250a3bf4161b4ba0760cdba86bb185"
+  },
+  "phase_boundaries": {
+    "candidate_pairs_scored": true,
+    "mct_decision_bands_assigned": true,
+    "evaluation_labels_read": false,
+    "training_labels_encapsulated_in_frozen_model": true,
+    "heuristic_mct_score_read_as_feature": false,
+    "heuristic_decision_read_as_feature": false,
+    "transitive_merging_performed": false,
+    "clusters_formed": false
+  }
+}

@@ -1,0 +1,4 @@
+decision,mct_band,pair_count,percentage
+auto_merge,>=0.88,99247,48.520389
+human_review,>=0.62 and <0.88,19226,9.399307
+leave_separate,<0.62,86074,42.080304

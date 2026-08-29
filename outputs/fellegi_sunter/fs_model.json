@@ -1,0 +1,171 @@
+{
+  "phase": "fellegi_sunter_weight_estimation",
+  "model_version": 1,
+  "method": "sparse_present_event_log2_likelihood_ratio",
+  "smoothing": {
+    "method": "Jeffreys",
+    "alpha": 0.5
+  },
+  "thresholds": {
+    "auto_merge_minimum": 0.88,
+    "human_review_minimum": 0.62
+  },
+  "training_partition": "development",
+  "training_rows": 103763,
+  "training_match_rows": 67163,
+  "training_nonmatch_rows": 36600,
+  "development_match_prior": 0.647271693458,
+  "events": {
+    "conflict:account_reference_conflict": {
+      "match_event_count": 463,
+      "nonmatch_event_count": 6596,
+      "m_probability": 0.006901018403,
+      "u_probability": 0.180227316194,
+      "present_log2_likelihood_ratio": -4.706865
+    },
+    "conflict:date_of_birth_conflict": {
+      "match_event_count": 0,
+      "nonmatch_event_count": 7134,
+      "m_probability": 7.444464e-06,
+      "u_probability": 0.194926368132,
+      "present_log2_likelihood_ratio": -14.676402
+    },
+    "conflict:email_conflict": {
+      "match_event_count": 23751,
+      "nonmatch_event_count": 32539,
+      "m_probability": 0.353634387469,
+      "u_probability": 0.889033086528,
+      "present_log2_likelihood_ratio": -1.329979
+    },
+    "conflict:name_conflict": {
+      "match_event_count": 15839,
+      "nonmatch_event_count": 26662,
+      "m_probability": 0.235833184444,
+      "u_probability": 0.728463703178,
+      "present_log2_likelihood_ratio": -1.62709
+    },
+    "conflict:phone_conflict": {
+      "match_event_count": 0,
+      "nonmatch_event_count": 13981,
+      "m_probability": 7.444464e-06,
+      "u_probability": 0.381997759624,
+      "present_log2_likelihood_ratio": -15.647037
+    },
+    "conflict:shared_email_payment_household_risk": {
+      "match_event_count": 0,
+      "nonmatch_event_count": 1959,
+      "m_probability": 7.444464e-06,
+      "u_probability": 0.053536788612,
+      "present_log2_likelihood_ratio": -12.812075
+    },
+    "conflict:verified_email_conflict": {
+      "match_event_count": 186,
+      "nonmatch_event_count": 193,
+      "m_probability": 0.002776785183,
+      "u_probability": 0.005286740799,
+      "present_log2_likelihood_ratio": -0.928963
+    },
+    "evidence:email_skeleton": {
+      "match_event_count": 6742,
+      "nonmatch_event_count": 0,
+      "m_probability": 0.100388601036,
+      "u_probability": 1.3660829e-05,
+      "present_log2_likelihood_ratio": 12.843263
+    },
+    "evidence:exact_account_reference": {
+      "match_event_count": 15537,
+      "nonmatch_event_count": 0,
+      "m_probability": 0.231336728009,
+      "u_probability": 1.3660829e-05,
+      "present_log2_likelihood_ratio": 14.047662
+    },
+    "evidence:exact_device_id": {
+      "match_event_count": 47494,
+      "nonmatch_event_count": 25553,
+      "m_probability": 0.707142219046,
+      "u_probability": 0.698163984591,
+      "present_log2_likelihood_ratio": 0.018434
+    },
+    "evidence:exact_email": {
+      "match_event_count": 16946,
+      "nonmatch_event_count": 1959,
+      "m_probability": 0.252315228396,
+      "u_probability": 0.053536788612,
+      "present_log2_likelihood_ratio": 2.236625
+    },
+    "evidence:exact_payment_token": {
+      "match_event_count": 1024,
+      "nonmatch_event_count": 1959,
+      "m_probability": 0.015253707343,
+      "u_probability": 0.053536788612,
+      "present_log2_likelihood_ratio": -1.811371
+    },
+    "evidence:exact_phone": {
+      "match_event_count": 31264,
+      "nonmatch_event_count": 0,
+      "m_probability": 0.465494907986,
+      "u_probability": 1.3660829e-05,
+      "present_log2_likelihood_ratio": 15.056433
+    },
+    "evidence:exact_provider_id": {
+      "match_event_count": 1841,
+      "nonmatch_event_count": 0,
+      "m_probability": 0.027417962003,
+      "u_probability": 1.3660829e-05,
+      "present_log2_likelihood_ratio": 10.970861
+    },
+    "evidence:exact_verified_email": {
+      "match_event_count": 16768,
+      "nonmatch_event_count": 0,
+      "m_probability": 0.249664999107,
+      "u_probability": 1.3660829e-05,
+      "present_log2_likelihood_ratio": 14.157661
+    },
+    "evidence:name_city": {
+      "match_event_count": 42574,
+      "nonmatch_event_count": 8752,
+      "m_probability": 0.63388869037,
+      "u_probability": 0.239132810579,
+      "present_log2_likelihood_ratio": 1.406417
+    },
+    "evidence:name_date_of_birth": {
+      "match_event_count": 2158,
+      "nonmatch_event_count": 3,
+      "m_probability": 0.032137752367,
+      "u_probability": 9.5625803e-05,
+      "present_log2_likelihood_ratio": 8.392653
+    },
+    "evidence:phone_suffix_9": {
+      "match_event_count": 8496,
+      "nonmatch_event_count": 0,
+      "m_probability": 0.126503781788,
+      "u_probability": 1.3660829e-05,
+      "present_log2_likelihood_ratio": 13.176848
+    },
+    "evidence:same_source_record_id": {
+      "match_event_count": 8714,
+      "nonmatch_event_count": 0,
+      "m_probability": 0.129749568221,
+      "u_probability": 1.3660829e-05,
+      "present_log2_likelihood_ratio": 13.213397
+    }
+  },
+  "input": {
+    "path": "outputs/scoring/labelled_development_set.csv.gz",
+    "sha256": "400ebc2c04c2214599939b496dc8f85d710fef4d7e43908f9ad2312e6674d7c5"
+  },
+  "feature_contract": {
+    "included": [
+      "positive_evidence",
+      "conflicts"
+    ],
+    "event_absence_treatment": "neutral",
+    "heuristic_mct_score_used": false,
+    "heuristic_decision_used": false,
+    "blocking_rule_used": false,
+    "hard_negative_type_used": false,
+    "record_identity_used": false,
+    "person_identity_used": false,
+    "validation_or_test_labels_used": false
+  }
+}
