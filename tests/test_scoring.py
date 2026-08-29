@@ -298,6 +298,17 @@ class MCTEvaluationTests(unittest.TestCase):
             self.assertFalse((development_dir / "labelled_validation_set.csv.gz").exists())
             self.assertFalse((development_dir / "labelled_test_set.csv.gz").exists())
 
+            validation_dir = root / "validation"
+            validation = evaluate_scoring(
+                scored, manifest, truth, canonical, hard, validation_dir, scope="validation"
+            )
+            self.assertEqual(
+                set(validation["pair_metrics_by_partition"]),
+                {"development", "validation"},
+            )
+            self.assertTrue((validation_dir / "labelled_validation_set.csv.gz").exists())
+            self.assertFalse((validation_dir / "labelled_test_set.csv.gz").exists())
+
             final_dir = root / "final"
             final = evaluate_scoring(scored, manifest, truth, canonical, hard, final_dir, scope="final")
             self.assertEqual(

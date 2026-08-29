@@ -403,6 +403,13 @@ def _report(result: Mapping[str, Any]) -> str:
     canonical = result["canonical_link_metrics"]
     hard = result["hard_negative_metrics"]["overall"]
     isolation = result["partition_isolation"]
+    release_text = (
+        "Development mode exposes only development metrics."
+        if result["scope"] == "development"
+        else "Validation mode exposes development and validation metrics while the frozen test remains locked."
+        if result["scope"] == "validation"
+        else "Final mode releases development, validation and frozen-test metrics."
+    )
     lines = [
         "# Phase 6 MCT evaluation",
         "",
@@ -435,7 +442,7 @@ def _report(result: Mapping[str, Any]) -> str:
         "",
         "## Isolation",
         "",
-        "The MCT configuration and scored-pair file existed before labels were opened. This evaluator cannot alter production scores or decisions. Final mode releases the validation and frozen-test metrics; development mode exposes only development metrics.",
+        f"The MCT configuration and scored-pair file existed before labels were opened. This evaluator cannot alter production scores or decisions. {release_text}",
         "",
     ]
     return "\n".join(lines)
@@ -452,8 +459,10 @@ def evaluate_scoring(
     scope: str = "development",
     split_rules_path: Path = DEFAULT_SPLIT_RULES,
 ) -> dict[str, Any]:
-    if scope not in {"development", "final"}:
-        raise ScoringEvaluationError("Evaluation scope must be 'development' or 'final'")
+    if scope not in {"development", "validation", "final"}:
+        raise ScoringEvaluationError(
+            "Evaluation scope must be 'development', 'validation' or 'final'"
+        )
     scored_path = Path(scored_path)
     scoring_manifest_path = Path(scoring_manifest_path)
     truth_map_path = Path(truth_map_path)
@@ -489,13 +498,25 @@ def evaluate_scoring(
         hard_pairs,
         split_rules,
     )
-    selected_partitions = {"development"} if scope == "development" else set(MODEL_PARTITIONS)
+    selected_partitions = (
+        {"development"}
+        if scope == "development"
+        else {"development", "validation"}
+        if scope == "validation"
+        else set(MODEL_PARTITIONS)
+    )
     pair_counters: dict[str, Counter[str]] = defaultdict(Counter)
     false_auto_features: Counter[str] = Counter()
     false_auto_conflicts: Counter[str] = Counter()
     logical_scores: dict[tuple[str, str, str, str], tuple[float, str]] = {}
     output_dir.mkdir(parents=True, exist_ok=True)
-    artifact_partitions = ("development",) if scope == "development" else MODEL_PARTITIONS
+    artifact_partitions = (
+        ("development",)
+        if scope == "development"
+        else ("development", "validation")
+        if scope == "validation"
+        else MODEL_PARTITIONS
+    )
     artifact_paths = {
         partition: output_dir / f"labelled_{partition}_set.csv.gz"
         for partition in artifact_partitions
@@ -666,7 +687,13 @@ def evaluate_scoring(
             "clusters_formed": False,
         },
     }
-    prefix = "mct_development_evaluation" if scope == "development" else "mct_evaluation"
+    prefix = (
+        "mct_development_evaluation"
+        if scope == "development"
+        else "mct_validation_evaluation"
+        if scope == "validation"
+        else "mct_evaluation"
+    )
     (output_dir / f"{prefix}.json").write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     (output_dir / f"{prefix}.md").write_text(_report(result), encoding="utf-8")
     return result
@@ -680,7 +707,11 @@ def main() -> int:
     parser.add_argument("--canonical-links", type=Path, default=Path("data/generated/hidden/canonical_duplicate_links.jsonl"))
     parser.add_argument("--hard-negatives", type=Path, default=Path("data/generated/hard_negatives.json"))
     parser.add_argument("--output-dir", type=Path, default=Path("outputs/scoring"))
-    parser.add_argument("--scope", choices=("development", "final"), default="development")
+    parser.add_argument(
+        "--scope",
+        choices=("development", "validation", "final"),
+        default="development",
+    )
     parser.add_argument("--split-rules", type=Path, default=DEFAULT_SPLIT_RULES)
     args = parser.parse_args()
     try:
@@ -704,13 +735,14 @@ def main() -> int:
             f"[scoring-evaluation] Development merge precision: "
             f"{'n/a' if precision is None else f'{precision:.4%}'}; auto-merges: {development['auto_merge_pairs']:,}"
         )
-    if args.scope == "final":
+    if args.scope in {"validation", "final"}:
         validation = result["pair_metrics_by_partition"]["validation"]
         precision = validation["auto_merge_precision"]
         print(
             f"[scoring-evaluation] Validation merge precision: "
             f"{'n/a' if precision is None else f'{precision:.4%}'}; auto-merges: {validation['auto_merge_pairs']:,}"
         )
+    if args.scope == "final":
         test = result["pair_metrics_by_partition"]["test"]
         precision = test["auto_merge_precision"]
         print(
