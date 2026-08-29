@@ -20,3 +20,6 @@ Phase 4 normalization outputs are documented in
 
 Phase 5 production blocking and isolated evaluation outputs are documented in
 [`blocking/README.md`](blocking/README.md).
+
+Phase 6 production MCT scoring and frozen labelled evaluation outputs are documented in
+[`scoring/README.md`](scoring/README.md).

@@ -12,12 +12,12 @@ building a defensible identity-matching layer across five disconnected customer 
 | Identifier profiling and Rule 2 detection | Complete |
 | Derived identifier normalization | Complete |
 | Candidate blocking | Complete |
-| MCT scoring | Next |
-| Capped clustering and evaluation | Not started |
+| MCT scoring and labelled pair evaluation | Complete |
+| Capped clustering | Next |
 | Memo and presentation | Not started |
 
-The repository currently completes the dataset stage. It does not yet claim completion
-of the downstream identity-resolution assessment.
+The repository currently completes deterministic candidate generation and explainable MCT
+pair scoring. It does not yet claim completion of capped clustering or the final assessment.
 
 ## Repository layout
 
@@ -32,6 +32,7 @@ src/ingestion/                  isolated normal-source readers
 src/profiling/                  identifier profiler and Rule 2 registry
 src/normalization/              derived, traceable identifier normalization
 src/blocking/                   truth-isolated candidate generation
+src/scoring/                    explainable pair features and MCT decisions
 src/evaluation/                 post-generation synthetic-label measurement
 src/validate_generated_data.py independent compliance validator
 tests/                          focused generator and validator tests
@@ -44,6 +45,8 @@ evidence, [docs/progress_log.md](docs/progress_log.md) for the development recor
 [approach_tried.md](approach_tried.md) for measured approaches that were abandoned. The
 complete Phase 5 implementation and verification narrative is in
 [docs/phase_5_candidate_blocking_report.md](docs/phase_5_candidate_blocking_report.md).
+Assumptions and their failure conditions are documented in
+[assumptions.md](assumptions.md).
 
 ## Quick start
 
@@ -129,6 +132,26 @@ deliberately labelled as having no usable exact evidence. See
 [the blocking report](outputs/blocking/blocking_report.md) and
 [the isolated evaluation](outputs/blocking/blocking_evaluation.md).
 
+## Phase 6: MCT pair scoring
+
+Score every candidate without opening evaluation labels:
+
+```bash
+python -m src.scoring.score_candidates --normalized-path outputs/normalization/normalized_identifiers.csv.gz --candidate-path outputs/blocking/candidate_pairs.csv.gz --rule2-registry outputs/blocking/normalized_rule2_registry.json --output-dir outputs/scoring
+```
+
+The scorer applies the assessment's exact bands: MCT at least 0.88 auto-merges, 0.62–0.88
+enters review, and below 0.62 remains separate. The full run assigns 81,041 auto-merge
+edges, 22,263 review pairs and 101,243 separate decisions. It combines only the strongest
+feature in each evidence family, applies explicit conflict penalties and gives all 2,057
+post-normalization Rule 2 values zero weight.
+
+The frozen 30% test partition contains 61,206 candidates. Its 24,369 auto-merges have
+100.0000% observed precision; auto-merge recall within candidates is 61.2995%, increasing
+to 74.7950% when true matches sent to review are included. None of the 20,000 explicit hard
+negatives auto-merge. See [the Phase 6 report](docs/phase_6_mct_scoring_report.md) and
+[the frozen evaluation](outputs/scoring/mct_evaluation.md).
+
 ## Verified dataset
 
 The committed full-scale fixture contains 300,000 invented people and 420,000 physical
@@ -151,7 +174,7 @@ resolver.
 - The generator accepts `--seed`, `--scale`, and `--output-dir` arguments.
 - Validators are read-only and return a nonzero exit status when a mandatory check fails.
 - Temporary fixtures, caches, and large reproducible frequency tables are excluded from Git.
-- The automated suite contains 50 tests, including profiling/normalization/blocking isolation,
+- The automated suite contains 63 tests, including profiling/normalization/blocking/scoring isolation,
   deterministic output and byte-level input immutability.
 
 ## AI usage

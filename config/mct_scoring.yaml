@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "description": "Explainable Phase 6 Merge Confidence Threshold scoring. Weights are fixed before labelled evaluation.",
+  "thresholds": {
+    "auto_merge_minimum": 0.88,
+    "human_review_minimum": 0.62
+  },
+  "evidence_weights": {
+    "same_source_record_id": 0.99,
+    "exact_account_reference": 0.97,
+    "exact_provider_id": 0.98,
+    "exact_verified_email": 0.90,
+    "exact_email": 0.82,
+    "email_sha256_bridge": 0.82,
+    "email_skeleton": 0.72,
+    "exact_phone": 0.80,
+    "phone_suffix_9": 0.70,
+    "exact_device_id": 0.66,
+    "exact_payment_token": 0.55,
+    "name_city": 0.64,
+    "name_date_of_birth": 0.74,
+    "name_postcode": 0.62
+  },
+  "evidence_families": {
+    "record_key": ["same_source_record_id"],
+    "account": ["exact_account_reference"],
+    "provider": ["exact_provider_id"],
+    "email": ["exact_verified_email", "exact_email", "email_sha256_bridge", "email_skeleton"],
+    "phone": ["exact_phone", "phone_suffix_9"],
+    "device": ["exact_device_id"],
+    "payment": ["exact_payment_token"],
+    "demographics": ["name_city", "name_date_of_birth", "name_postcode"]
+  },
+  "conflict_penalties": {
+    "account_reference_conflict": 0.35,
+    "verified_email_conflict": 0.40,
+    "email_conflict": 0.18,
+    "phone_conflict": 0.16,
+    "date_of_birth_conflict": 0.28,
+    "name_conflict": 0.20,
+    "country_conflict": 0.08,
+    "shared_email_payment_household_risk": 0.00
+  },
+  "conflict_caps": {
+    "account_reference_conflict": 0.61,
+    "verified_email_conflict": 0.61,
+    "date_of_birth_conflict": 0.87,
+    "name_conflict": 0.87,
+    "shared_email_payment_household_risk": 0.87,
+    "two_or_more_identity_conflicts": 0.61
+  },
+  "human_review_floor": {
+    "score": 0.62,
+    "eligible_features": [
+      "exact_verified_email",
+      "exact_email",
+      "email_sha256_bridge",
+      "email_skeleton",
+      "exact_phone",
+      "phone_suffix_9"
+    ],
+    "disqualifying_conflicts": [
+      "account_reference_conflict",
+      "verified_email_conflict"
+    ]
+  },
+  "principles": [
+    "Every normalized value occurring on more than 40 physical records contributes neither positive nor negative weight.",
+    "Only the strongest feature in a correlated evidence family contributes to the score.",
+    "Independent family strengths are combined with noisy-OR and explicit conflicts are subtracted.",
+    "Discovery-only transformations never alter stored normalized values.",
+    "A score band is a pair decision; transitive clustering is a later phase.",
+    "No evaluation label, hidden person identifier, scenario type, or evidence-mode label is a scoring input."
+  ]
+}

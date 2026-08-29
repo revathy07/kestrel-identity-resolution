@@ -1,0 +1,13 @@
+feature,pair_count,percentage
+email_skeleton,13264,6.484573
+exact_account_reference,30531,14.926154
+exact_device_id,143466,70.138403
+exact_email,37221,18.196796
+exact_payment_token,6000,2.933311
+exact_phone,61955,30.288882
+exact_provider_id,3600,1.759987
+exact_verified_email,33319,16.289166
+name_city,102136,49.932778
+name_date_of_birth,4290,2.097317
+phone_suffix_9,16630,8.130161
+same_source_record_id,16800,8.213271

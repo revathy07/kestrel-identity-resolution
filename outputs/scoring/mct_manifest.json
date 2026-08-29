@@ -1,0 +1,59 @@
+{
+  "phase": "mct_pair_scoring",
+  "scorer_version": 1,
+  "candidate_pairs_scored": 204547,
+  "candidate_records_loaded": 206489,
+  "rule2_threshold": 40,
+  "rule2_value_count": 2057,
+  "thresholds": {
+    "auto_merge_minimum": 0.88,
+    "human_review_minimum": 0.62
+  },
+  "decision_counts": {
+    "leave_separate": 101243,
+    "human_review": 22263,
+    "auto_merge": 81041
+  },
+  "mean_mct_score": 0.597775,
+  "evidence_family_count_distribution": {
+    "0": 338,
+    "1": 117526,
+    "2": 4316,
+    "3": 11208,
+    "4": 46365,
+    "5": 24794
+  },
+  "inputs": {
+    "normalized": {
+      "path": "outputs/normalization/normalized_identifiers.csv.gz",
+      "sha256": "b7b0ce1b2fefee13dffbf2b7d80fc3769cdf337ffa6b33ee9c6baee6f2975c54"
+    },
+    "candidates": {
+      "path": "outputs/blocking/candidate_pairs.csv.gz",
+      "sha256": "b6e6026fd7ad0f579eea60173dae19a2498423d15cae52525fd01df4ac1bca1a"
+    },
+    "rule2_registry": {
+      "path": "outputs/blocking/normalized_rule2_registry.json",
+      "sha256": "b9ffea547d93e1060408c09672cc24aea1a96d14f40ef6e78efcd45ada7fa70d"
+    },
+    "configuration": {
+      "path": "config/mct_scoring.yaml",
+      "sha256": "5ce726c3880d0b965ce2053e6877989a5bd728d454f80ddc7b6b5f4963e76083"
+    }
+  },
+  "scored_output": {
+    "path": "scored_candidate_pairs.csv.gz",
+    "compression": "gzip",
+    "rows": 204547,
+    "size_bytes": 3238418,
+    "sha256": "9bd370fd099a01660fe82330ec93b461c31972f234b22b052febf2d314955824"
+  },
+  "phase_boundaries": {
+    "candidate_pairs_scored": true,
+    "mct_decision_bands_assigned": true,
+    "evaluation_labels_read": false,
+    "transitive_merging_performed": false,
+    "clusters_formed": false,
+    "cluster_size_cap_applied": false
+  }
+}

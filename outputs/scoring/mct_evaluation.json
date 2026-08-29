@@ -1,0 +1,141 @@
+{
+  "phase": "mct_scoring_evaluation",
+  "scope": "final",
+  "partition_policy": {
+    "method": "SHA-256 of stable pair identity modulo 100",
+    "development": "0-49 (50%)",
+    "test": "50-79 (30%)",
+    "audit": "80-99 (20%)",
+    "outcome_stratification_used": false
+  },
+  "scoring_configuration_sha256": "5ce726c3880d0b965ce2053e6877989a5bd728d454f80ddc7b6b5f4963e76083",
+  "scored_pairs_sha256": "9bd370fd099a01660fe82330ec93b461c31972f234b22b052febf2d314955824",
+  "pair_metrics_by_partition": {
+    "audit": {
+      "candidate_pairs": 40827,
+      "true_match_pairs": 26548,
+      "true_non_match_pairs": 14279,
+      "auto_merge_pairs": 16091,
+      "auto_merge_true_positives": 16091,
+      "auto_merge_false_positives": 0,
+      "auto_merge_precision": 1.0,
+      "auto_merge_recall_within_candidates": 0.6061096881120989,
+      "false_merge_rate": 0.0,
+      "human_review_pairs": 4500,
+      "human_review_true_matches": 3657,
+      "human_review_yield": 0.8126666666666666,
+      "leave_separate_pairs": 20236,
+      "assisted_recall_within_candidates": 0.7438601777911708
+    },
+    "development": {
+      "candidate_pairs": 102514,
+      "true_match_pairs": 66708,
+      "true_non_match_pairs": 35806,
+      "auto_merge_pairs": 40581,
+      "auto_merge_true_positives": 40581,
+      "auto_merge_false_positives": 0,
+      "auto_merge_precision": 1.0,
+      "auto_merge_recall_within_candidates": 0.6083378305450621,
+      "false_merge_rate": 0.0,
+      "human_review_pairs": 11134,
+      "human_review_true_matches": 9070,
+      "human_review_yield": 0.8146218789294054,
+      "leave_separate_pairs": 50799,
+      "assisted_recall_within_candidates": 0.7443035318102776
+    },
+    "test": {
+      "candidate_pairs": 61206,
+      "true_match_pairs": 39754,
+      "true_non_match_pairs": 21452,
+      "auto_merge_pairs": 24369,
+      "auto_merge_true_positives": 24369,
+      "auto_merge_false_positives": 0,
+      "auto_merge_precision": 1.0,
+      "auto_merge_recall_within_candidates": 0.6129949187503144,
+      "false_merge_rate": 0.0,
+      "human_review_pairs": 6629,
+      "human_review_true_matches": 5365,
+      "human_review_yield": 0.8093226731030322,
+      "leave_separate_pairs": 30208,
+      "assisted_recall_within_candidates": 0.7479498918347839
+    }
+  },
+  "canonical_link_metrics": {
+    "canonical_links": 99000,
+    "auto_merge": 51134,
+    "human_review": 13427,
+    "leave_separate": 24334,
+    "blocked_before_scoring": 10105,
+    "end_to_end_auto_merge_recall": 0.5165050505050505,
+    "end_to_end_assisted_recall": 0.6521313131313131,
+    "recoverable_links": 88155,
+    "recoverable_auto_merge": 51134,
+    "recoverable_human_review": 13368,
+    "recoverable_leave_separate": 23653,
+    "recoverable_blocked": 0,
+    "recoverable_auto_merge_recall": 0.5800465089898474,
+    "recoverable_assisted_recall": 0.7316885032045828
+  },
+  "hard_negative_metrics": {
+    "overall": {
+      "pairs": 20000,
+      "auto_merge": 0,
+      "human_review": 4069,
+      "leave_separate": 14052,
+      "blocked": 1879,
+      "false_auto_merge_rate": 0.0
+    },
+    "by_type": {
+      "common_name_city": {
+        "pairs": 4000,
+        "auto_merge": 0,
+        "human_review": 5,
+        "leave_separate": 3957,
+        "blocked": 38,
+        "false_auto_merge_rate": 0.0
+      },
+      "couple_shared_email_payment_token": {
+        "pairs": 4000,
+        "auto_merge": 0,
+        "human_review": 4000,
+        "leave_separate": 0,
+        "blocked": 0,
+        "false_auto_merge_rate": 0.0
+      },
+      "father_son": {
+        "pairs": 4000,
+        "auto_merge": 0,
+        "human_review": 64,
+        "leave_separate": 3893,
+        "blocked": 43,
+        "false_auto_merge_rate": 0.0
+      },
+      "university_computer_lab": {
+        "pairs": 8000,
+        "auto_merge": 0,
+        "human_review": 0,
+        "leave_separate": 6202,
+        "blocked": 1798,
+        "false_auto_merge_rate": 0.0
+      }
+    }
+  },
+  "false_auto_merge_diagnostics": {
+    "positive_features": {},
+    "conflicts": {}
+  },
+  "labelled_test_set": {
+    "path": "labelled_test_set.csv.gz",
+    "compression": "gzip",
+    "rows": 61206,
+    "size_bytes": 1046603,
+    "sha256": "01414558e45d84e42d1bf7018c8b7de16272fa5253f78ee915f80eb87c8691ee",
+    "person_identifiers_included": false
+  },
+  "isolation": {
+    "scores_created_before_labels_opened": true,
+    "labels_used_as_scoring_features": false,
+    "overall_accuracy_reported": false,
+    "clusters_formed": false
+  }
+}

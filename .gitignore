@@ -44,6 +44,18 @@ outputs/blocking/*
 !outputs/blocking/blocking_report.md
 !outputs/blocking/blocking_evaluation.json
 !outputs/blocking/blocking_evaluation.md
+!outputs/scoring/
+outputs/scoring/*
+!outputs/scoring/README.md
+!outputs/scoring/mct_decision_summary.csv
+!outputs/scoring/mct_feature_summary.csv
+!outputs/scoring/mct_conflict_summary.csv
+!outputs/scoring/mct_manifest.json
+!outputs/scoring/mct_scoring_report.md
+!outputs/scoring/mct_development_evaluation.json
+!outputs/scoring/mct_development_evaluation.md
+!outputs/scoring/mct_evaluation.json
+!outputs/scoring/mct_evaluation.md
 outputs-small/
 
 # Environment / OS

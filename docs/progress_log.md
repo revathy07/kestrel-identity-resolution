@@ -141,3 +141,27 @@ labelled evaluation, and the required written deliverables.
   candidate retention is not a match error because Phase 5 makes no match decisions.
 - The blocker creates no MCT features or scores, match decisions, or clusters and reads no
   evaluation labels.
+
+## 10. MCT pair scoring
+
+- Implemented the assessment's exact MCT bands: at least 0.88 auto-merge, 0.62–0.88 human
+  review, and below 0.62 leave separate.
+- Added a documented noisy-OR evidence-family model so correlated email transformations are
+  never double-counted, plus explicit contradiction penalties and safety caps.
+- Enforced zero positive and negative contribution for all 2,057 post-normalization Rule 2
+  values.
+- The first development evaluation found one hard-negative false auto-merge involving a
+  household email and payment token. A general household-risk cap moved that combination to
+  review without changing either required threshold.
+- Added a review-only floor for usable email/phone evidence with ordinary contradictions;
+  account or verified-email conflicts disqualify the floor. Development auto-merge precision
+  remained 100% while auto-plus-review candidate recall increased to 74.4304%.
+- Froze the configuration before releasing the 30% test and 20% audit partitions.
+- Full production result: **204,547 scored pairs**, **81,041 auto-merge edges**, **22,263
+  review pairs**, and **101,243 separate decisions**.
+- Frozen-test result: **24,369 auto-merges at 100.0000% observed precision**, 61.2995%
+  auto-merge recall within candidates and 74.7950% auto-plus-review recall.
+- No pair in the complete 20,000 explicit hard-negative manifest auto-merges.
+- Phase 6 remains truth-isolated in production and forms no connected components. Rule 1's
+  12-record cap is intentionally deferred to Phase 7.
+- All **63 automated tests** pass.

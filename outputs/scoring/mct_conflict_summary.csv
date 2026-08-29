@@ -1,0 +1,8 @@
+conflict,pair_count,percentage
+account_reference_conflict,13717,6.706038
+date_of_birth_conflict,14411,7.045325
+email_conflict,111195,54.361589
+name_conflict,83093,40.622938
+phone_conflict,27480,13.434565
+shared_email_payment_household_risk,4000,1.955541
+verified_email_conflict,739,0.361286

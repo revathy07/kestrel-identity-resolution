@@ -84,3 +84,19 @@ were removed only one layer deep.
 iterative and quality-flagged, and reran the truth-independent blocker. The final set has
 **204,547 candidates** and retains **88,155/88,155 recoverable canonical links (100%)**.
 Labels remain confined to the evaluator and never become blocking features.
+
+## 6. Treating ordinary shared email and payment as independent auto-merge evidence
+
+**What I tried.** The initial MCT formula treated ordinary exact email (0.82) and payment
+token (0.55) as independent families. Their noisy-OR combination reached 0.919, above the
+required 0.88 auto-merge threshold.
+
+**Why I dropped it.** Development-only evaluation produced one false auto-merge among the
+explicit hard negatives. It was the intended household case: two people shared both an
+email address and payment token. Development merge precision was 99.9975%, which is not the
+defensible outcome required by the problem's privacy asymmetry.
+
+**What replaced it.** A general household-risk cap limits ordinary email plus payment alone
+to 0.87, sending it to human review unless a third independent family or stronger verified
+evidence exists. After regeneration, development, frozen test and audit merge precision are
+all 100.0000% on this fixture, and **0/20,000 explicit hard negatives auto-merge**.
