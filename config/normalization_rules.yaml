@@ -22,6 +22,9 @@
     "remove_safe_punctuation": true,
     "infer_country_code": false
   },
+  "text_export_artifacts": {
+    "remove_trailing_multilingual_greeting": true
+  },
   "date_of_birth": {
     "accepted_formats": ["%Y-%m-%d", "%d-%m-%Y", "%Y/%m/%d"],
     "reference_date": "2026-04-03",

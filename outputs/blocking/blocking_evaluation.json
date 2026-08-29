@@ -1,0 +1,204 @@
+{
+  "phase": "blocking_evaluation",
+  "candidate_physical_pair_rows": 204547,
+  "canonical_link_evaluation": {
+    "canonical_true_links": 99000,
+    "retained_true_links": 88895,
+    "discarded_true_links_before_scoring": 10105,
+    "overall_blocking_recall": 0.8979292929292929,
+    "intended_recoverable_links": 88155,
+    "retained_recoverable_links": 88155,
+    "discarded_recoverable_links_before_scoring": 0,
+    "recoverable_blocking_recall": 1.0,
+    "known_unrecoverable_links": 10845,
+    "labelled_usable_exact_evidence_baseline_recall": 0.8904545454545455
+  },
+  "by_evidence_mode": [
+    {
+      "evidence_mode": "device_only",
+      "true_links": 12162,
+      "retained_links": 12162,
+      "discarded_links": 0,
+      "blocking_recall": 1.0,
+      "intended_recoverable_links": 12162,
+      "retained_recoverable_links": 12162,
+      "recoverable_blocking_recall": 1.0
+    },
+    {
+      "evidence_mode": "email_case_variation",
+      "true_links": 4731,
+      "retained_links": 4731,
+      "discarded_links": 0,
+      "blocking_recall": 1.0,
+      "intended_recoverable_links": 4731,
+      "retained_recoverable_links": 4731,
+      "recoverable_blocking_recall": 1.0
+    },
+    {
+      "evidence_mode": "email_dotted_local_part",
+      "true_links": 4728,
+      "retained_links": 4728,
+      "discarded_links": 0,
+      "blocking_recall": 1.0,
+      "intended_recoverable_links": 4728,
+      "retained_recoverable_links": 4728,
+      "recoverable_blocking_recall": 1.0
+    },
+    {
+      "evidence_mode": "email_plus_suffix",
+      "true_links": 4736,
+      "retained_links": 4736,
+      "discarded_links": 0,
+      "blocking_recall": 1.0,
+      "intended_recoverable_links": 4736,
+      "retained_recoverable_links": 4736,
+      "recoverable_blocking_recall": 1.0
+    },
+    {
+      "evidence_mode": "exact_email",
+      "true_links": 15699,
+      "retained_links": 15699,
+      "discarded_links": 0,
+      "blocking_recall": 1.0,
+      "intended_recoverable_links": 15699,
+      "retained_recoverable_links": 15699,
+      "recoverable_blocking_recall": 1.0
+    },
+    {
+      "evidence_mode": "exact_verified_email",
+      "true_links": 20017,
+      "retained_links": 20017,
+      "discarded_links": 0,
+      "blocking_recall": 1.0,
+      "intended_recoverable_links": 20017,
+      "retained_recoverable_links": 20017,
+      "recoverable_blocking_recall": 1.0
+    },
+    {
+      "evidence_mode": "multiple_or_other_evidence",
+      "true_links": 2458,
+      "retained_links": 2458,
+      "discarded_links": 0,
+      "blocking_recall": 1.0,
+      "intended_recoverable_links": 2458,
+      "retained_recoverable_links": 2458,
+      "recoverable_blocking_recall": 1.0
+    },
+    {
+      "evidence_mode": "name_city_only",
+      "true_links": 11475,
+      "retained_links": 11475,
+      "discarded_links": 0,
+      "blocking_recall": 1.0,
+      "intended_recoverable_links": 11475,
+      "retained_recoverable_links": 11475,
+      "recoverable_blocking_recall": 1.0
+    },
+    {
+      "evidence_mode": "no_usable_evidence",
+      "true_links": 10845,
+      "retained_links": 740,
+      "discarded_links": 10105,
+      "blocking_recall": 0.06823420931304748,
+      "intended_recoverable_links": 0,
+      "retained_recoverable_links": 0,
+      "recoverable_blocking_recall": 0.0
+    },
+    {
+      "evidence_mode": "phone_country_code",
+      "true_links": 8123,
+      "retained_links": 8123,
+      "discarded_links": 0,
+      "blocking_recall": 1.0,
+      "intended_recoverable_links": 8123,
+      "retained_recoverable_links": 8123,
+      "recoverable_blocking_recall": 1.0
+    },
+    {
+      "evidence_mode": "phone_leading_zero",
+      "true_links": 8123,
+      "retained_links": 8123,
+      "discarded_links": 0,
+      "blocking_recall": 1.0,
+      "intended_recoverable_links": 8123,
+      "retained_recoverable_links": 8123,
+      "recoverable_blocking_recall": 1.0
+    },
+    {
+      "evidence_mode": "phone_spaced",
+      "true_links": 4026,
+      "retained_links": 4026,
+      "discarded_links": 0,
+      "blocking_recall": 1.0,
+      "intended_recoverable_links": 4026,
+      "retained_recoverable_links": 4026,
+      "recoverable_blocking_recall": 1.0
+    }
+  ],
+  "by_source_pair": [
+    {
+      "source_pair": "app_users+social_logins",
+      "true_links": 23000,
+      "retained_links": 23000,
+      "discarded_links": 0,
+      "blocking_recall": 1.0,
+      "intended_recoverable_links": 23000,
+      "retained_recoverable_links": 23000,
+      "recoverable_blocking_recall": 1.0
+    },
+    {
+      "source_pair": "app_users+store_customers",
+      "true_links": 5000,
+      "retained_links": 5000,
+      "discarded_links": 0,
+      "blocking_recall": 1.0,
+      "intended_recoverable_links": 5000,
+      "retained_recoverable_links": 5000,
+      "recoverable_blocking_recall": 1.0
+    },
+    {
+      "source_pair": "app_users+ticketing",
+      "true_links": 71000,
+      "retained_links": 60895,
+      "discarded_links": 10105,
+      "blocking_recall": 0.8576760563380281,
+      "intended_recoverable_links": 60155,
+      "retained_recoverable_links": 60155,
+      "recoverable_blocking_recall": 1.0
+    }
+  ],
+  "hard_negative_evaluation": {
+    "explicit_hard_negative_pairs": 20000,
+    "retained_as_candidates": 18121,
+    "candidate_coverage": 0.90605,
+    "by_type": {
+      "common_name_city": {
+        "pairs": 4000,
+        "retained_as_candidates": 3962,
+        "candidate_coverage": 0.9905
+      },
+      "couple_shared_email_payment_token": {
+        "pairs": 4000,
+        "retained_as_candidates": 4000,
+        "candidate_coverage": 1.0
+      },
+      "father_son": {
+        "pairs": 4000,
+        "retained_as_candidates": 3957,
+        "candidate_coverage": 0.98925
+      },
+      "university_computer_lab": {
+        "pairs": 8000,
+        "retained_as_candidates": 6202,
+        "candidate_coverage": 0.77525
+      }
+    }
+  },
+  "isolation": {
+    "labels_used_after_candidate_generation_only": true,
+    "labels_used_as_blocking_features": false,
+    "match_scores_calculated": false,
+    "match_decisions_made": false,
+    "clusters_formed": false
+  }
+}

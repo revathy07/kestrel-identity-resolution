@@ -1,0 +1,14 @@
+blocking_rule,eligible_block_keys,eligible_record_memberships,pair_rule_incidences,pairs_unique_to_rule
+email_sha256_bridge,45679,102976,70540,0
+email_skeleton,51761,118473,83804,0
+exact_account_reference,22579,46634,25531,0
+exact_device_id,51494,133827,143466,66383
+exact_email,45679,102976,70540,0
+exact_payment_token,5000,10500,6000,0
+exact_phone,38933,88310,61955,0
+exact_provider_id,1800,4500,3600,0
+name_city,60121,141161,106346,30345
+name_date_of_birth,4548,9124,4955,418
+name_postcode,5600,12000,7200,0
+numeric_account_reference,27579,56634,30531,0
+phone_suffix_9,46797,108242,78585,16630

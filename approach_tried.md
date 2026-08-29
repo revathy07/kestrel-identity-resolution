@@ -1,9 +1,8 @@
 # Approaches tried and dropped
 
-This file records three approaches that were genuinely tested during the dataset stage and
-then abandoned. The measurements come from the generated fixtures and independent
-validation, not from hypothetical examples. Matching-pipeline experiments will be recorded
-separately as that stage is implemented.
+This file records approaches that were genuinely tested and then abandoned. The
+measurements come from generated fixtures and independent validation, not hypothetical
+examples.
 
 ## 1. Independent random allocation of records to source systems
 
@@ -57,3 +56,31 @@ The supporting measurements are recorded in
 [the progress log](docs/progress_log.md),
 [the dataset audit](docs/dataset_generator_audit.md), and
 [the generation report](data/generated/generation_report.json).
+
+## 4. Reusing the pre-normalization Rule 2 registry unchanged
+
+**What I tried.** The initial plan was to feed the Phase 1 high-frequency registry directly
+into blocking.
+
+**Why I dropped it.** Phase 4 deliberately collapses safe formatting variants. Two raw keys
+that were each below 41 records can therefore become one normalized value above 40. Reusing
+the older counts would violate Rule 2 at the exact point candidates are created.
+
+**What replaced it.** Phase 5 streams the final normalized table and recalculates global
+physical-record frequencies before forming any block. The full run finds **2,057 normalized
+Rule 2 values**; exact blocks accept frequencies 2–40 and reject 41 or more.
+
+## 5. Accepting the first small candidate set without a recall audit
+
+**What I tried.** The first production block rules generated **182,644 candidates**, which
+looked efficient in isolation.
+
+**Why I dropped it.** The separate canonical-link evaluation showed only **98.6614% recall
+among links labelled recoverable**. It exposed two general handoff problems: optional nested
+social phone/device/city identifiers had not been mapped, and stacked name export artifacts
+were removed only one layer deep.
+
+**What replaced it.** I corrected the Phase 4 mapping, made known export-annotation cleanup
+iterative and quality-flagged, and reran the truth-independent blocker. The final set has
+**204,547 candidates** and retains **88,155/88,155 recoverable canonical links (100%)**.
+Labels remain confined to the evaluator and never become blocking features.

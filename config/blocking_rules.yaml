@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "description": "Deterministic Phase 5 candidate discovery. Blocking creates pairs but does not score or match them.",
+  "rule2_threshold": 40,
+  "maximum_block_size": 40,
+  "minimum_block_size": 2,
+  "principles": [
+    "Recalculate global frequencies from valid normalized values.",
+    "Give zero blocking eligibility to every single value occurring on more than 40 physical records.",
+    "Cap every derived candidate-only block at 40 physical records.",
+    "Use no evaluation labels, person identifiers, or scenario metadata.",
+    "Treat a candidate as an unordered pair of physical source records.",
+    "Do not calculate match scores or form clusters."
+  ],
+  "exact_concepts": [
+    "email",
+    "hashed_email",
+    "phone",
+    "device_id",
+    "account_reference",
+    "payment_token",
+    "provider_id"
+  ],
+  "derived_rules": {
+    "email_skeleton": true,
+    "email_sha256_bridge": true,
+    "phone_suffix_9": true,
+    "numeric_account_reference": true,
+    "name_city": true,
+    "name_date_of_birth": true,
+    "name_postcode": true
+  }
+}

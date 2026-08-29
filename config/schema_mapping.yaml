@@ -95,9 +95,12 @@
         "identity_payload.verified_email": "email",
         "identity_payload.hashed_email": "hashed_email",
         "identity_payload.display_name": "full_name",
-        "identity_payload.provider_id": "provider_id"
+        "identity_payload.provider_id": "provider_id",
+        "identity_payload.phone": "phone",
+        "identity_payload.device_id": "device_id",
+        "identity_payload.city": "city"
       },
-      "unavailable": ["phone", "first_name", "last_name", "date_of_birth", "device_id", "account_reference", "payment_token", "address_line1", "address_line2", "city", "postcode", "country"]
+      "unavailable": ["first_name", "last_name", "date_of_birth", "account_reference", "payment_token", "address_line1", "address_line2", "postcode", "country"]
     }
   }
 }

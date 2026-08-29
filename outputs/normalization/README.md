@@ -14,7 +14,7 @@ python -m src.normalization.normalize_identifiers --data-dir data/generated --ou
 | `normalization_manifest.json` | Counts, configuration/output hashes, source fingerprints and phase boundaries | Committed |
 | `normalization_report.md` | Concise stakeholder-readable methodology and results | Committed |
 
-The compressed normalized table contains 3,550,000 rows and is approximately 45.2 MiB.
+The compressed normalized table contains 3,820,000 rows and is approximately 47.2 MiB.
 It is intentionally excluded from Git as a reproducible intermediate to avoid growing the
 repository history with derived row-level data. Its deterministic SHA-256 is recorded in
 the committed manifest.

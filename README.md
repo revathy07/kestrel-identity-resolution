@@ -11,8 +11,8 @@ building a defensible identity-matching layer across five disconnected customer 
 | Independent dataset verification | Complete |
 | Identifier profiling and Rule 2 detection | Complete |
 | Derived identifier normalization | Complete |
-| Candidate blocking | Next |
-| MCT scoring | Not started |
+| Candidate blocking | Complete |
+| MCT scoring | Next |
 | Capped clustering and evaluation | Not started |
 | Memo and presentation | Not started |
 
@@ -31,6 +31,8 @@ scripts/verify_synthetic_dataset.py
 src/ingestion/                  isolated normal-source readers
 src/profiling/                  identifier profiler and Rule 2 registry
 src/normalization/              derived, traceable identifier normalization
+src/blocking/                   truth-isolated candidate generation
+src/evaluation/                 post-generation synthetic-label measurement
 src/validate_generated_data.py independent compliance validator
 tests/                          focused generator and validator tests
 requirements.txt                pinned runtime dependency
@@ -39,7 +41,9 @@ requirements.txt                pinned runtime dependency
 See [data/README.md](data/README.md) for the role and format of every dataset file,
 [docs/dataset_generator_audit.md](docs/dataset_generator_audit.md) for requirement-level
 evidence, [docs/progress_log.md](docs/progress_log.md) for the development record, and
-[approach_tried.md](approach_tried.md) for three measured approaches that were abandoned.
+[approach_tried.md](approach_tried.md) for measured approaches that were abandoned. The
+complete Phase 5 implementation and verification narrative is in
+[docs/phase_5_candidate_blocking_report.md](docs/phase_5_candidate_blocking_report.md).
 
 ## Quick start
 
@@ -94,8 +98,8 @@ Create the traceable normalized identifier table from the repository root:
 python -m src.normalization.normalize_identifiers --data-dir data/generated --output-dir outputs/normalization
 ```
 
-The full run emits 3,550,000 long-form identifier observations from 420,000 source records:
-3,123,383 valid, 426,389 missing, and 228 structurally invalid. It changes 1,186,293 valid
+The full run emits 3,820,000 long-form identifier observations from 420,000 source records:
+3,197,345 valid, 622,427 missing, and 228 structurally invalid. It changes 1,204,147 valid
 derived values while leaving all raw inputs byte-identical. The 228 invalid values are
 store-email fields containing export artifacts but no address; they are flagged rather than
 silently repaired.
@@ -103,6 +107,27 @@ silently repaired.
 Normalization preserves email dots and plus suffixes, never infers phone country codes,
 performs no fuzzy name/address comparison, and records transformations and quality flags.
 See [the normalization report](outputs/normalization/normalization_report.md).
+
+## Phase 5: candidate blocking
+
+Generate candidates without opening any truth file:
+
+```bash
+python -m src.blocking.generate_candidates --normalized-path outputs/normalization/normalized_identifiers.csv.gz --output-dir outputs/blocking
+```
+
+The full run recalculates Rule 2 after normalization, finds 2,057 normalized concept/value
+keys above 40 records, and reduces 88,199,790,000 possible unordered physical-record pairs
+to 204,547 candidates (99.999768% reduction). Exact identifiers, dotted/plus email,
+phone-suffix, numeric-account-reference, email-hash bridge and bounded name composites are
+candidate-discovery rules only; they do not award a score or declare a match.
+
+After generation, the separate evaluator retains all 88,155 canonical links labelled
+recoverable from usable evidence (100% recoverable blocking recall). Overall, it retains
+88,895 of 99,000 canonical links and discards 10,105 before scoring; 10,845 links were
+deliberately labelled as having no usable exact evidence. See
+[the blocking report](outputs/blocking/blocking_report.md) and
+[the isolated evaluation](outputs/blocking/blocking_evaluation.md).
 
 ## Verified dataset
 
@@ -126,7 +151,7 @@ resolver.
 - The generator accepts `--seed`, `--scale`, and `--output-dir` arguments.
 - Validators are read-only and return a nonzero exit status when a mandatory check fails.
 - Temporary fixtures, caches, and large reproducible frequency tables are excluded from Git.
-- The automated suite contains 42 tests, including profiling/normalization isolation,
+- The automated suite contains 50 tests, including profiling/normalization/blocking isolation,
   deterministic output and byte-level input immutability.
 
 ## AI usage

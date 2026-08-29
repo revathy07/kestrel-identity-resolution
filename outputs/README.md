@@ -17,3 +17,6 @@ Phase 1 outputs and their publication policy are documented in
 
 Phase 4 normalization outputs are documented in
 [`normalization/README.md`](normalization/README.md).
+
+Phase 5 production blocking and isolated evaluation outputs are documented in
+[`blocking/README.md`](blocking/README.md).

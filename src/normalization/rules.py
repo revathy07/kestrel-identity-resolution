@@ -27,6 +27,7 @@ PHONE_ALLOWED = re.compile(r"^[+\d\s().-]+$")
 PHONE_FORMATTING = re.compile(r"[\s().-]+")
 WHITESPACE = re.compile(r"\s+")
 TRAILING_QUOTED_ANNOTATION = re.compile(r"\s+\"[^\"\r\n]*\"\s*$")
+TRAILING_MULTILINGUAL_GREETING = re.compile(r"\s+hello\s+[^\x00-\x7f].*$", re.IGNORECASE)
 CITY_PUNCTUATION = re.compile(r"[-_.]+")
 COUNTRY_TOKEN = re.compile(r"[^A-Z0-9]+")
 POSTCODE_ALLOWED = re.compile(r"^[\w\s-]+$", re.UNICODE)
@@ -87,20 +88,35 @@ def _unicode_text(value: Any) -> str:
     return unicodedata.normalize("NFKC", str(value)).strip()
 
 
-def _primary_export_text(text: str) -> tuple[str, list[str]]:
+def _primary_export_text(text: str, rules: Mapping[str, Any]) -> tuple[str, list[str]]:
     flags: list[str] = []
     lines = text.splitlines()
     primary = lines[0].strip() if lines else ""
     if len(lines) > 1 and any(line.strip() for line in lines[1:]):
         flags.append("trailing_multiline_annotation_removed")
-    without_annotation = TRAILING_QUOTED_ANNOTATION.sub("", primary).strip()
-    if without_annotation != primary:
-        flags.append("trailing_quoted_annotation_removed")
-    return without_annotation, flags
+    cleaned = primary
+    while cleaned:
+        previous = cleaned
+        if rules.get("text_export_artifacts", {}).get("remove_trailing_multilingual_greeting"):
+            cleaned = TRAILING_MULTILINGUAL_GREETING.sub("", cleaned).strip()
+            if cleaned != previous:
+                flags.append("trailing_multilingual_greeting_removed")
+                continue
+        while cleaned and unicodedata.category(cleaned[-1]).startswith("S"):
+            cleaned = cleaned[:-1].rstrip()
+        if cleaned != previous:
+            flags.append("trailing_symbol_annotation_removed")
+            continue
+        cleaned = TRAILING_QUOTED_ANNOTATION.sub("", cleaned).strip()
+        if cleaned != previous:
+            flags.append("trailing_quoted_annotation_removed")
+            continue
+        break
+    return cleaned, flags
 
 
-def _text_result(value: Any, strategy: str) -> NormalizationResult:
-    text, flags = _primary_export_text(_unicode_text(value))
+def _text_result(value: Any, strategy: str, rules: Mapping[str, Any]) -> NormalizationResult:
+    text, flags = _primary_export_text(_unicode_text(value), rules)
     normalized = WHITESPACE.sub(" ", text).casefold()
     if strategy == "city":
         normalized = WHITESPACE.sub(" ", CITY_PUNCTUATION.sub(" ", normalized)).strip()
@@ -233,7 +249,7 @@ def normalize_value(concept: str, value: Any, rules: Mapping[str, Any]) -> Norma
     if strategy == "date_of_birth":
         return _date_result(value, rules)
     if strategy in {"name", "address", "city"}:
-        return _text_result(value, strategy)
+        return _text_result(value, strategy, rules)
     if strategy == "postcode":
         return _postcode_result(value)
     if strategy == "country":

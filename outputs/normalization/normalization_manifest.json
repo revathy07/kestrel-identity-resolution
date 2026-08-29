@@ -9,15 +9,15 @@
     "subscriptions": 50000,
     "social_logins": 90000
   },
-  "identifier_observations": 3550000,
+  "identifier_observations": 3820000,
   "status_counts": {
     "invalid": 228,
-    "missing": 426389,
-    "valid": 3123383
+    "missing": 622427,
+    "valid": 3197345
   },
-  "changed_observations": 1186293,
-  "quality_flagged_observations": 121367,
-  "configuration_sha256": "5b12dbecc0f49286402c0093d3309db20c8a74a2c30e1bd7000596cb30aed34a",
+  "changed_observations": 1204147,
+  "quality_flagged_observations": 129727,
+  "configuration_sha256": "d570498324466868c0c4b2db4e0d021d5d008780a59b2432eab94acb0eba71e2",
   "source_fingerprints_before_and_after": {
     "app_users": {
       "relative_path": "app_users.csv",
@@ -49,9 +49,9 @@
   "normalized_output": {
     "path": "normalized_identifiers.csv.gz",
     "compression": "gzip",
-    "rows": 3550000,
-    "size_bytes": 47374047,
-    "sha256": "8f3445e1bd1c27f4b9e4c388fd1f20680bfa7343eea58781f379a1da0acaf70f"
+    "rows": 3820000,
+    "size_bytes": 49463456,
+    "sha256": "b7b0ce1b2fefee13dffbf2b7d80fc3769cdf337ffa6b33ee9c6baee6f2975c54"
   },
   "phase_boundaries": {
     "candidate_pairs_created": false,

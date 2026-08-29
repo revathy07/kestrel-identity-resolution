@@ -35,6 +35,15 @@ outputs/normalization/*
 !outputs/normalization/normalization_issues.csv
 !outputs/normalization/normalization_manifest.json
 !outputs/normalization/normalization_report.md
+!outputs/blocking/
+outputs/blocking/*
+!outputs/blocking/README.md
+!outputs/blocking/blocking_rule_summary.csv
+!outputs/blocking/normalized_rule2_values.csv
+!outputs/blocking/candidate_manifest.json
+!outputs/blocking/blocking_report.md
+!outputs/blocking/blocking_evaluation.json
+!outputs/blocking/blocking_evaluation.md
 outputs-small/
 
 # Environment / OS

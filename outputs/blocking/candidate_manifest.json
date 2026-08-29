@@ -1,0 +1,45 @@
+{
+  "phase": "candidate_blocking",
+  "blocker_version": 1,
+  "total_source_records": 420000,
+  "source_counts": {
+    "app_users": 120000,
+    "store_customers": 80000,
+    "ticketing": 80000,
+    "subscriptions": 50000,
+    "social_logins": 90000
+  },
+  "rule2_threshold": 40,
+  "normalized_distinct_concept_values": 1595324,
+  "normalized_rule2_value_count": 2057,
+  "eligible_block_key_count": 407570,
+  "oversized_derived_block_count": 10,
+  "records_with_eligible_blocks": 206489,
+  "candidate_pair_incidences_before_pair_deduplication": 693053,
+  "unique_candidate_pairs": 204547,
+  "all_possible_unordered_record_pairs": 88199790000,
+  "candidate_percentage_of_all_pairs": 0.00023191325058710457,
+  "candidate_reduction_percentage": 99.99976808674941,
+  "input": {
+    "path": "outputs/normalization/normalized_identifiers.csv.gz",
+    "sha256": "b7b0ce1b2fefee13dffbf2b7d80fc3769cdf337ffa6b33ee9c6baee6f2975c54"
+  },
+  "configuration": {
+    "path": "config/blocking_rules.yaml",
+    "sha256": "e4c3edd3bb3cbe144671b7c5f82e92f4596d5fcd27ed5bdb323709a5eee515f6"
+  },
+  "candidate_output": {
+    "path": "candidate_pairs.csv.gz",
+    "compression": "gzip",
+    "rows": 204547,
+    "size_bytes": 2883999,
+    "sha256": "b6e6026fd7ad0f579eea60173dae19a2498423d15cae52525fd01df4ac1bca1a"
+  },
+  "phase_boundaries": {
+    "candidate_pairs_created": true,
+    "match_scores_calculated": false,
+    "match_decisions_made": false,
+    "clusters_formed": false,
+    "evaluation_labels_read": false
+  }
+}

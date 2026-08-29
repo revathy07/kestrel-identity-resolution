@@ -52,6 +52,19 @@ class NormalizationRuleTests(unittest.TestCase):
         self.assertIn("trailing_multiline_annotation_removed", result.quality_flags)
         self.assertIn("trailing_quoted_annotation_removed", result.quality_flags)
 
+    def test_known_trailing_multilingual_export_greeting_is_removed_narrowly(self) -> None:
+        artifact = normalize_value("full_name", "Ada Lovelace hello नमस्ते यार", self.rules)
+        stacked = normalize_value(
+            "full_name", 'Ada Lovelace "quoted, comma" 😊 hello नमस्ते यार', self.rules
+        )
+        ordinary = normalize_value("full_name", "Hello Newman", self.rules)
+        self.assertEqual(artifact.normalized_value, "ada lovelace")
+        self.assertIn("trailing_multilingual_greeting_removed", artifact.quality_flags)
+        self.assertEqual(stacked.normalized_value, "ada lovelace")
+        self.assertIn("trailing_symbol_annotation_removed", stacked.quality_flags)
+        self.assertIn("trailing_quoted_annotation_removed", stacked.quality_flags)
+        self.assertEqual(ordinary.normalized_value, "hello newman")
+
     def test_dates_parse_and_flag_but_are_not_repaired(self) -> None:
         parsed = normalize_value("date_of_birth", "31-12-2000", self.rules)
         old = normalize_value("date_of_birth", "1900-01-01", self.rules)
@@ -111,7 +124,7 @@ class NormalizationPipelineTests(unittest.TestCase):
                 "social_logins": 1,
             },
         )
-        self.assertEqual(self.manifest["identifier_observations"], 491)
+        self.assertEqual(self.manifest["identifier_observations"], 494)
 
     def test_raw_sources_are_byte_identical(self) -> None:
         self.assertEqual(self.before, self.after)
@@ -125,7 +138,7 @@ class NormalizationPipelineTests(unittest.TestCase):
             newline="",
         ) as handle:
             rows = list(csv.DictReader(handle))
-        self.assertEqual(len(rows), 491)
+        self.assertEqual(len(rows), 494)
         multiline = next(
             row
             for row in rows

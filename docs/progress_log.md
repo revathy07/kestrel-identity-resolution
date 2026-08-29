@@ -111,11 +111,33 @@ labelled evaluation, and the required written deliverables.
 - Names and addresses receive Unicode, case and whitespace handling only; no fuzzy
   comparison is performed. Countries map through documented ISO aliases, and DOBs are
   parsed to ISO while implausible ages remain visible as quality flags.
-- The full run processed **420,000 source records** and emitted **3,550,000 identifier
-  observations**: 3,123,383 valid, 426,389 missing and 228 invalid.
-- Normalization changed 1,186,293 valid derived values and attached at least one quality
-  flag to 121,367 observations.
+- A pre-Phase-5 recall audit found that optional social-login phone, device and city fields
+  had been omitted from the schema map. The mapping was corrected before final blocking.
+- Recognizable stacked export annotations are removed iteratively and each removal is
+  quality-flagged; ordinary name tokens are not rewritten or fuzzily compared.
+- The corrected full run processed **420,000 source records** and emitted **3,820,000
+  identifier observations**: 3,197,345 valid, 622,427 missing and 228 invalid.
+- Normalization changed 1,204,147 valid derived values and attached at least one quality
+  flag to 129,727 observations.
 - All five raw source fingerprints matched before and after the run. The deterministic
   compressed output is 45.2 MiB and its SHA-256 is recorded in the manifest.
-- All **42 tests** pass. Phase 4 creates no pairs, fuzzy similarities, MCT scores, match
+- All **50 tests** pass. Phase 4 creates no pairs, fuzzy similarities, MCT scores, match
   decisions or clusters.
+
+## 9. Candidate blocking
+
+- Added a truth-isolated production blocker over the Phase 4 long-form table and a separate
+  post-generation evaluator over hidden synthetic labels.
+- Recalculated Rule 2 after normalization: **2,057 normalized concept/value keys** occur on
+  more than 40 physical records and cannot create exact blocks.
+- Used bounded exact and discovery-only blocks for email skeletons, email-to-SHA256 bridges,
+  phone suffixes, numeric account references, and name composites. Every derived block is
+  independently capped at 40 records.
+- Reduced **88,199,790,000 possible unordered physical-record pairs** to **204,547 unique
+  candidates**, a **99.999768% reduction**.
+- Retained **88,155/88,155 canonical links labelled recoverable** (100%). Overall blocking
+  retained 88,895/99,000 canonical links and discarded 10,105 before scoring.
+- Retained 18,121/20,000 explicit hard-negative pairs as candidates for later scoring;
+  candidate retention is not a match error because Phase 5 makes no match decisions.
+- The blocker creates no MCT features or scores, match decisions, or clusters and reads no
+  evaluation labels.
