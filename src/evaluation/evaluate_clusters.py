@@ -132,7 +132,7 @@ def evaluate_clusters(
     if manifest.get("phase_boundaries", {}).get("oversized_components_partially_merged") is not False:
         raise ClusterEvaluationError("Clustering manifest does not prove full oversized rejection")
 
-    truth = _load_truth(truth_map_path)
+    truth, _logical_people, _all_people = _load_truth(truth_map_path)
     person_types: dict[str, str] = {}
     total_person_counts: Counter[str] = Counter()
     for _key, (_record_id, person_id, entity_type) in truth.items():
