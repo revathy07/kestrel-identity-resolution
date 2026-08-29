@@ -1,0 +1,63 @@
+{
+  "phase": "heuristic_vs_fellegi_sunter_mct_comparison",
+  "selection_partition": "validation",
+  "selection_decision_recorded_before_test_release": true,
+  "selected_model": "heuristic_mct",
+  "rejected_model": "sparse_fellegi_sunter_mct",
+  "reason": "The empirical challenger produced one validation false auto-merge while the heuristic baseline produced zero; merge precision is the primary safety metric.",
+  "candidate_pairs": 204547,
+  "validation": {
+    "heuristic": {
+      "auto_merge_pairs": 16108,
+      "auto_merge_false_positives": 0,
+      "auto_merge_precision": 1.0,
+      "auto_merge_recall_within_candidates": 0.6047454572758673,
+      "human_review_pairs": 4499,
+      "assisted_recall_within_candidates": 0.7402763177654302
+    },
+    "fellegi_sunter": {
+      "auto_merge_pairs": 19740,
+      "auto_merge_false_positives": 1,
+      "auto_merge_precision": 0.9999493414387032,
+      "auto_merge_recall_within_candidates": 0.741064724433098,
+      "human_review_pairs": 3952,
+      "assisted_recall_within_candidates": 0.8715647995194473
+    }
+  },
+  "frozen_test_characterization": {
+    "heuristic": {
+      "auto_merge_pairs": 23824,
+      "auto_merge_false_positives": 0,
+      "auto_merge_precision": 1.0,
+      "auto_merge_recall_within_candidates": 0.6075846063604601,
+      "human_review_pairs": 6490,
+      "assisted_recall_within_candidates": 0.741603121573028
+    },
+    "fellegi_sunter": {
+      "auto_merge_pairs": 29106,
+      "auto_merge_false_positives": 0,
+      "auto_merge_precision": 1.0,
+      "auto_merge_recall_within_candidates": 0.7422917038586111,
+      "human_review_pairs": 5818,
+      "assisted_recall_within_candidates": 0.8736323990716891
+    }
+  },
+  "full_population": {
+    "heuristic_decisions": {
+      "auto_merge": 81041,
+      "human_review": 22263,
+      "leave_separate": 101243
+    },
+    "fellegi_sunter_decisions": {
+      "auto_merge": 99247,
+      "human_review": 19226,
+      "leave_separate": 86074
+    },
+    "heuristic_hard_negative_auto_merges": 0,
+    "fellegi_sunter_hard_negative_auto_merges": 0
+  },
+  "production_effect": {
+    "phase_7_recomputed_with_rejected_model": false,
+    "heuristic_scoring_and_clusters_remain_selected": true
+  }
+}

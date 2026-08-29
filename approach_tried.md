@@ -120,3 +120,20 @@ component is assigned once to development, validation or frozen test. The new de
 all **204,547 candidate pairs**, assigns all **308,400 hidden entities** exactly once and has
 **zero measured person overlap**. Hidden person IDs remain confined to the evaluator and are
 not written to labelled artifacts.
+
+## 8. Sparse independent Fellegi-Sunter event weights as the final MCT
+
+**What I tried.** I estimated 19 present-event likelihood-ratio weights from the
+person-disjoint development labels using Jeffreys smoothing. The frozen model ignored the
+heuristic MCT score and decision, scored all 204,547 candidates and used the mandatory 0.88
+and 0.62 bands unchanged.
+
+**Why I dropped it.** Validation auto recall increased from 60.4745% to 74.1065%, but one
+non-match auto-merged, reducing merge precision from 100.0000% to 99.9949%. The failed pair
+shared name and DOB but had a conflicting account reference. Adding marginal likelihood
+weights under an independence assumption overstated the positive evidence.
+
+**What replaced it.** The heuristic MCT remains selected for Phase 7 because merge precision
+is the primary safety measure. The empirical model and its frozen-test characterization are
+retained as a genuine challenger. Logistic regression is next because it can estimate
+correlated effects and interactions explicitly.

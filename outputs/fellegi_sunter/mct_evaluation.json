@@ -1,0 +1,206 @@
+{
+  "phase": "mct_scoring_evaluation",
+  "scope": "final",
+  "partition_policy": {
+    "method": "SHA-256 of complete hidden-person relationship component modulo 100",
+    "development": "0-49 (50%)",
+    "validation": "50-69 (20%)",
+    "test": "70-99 (30%)",
+    "component_edges": "all scored candidates plus all explicit hard negatives",
+    "outcome_stratification_used": false,
+    "person_disjoint": true,
+    "configuration_sha256": "8252a820f9010c4ce70e90511b142c75f5e77fdbcc7c052f39f8337928e1945a"
+  },
+  "scoring_configuration_sha256": "2620ecddfaba1d7e0a6532e4cbf9bce16356cb3f95b92077944813987c70f816",
+  "scored_pairs_sha256": "72034d83c0f70dbb8de7b9c5e017e8ffc2250a3bf4161b4ba0760cdba86bb185",
+  "pair_metrics_by_partition": {
+    "development": {
+      "candidate_pairs": 103763,
+      "true_match_pairs": 67163,
+      "true_non_match_pairs": 36600,
+      "auto_merge_pairs": 50401,
+      "auto_merge_true_positives": 50401,
+      "auto_merge_false_positives": 0,
+      "auto_merge_precision": 1.0,
+      "auto_merge_recall_within_candidates": 0.7504280630704405,
+      "false_merge_rate": 0.0,
+      "human_review_pairs": 9456,
+      "human_review_true_matches": 8342,
+      "human_review_yield": 0.8821912013536379,
+      "leave_separate_pairs": 43906,
+      "assisted_recall_within_candidates": 0.8746333546744487
+    },
+    "validation": {
+      "candidate_pairs": 41057,
+      "true_match_pairs": 26636,
+      "true_non_match_pairs": 14421,
+      "auto_merge_pairs": 19740,
+      "auto_merge_true_positives": 19739,
+      "auto_merge_false_positives": 1,
+      "auto_merge_precision": 0.9999493414387032,
+      "auto_merge_recall_within_candidates": 0.741064724433098,
+      "false_merge_rate": 5.0658561296859166e-05,
+      "human_review_pairs": 3952,
+      "human_review_true_matches": 3476,
+      "human_review_yield": 0.8795546558704453,
+      "leave_separate_pairs": 17365,
+      "assisted_recall_within_candidates": 0.8715647995194473
+    },
+    "test": {
+      "candidate_pairs": 59727,
+      "true_match_pairs": 39211,
+      "true_non_match_pairs": 20516,
+      "auto_merge_pairs": 29106,
+      "auto_merge_true_positives": 29106,
+      "auto_merge_false_positives": 0,
+      "auto_merge_precision": 1.0,
+      "auto_merge_recall_within_candidates": 0.7422917038586111,
+      "false_merge_rate": 0.0,
+      "human_review_pairs": 5818,
+      "human_review_true_matches": 5150,
+      "human_review_yield": 0.8851839119972499,
+      "leave_separate_pairs": 24803,
+      "assisted_recall_within_candidates": 0.8736323990716891
+    }
+  },
+  "partition_isolation": {
+    "hidden_people": 308400,
+    "relationship_components": 281183,
+    "largest_relationship_component_people": 35,
+    "scored_candidate_edges_used": 204547,
+    "explicit_hard_negative_edges_used": 20000,
+    "components_by_partition": {
+      "development": 140511,
+      "validation": 56341,
+      "test": 84331
+    },
+    "people_by_partition": {
+      "development": 154086,
+      "validation": 61878,
+      "test": 92436
+    },
+    "candidate_pairs_by_partition": {
+      "development": 103763,
+      "validation": 41057,
+      "test": 59727
+    },
+    "candidate_endpoint_people_by_partition": {
+      "development": 52689,
+      "validation": 21130,
+      "test": 31175
+    },
+    "person_overlap_across_model_partitions": 0,
+    "scored_candidate_pairs_crossing_partitions": 0,
+    "all_scored_candidate_pairs_retained": true
+  },
+  "canonical_link_metrics": {
+    "canonical_links": 99000,
+    "auto_merge": 64408,
+    "human_review": 12334,
+    "leave_separate": 12153,
+    "blocked_before_scoring": 10105,
+    "end_to_end_auto_merge_recall": 0.6505858585858586,
+    "end_to_end_assisted_recall": 0.7751717171717172,
+    "recoverable_links": 88155,
+    "recoverable_auto_merge": 64408,
+    "recoverable_human_review": 11594,
+    "recoverable_leave_separate": 12153,
+    "recoverable_blocked": 0,
+    "recoverable_auto_merge_recall": 0.7306221995349101,
+    "recoverable_assisted_recall": 0.8621405478985877
+  },
+  "hard_negative_metrics": {
+    "overall": {
+      "pairs": 20000,
+      "auto_merge": 0,
+      "human_review": 635,
+      "leave_separate": 17486,
+      "blocked": 1879,
+      "false_auto_merge_rate": 0.0
+    },
+    "by_type": {
+      "common_name_city": {
+        "pairs": 4000,
+        "auto_merge": 0,
+        "human_review": 48,
+        "leave_separate": 3914,
+        "blocked": 38,
+        "false_auto_merge_rate": 0.0
+      },
+      "couple_shared_email_payment_token": {
+        "pairs": 4000,
+        "auto_merge": 0,
+        "human_review": 0,
+        "leave_separate": 4000,
+        "blocked": 0,
+        "false_auto_merge_rate": 0.0
+      },
+      "father_son": {
+        "pairs": 4000,
+        "auto_merge": 0,
+        "human_review": 587,
+        "leave_separate": 3370,
+        "blocked": 43,
+        "false_auto_merge_rate": 0.0
+      },
+      "university_computer_lab": {
+        "pairs": 8000,
+        "auto_merge": 0,
+        "human_review": 0,
+        "leave_separate": 6202,
+        "blocked": 1798,
+        "false_auto_merge_rate": 0.0
+      }
+    }
+  },
+  "false_auto_merge_diagnostics": {
+    "positive_features": {
+      "name_date_of_birth": 1
+    },
+    "conflicts": {
+      "account_reference_conflict": 1
+    }
+  },
+  "labelled_pair_sets": {
+    "development": {
+      "path": "labelled_development_set.csv.gz",
+      "compression": "gzip",
+      "rows": 103763,
+      "size_bytes": 1628709,
+      "sha256": "ef288319d86715be982373723c7366ce3dd19c32addd59aa9ec1b9c0ceac35b8",
+      "person_identifiers_included": false
+    },
+    "validation": {
+      "path": "labelled_validation_set.csv.gz",
+      "compression": "gzip",
+      "rows": 41057,
+      "size_bytes": 651647,
+      "sha256": "24c3a09dad6cb18147b4912a1602914faa931f18a6e8a2063c8fd7cffb642536",
+      "person_identifiers_included": false
+    },
+    "test": {
+      "path": "labelled_test_set.csv.gz",
+      "compression": "gzip",
+      "rows": 59727,
+      "size_bytes": 949338,
+      "sha256": "374c01cf856e648740b0c5979f97ed5bddf39d95e11fac9b04b7050c7e141523",
+      "person_identifiers_included": false
+    }
+  },
+  "labelled_test_set": {
+    "path": "labelled_test_set.csv.gz",
+    "compression": "gzip",
+    "rows": 59727,
+    "size_bytes": 949338,
+    "sha256": "374c01cf856e648740b0c5979f97ed5bddf39d95e11fac9b04b7050c7e141523",
+    "person_identifiers_included": false
+  },
+  "isolation": {
+    "scores_created_before_labels_opened": true,
+    "labels_used_as_scoring_features": false,
+    "hidden_people_used_only_for_evaluation_partitioning_and_labels": true,
+    "person_disjoint_model_partitions": true,
+    "overall_accuracy_reported": false,
+    "clusters_formed": false
+  }
+}

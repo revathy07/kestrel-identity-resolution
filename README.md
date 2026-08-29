@@ -156,6 +156,12 @@ appearing in more than one partition. None of the 20,000 explicit hard negatives
 auto-merge. See [the Phase 6 report](docs/phase_6_mct_scoring_report.md) and
 [the frozen evaluation](outputs/scoring/mct_evaluation.md).
 
+An empirical Fellegi-Sunter-style challenger learned 19 event weights from development
+labels. It improved validation auto recall to 74.1065% but produced one false auto-merge,
+reducing precision to 99.9949%. The heuristic MCT remained selected under the project's
+precision-first rule; the frozen comparison is retained in
+[the challenger report](outputs/fellegi_sunter/fs_comparison.md).
+
 ## Phase 7: Rule 1 capped clustering
 
 Form transitive components from auto-merge edges only:
@@ -193,7 +199,7 @@ resolver.
 - The generator accepts `--seed`, `--scale`, and `--output-dir` arguments.
 - Validators are read-only and return a nonzero exit status when a mandatory check fails.
 - Temporary fixtures, caches, and large reproducible frequency tables are excluded from Git.
-- The automated suite contains 70 tests, including profiling/normalization/blocking/scoring/clustering isolation,
+- The automated suite contains 73 tests, including profiling/normalization/blocking/scoring/clustering isolation,
   deterministic output and byte-level input immutability.
 
 ## AI usage

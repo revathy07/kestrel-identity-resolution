@@ -18,6 +18,12 @@ Release development and validation before the frozen test:
 python -m src.evaluation.evaluate_scoring --scored-path outputs/fellegi_sunter/fs_scored_candidate_pairs.csv.gz --scoring-manifest outputs/fellegi_sunter/fs_manifest.json --output-dir outputs/fellegi_sunter --scope validation
 ```
 
+After recording the validation selection decision, release the frozen-test characterization:
+
+```bash
+python -m src.evaluation.evaluate_scoring --scored-path outputs/fellegi_sunter/fs_scored_candidate_pairs.csv.gz --scoring-manifest outputs/fellegi_sunter/fs_manifest.json --output-dir outputs/fellegi_sunter --scope final
+```
+
 The learned model, event table, manifests and compact evaluation reports are committed. The
 204,547-row score file and labelled pair sets are deterministic local artifacts and remain
 ignored.

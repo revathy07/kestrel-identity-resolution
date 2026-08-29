@@ -204,3 +204,25 @@ labelled evaluation, and the required written deliverables.
   precision**, 60.7585% auto recall and 74.1603% auto-plus-review recall.
 - Production scored-pair hash `9bd370fd...` is unchanged; MCT decisions and Phase 7 clusters
   were not regenerated.
+
+## 13. Empirical Fellegi-Sunter MCT challenger
+
+- Recorded a research-based design before implementation and retained the heuristic MCT as
+  an unchanged comparison baseline.
+- Estimated 19 sparse present-event log-likelihood weights from 103,763 development pairs
+  only, using Jeffreys smoothing and no heuristic score, decision, record identity or
+  hard-negative scenario as a predictor.
+- The empirical scan found that exact device agreement was almost non-discriminative
+  (`m=0.707142`, `u=0.698164`) and shared payment had negative weight in the candidate set.
+- Truth-free application scored all 204,547 candidates: 99,247 auto-merge, 19,226 enter
+  review and 86,074 remain separate.
+- Validation increased auto recall from 60.4745% to 74.1065% but produced one false
+  auto-merge, reducing precision from 100.0000% to 99.9949%.
+- Rejected and committed the challenger on validation before releasing its test result.
+- Frozen test later showed 74.2292% auto recall and 100.0000% precision, but did not reverse
+  the pre-recorded validation decision.
+- Both methods auto-merge 0/20,000 explicit hard negatives. The validation failure shows that
+  curated hard negatives do not replace general precision measurement.
+- The heuristic MCT remains selected; Phase 7 was not regenerated with rejected edges.
+- All **73 automated tests** pass, including development-only training, deterministic
+  application and validation-release isolation.
