@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "description": "Frozen pre-validation design for the interpretable logistic-regression MCT challenger.",
+  "thresholds": {
+    "auto_merge_minimum": 0.88,
+    "human_review_minimum": 0.62
+  },
+  "base_events": [
+    "conflict:account_reference_conflict",
+    "conflict:date_of_birth_conflict",
+    "conflict:email_conflict",
+    "conflict:name_conflict",
+    "conflict:phone_conflict",
+    "conflict:shared_email_payment_household_risk",
+    "conflict:verified_email_conflict",
+    "evidence:email_skeleton",
+    "evidence:exact_account_reference",
+    "evidence:exact_device_id",
+    "evidence:exact_email",
+    "evidence:exact_payment_token",
+    "evidence:exact_phone",
+    "evidence:exact_provider_id",
+    "evidence:exact_verified_email",
+    "evidence:name_city",
+    "evidence:name_date_of_birth",
+    "evidence:phone_suffix_9",
+    "evidence:same_source_record_id"
+  ],
+  "interaction_policy": "all_unordered_pairs_of_distinct_base_events",
+  "regularization": {
+    "type": "l2_except_intercept",
+    "candidate_strengths": [0.0001, 0.001, 0.01, 0.1]
+  },
+  "optimizer": {
+    "type": "deterministic_minibatch_adam",
+    "epochs": 40,
+    "batch_size": 8192,
+    "learning_rate": 0.03,
+    "beta1": 0.9,
+    "beta2": 0.999,
+    "epsilon": 1e-08,
+    "shuffle": false,
+    "initialization": "zero_coefficients_and_development_prior_intercept"
+  },
+  "selection_gate": {
+    "partition": "validation",
+    "required_auto_merge_false_positives": 0,
+    "ranking": [
+      "highest_auto_merge_recall",
+      "highest_assisted_recall",
+      "fewest_human_review_pairs",
+      "strongest_l2_regularization"
+    ]
+  },
+  "principles": [
+    "Only the person-disjoint development partition may estimate coefficients.",
+    "All pairwise event interactions are declared before validation; no individual interaction is added after seeing an error.",
+    "The heuristic score, heuristic decision, blocking rule, record identity, person identity and hard-negative scenario are never model features.",
+    "Validation chooses among the frozen regularization candidates; frozen test remains unread until that decision is committed.",
+    "Predicted logistic probabilities are assessed with log loss, Brier score and calibration bins; no validation-fitted probability transform is applied.",
+    "The mandatory 0.88 and 0.62 MCT decision boundaries are not tuned."
+  ]
+}

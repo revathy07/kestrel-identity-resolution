@@ -137,3 +137,19 @@ weights under an independence assumption overstated the positive evidence.
 is the primary safety measure. The empirical model and its frozen-test characterization are
 retained as a genuine challenger. Logistic regression is next because it can estimate
 correlated effects and interactions explicitly.
+
+## 9. Using scikit-learn for the logistic challenger in this workstation
+
+**What I tried.** I installed the current scikit-learn release for Python 3.14 so the next
+challenger could use its standard logistic-regression implementation.
+
+**Why I dropped it.** Importing scikit-learn failed because Windows Application Control
+blocked SciPy's compiled `_sparsetools` component. This is a machine security policy, not a
+modelling result, and weakening or bypassing it would make the project less reproducible and
+less safe.
+
+**What replaced it.** The challenger uses pinned NumPy to optimize the same binary logistic
+loss with L2 regularization. The implementation, optimizer settings, full feature vocabulary
+and generic all-pairs interaction rule are frozen in versioned files before validation is
+opened. Probability quality is assessed explicitly rather than assumed from the library
+name.
