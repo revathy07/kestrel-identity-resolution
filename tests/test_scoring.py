@@ -204,7 +204,7 @@ class MCTPipelineTests(unittest.TestCase):
 
 
 class MCTEvaluationTests(unittest.TestCase):
-    def test_development_and_frozen_test_are_isolated_and_precision_is_reported(self) -> None:
+    def test_person_disjoint_development_validation_and_test_are_isolated(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             scored = root / "scored.csv.gz"
@@ -250,8 +250,10 @@ class MCTEvaluationTests(unittest.TestCase):
                 "system,record_id,person_id,entity_type\n"
                 "a,A1,P1,human\n"
                 "a,A2,P2,human\n"
+                "a,A3,P4,human\n"
                 "b,B1,P1,human\n"
-                "b,B2,P3,human\n",
+                "b,B2,P3,human\n"
+                "b,B3,P5,human\n",
                 encoding="utf-8",
             )
             canonical = root / "canonical.jsonl"
@@ -275,6 +277,13 @@ class MCTEvaluationTests(unittest.TestCase):
                                 {"system": "a", "record_id": "A2"},
                                 {"system": "b", "record_id": "B2"},
                             ],
+                        },
+                        {
+                            "type": "blocked_family_case",
+                            "source_records": [
+                                {"system": "a", "record_id": "A3"},
+                                {"system": "b", "record_id": "B3"},
+                            ],
                         }
                     ]
                 ),
@@ -285,20 +294,57 @@ class MCTEvaluationTests(unittest.TestCase):
                 scored, manifest, truth, canonical, hard, development_dir, scope="development"
             )
             self.assertEqual(set(development["pair_metrics_by_partition"]), {"development"})
+            self.assertTrue((development_dir / "labelled_development_set.csv.gz").exists())
+            self.assertFalse((development_dir / "labelled_validation_set.csv.gz").exists())
             self.assertFalse((development_dir / "labelled_test_set.csv.gz").exists())
 
             final_dir = root / "final"
             final = evaluate_scoring(scored, manifest, truth, canonical, hard, final_dir, scope="final")
-            self.assertEqual(set(final["pair_metrics_by_partition"]), {"development", "test", "audit"})
+            self.assertEqual(
+                set(final["pair_metrics_by_partition"]),
+                {"development", "validation", "test"},
+            )
             metrics = list(final["pair_metrics_by_partition"].values())
             self.assertEqual(sum(item["candidate_pairs"] for item in metrics), 2)
             self.assertEqual(sum(item["auto_merge_true_positives"] for item in metrics), 1)
             self.assertEqual(sum(item["auto_merge_false_positives"] for item in metrics), 1)
             self.assertEqual(final["canonical_link_metrics"]["auto_merge"], 1)
+            self.assertEqual(final["hard_negative_metrics"]["overall"]["pairs"], 2)
             self.assertEqual(final["hard_negative_metrics"]["overall"]["auto_merge"], 1)
-            with gzip.open(final_dir / "labelled_test_set.csv.gz", "rt", encoding="utf-8") as handle:
-                header = handle.readline()
-            self.assertNotIn("person_id", header)
+            self.assertEqual(final["hard_negative_metrics"]["overall"]["blocked"], 1)
+            self.assertTrue(final["partition_policy"]["person_disjoint"])
+            self.assertEqual(
+                final["partition_isolation"]["person_overlap_across_model_partitions"], 0
+            )
+            self.assertTrue(
+                final["partition_isolation"]["all_scored_candidate_pairs_retained"]
+            )
+            self.assertEqual(
+                sum(final["partition_isolation"]["candidate_pairs_by_partition"].values()),
+                2,
+            )
+
+            person_by_record = {
+                "A1": "P1", "B1": "P1", "A2": "P2", "B2": "P3",
+                "A3": "P4", "B3": "P5",
+            }
+            people_by_partition: dict[str, set[str]] = {}
+            for partition in ("development", "validation", "test"):
+                path = final_dir / f"labelled_{partition}_set.csv.gz"
+                with gzip.open(path, "rt", encoding="utf-8", newline="") as handle:
+                    reader = csv.DictReader(handle)
+                    self.assertNotIn("person_id", reader.fieldnames or [])
+                    people_by_partition[partition] = {
+                        person_by_record[record_id]
+                        for row in reader
+                        for record_id in (
+                            row["left_source_record_id"],
+                            row["right_source_record_id"],
+                        )
+                    }
+            for index, left in enumerate(("development", "validation", "test")):
+                for right in ("development", "validation", "test")[index + 1 :]:
+                    self.assertFalse(people_by_partition[left] & people_by_partition[right])
             self.assertTrue(final["isolation"]["scores_created_before_labels_opened"])
 
 

@@ -1,8 +1,8 @@
 """Evaluate Phase 6 MCT scores against isolated synthetic labels.
 
-Development mode exposes only the deterministic development partition. Final mode releases
-the frozen test and audit partitions and writes a labelled test-set artifact without person
-identifiers. Nothing in this module is imported by production scoring.
+Development mode exposes only a deterministic person-disjoint development partition. Final
+mode releases validation and frozen-test partitions. Nothing in this module is imported by
+production scoring, and no labelled artifact contains a hidden person identifier.
 """
 
 from __future__ import annotations
@@ -23,6 +23,8 @@ class ScoringEvaluationError(ValueError):
 
 
 DECISIONS = ("auto_merge", "human_review", "leave_separate")
+DEFAULT_SPLIT_RULES = Path(__file__).resolve().parents[2] / "config" / "evaluation_split.yaml"
+MODEL_PARTITIONS = ("development", "validation", "test")
 TEST_COLUMNS = [
     "left_source",
     "left_record_ordinal",
@@ -41,6 +43,34 @@ TEST_COLUMNS = [
 ]
 
 
+class PersonUnionFind:
+    """Deterministic disjoint-set structure over hidden person identifiers."""
+
+    def __init__(self, people: set[str]) -> None:
+        self.parent = {person: person for person in people}
+        self.size = {person: 1 for person in people}
+
+    def find(self, person: str) -> str:
+        if person not in self.parent:
+            raise ScoringEvaluationError(f"Unknown hidden person identifier: {person!r}")
+        while self.parent[person] != person:
+            self.parent[person] = self.parent[self.parent[person]]
+            person = self.parent[person]
+        return person
+
+    def union(self, left: str, right: str) -> str:
+        left_root, right_root = self.find(left), self.find(right)
+        if left_root == right_root:
+            return left_root
+        if self.size[left_root] < self.size[right_root] or (
+            self.size[left_root] == self.size[right_root] and left_root > right_root
+        ):
+            left_root, right_root = right_root, left_root
+        self.parent[right_root] = left_root
+        self.size[left_root] += self.size[right_root]
+        return left_root
+
+
 def _sha256(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -49,22 +79,50 @@ def _sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def _partition(payload: str) -> str:
-    bucket = int(hashlib.sha256(payload.encode("utf-8")).hexdigest()[:12], 16) % 100
-    return "development" if bucket < 50 else "test" if bucket < 80 else "audit"
-
-
-def _physical_payload(row: Mapping[str, str]) -> str:
-    return "\x1f".join(
-        (
-            row["left_source"],
-            row["left_record_ordinal"],
-            row["left_source_record_id"],
-            row["right_source"],
-            row["right_record_ordinal"],
-            row["right_source_record_id"],
+def _load_split_rules(path: Path = DEFAULT_SPLIT_RULES) -> dict[str, Any]:
+    try:
+        rules = json.loads(Path(path).read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise ScoringEvaluationError(f"Unable to load evaluation split rules from {path}: {exc}") from exc
+    if not isinstance(rules, dict):
+        raise ScoringEvaluationError("Evaluation split configuration must be an object")
+    partitions = rules.get("partitions")
+    if not isinstance(partitions, dict) or tuple(partitions) != MODEL_PARTITIONS:
+        raise ScoringEvaluationError(
+            f"Evaluation partitions must be ordered exactly as {MODEL_PARTITIONS}"
         )
-    )
+    expected_start = 0
+    for name in MODEL_PARTITIONS:
+        bounds = partitions[name]
+        if (
+            not isinstance(bounds, list)
+            or len(bounds) != 2
+            or not all(isinstance(value, int) for value in bounds)
+            or bounds[0] != expected_start
+            or bounds[1] <= bounds[0]
+        ):
+            raise ScoringEvaluationError(f"Invalid contiguous hash range for {name}: {bounds!r}")
+        expected_start = bounds[1]
+    if expected_start != 100:
+        raise ScoringEvaluationError("Evaluation partition hash ranges must cover 0 through 99")
+    if rules.get("hash_method") != "sha256_modulo_100" or not rules.get("partition_salt"):
+        raise ScoringEvaluationError("Evaluation split hash method and salt must be explicit")
+    return rules
+
+
+def _component_partition(members: list[str], rules: Mapping[str, Any]) -> str:
+    digest = hashlib.sha256()
+    digest.update(str(rules["partition_salt"]).encode("utf-8"))
+    for person in sorted(members):
+        encoded = person.encode("utf-8")
+        digest.update(len(encoded).to_bytes(4, "big"))
+        digest.update(encoded)
+    bucket = int(digest.hexdigest()[:12], 16) % 100
+    for name in MODEL_PARTITIONS:
+        start, end = rules["partitions"][name]
+        if start <= bucket < end:
+            return name
+    raise ScoringEvaluationError(f"No evaluation partition covers hash bucket {bucket}")
 
 
 def _logical_pair(
@@ -74,13 +132,17 @@ def _logical_pair(
     return (*left, *right) if left <= right else (*right, *left)
 
 
-def _logical_payload(pair: tuple[str, str, str, str]) -> str:
-    return "\x1f".join(pair)
-
-
-def _load_truth(path: Path) -> dict[tuple[str, int], tuple[str, str, str]]:
+def _load_truth(
+    path: Path,
+) -> tuple[
+    dict[tuple[str, int], tuple[str, str, str]],
+    dict[tuple[str, str], str],
+    set[str],
+]:
     counters: Counter[str] = Counter()
     truth: dict[tuple[str, int], tuple[str, str, str]] = {}
+    logical_people: dict[tuple[str, str], str] = {}
+    people: set[str] = set()
     try:
         with path.open("r", encoding="utf-8", newline="") as handle:
             reader = csv.DictReader(handle)
@@ -92,14 +154,19 @@ def _load_truth(path: Path) -> dict[tuple[str, int], tuple[str, str, str]]:
             for row in reader:
                 source = row["system"]
                 counters[source] += 1
-                truth[(source, counters[source])] = (
-                    row["record_id"],
-                    row["person_id"],
-                    row["entity_type"],
-                )
+                record_id, person_id = row["record_id"], row["person_id"]
+                truth[(source, counters[source])] = (record_id, person_id, row["entity_type"])
+                logical_key = (source, record_id)
+                previous = logical_people.get(logical_key)
+                if previous is not None and previous != person_id:
+                    raise ScoringEvaluationError(
+                        f"Logical source record {logical_key} maps to multiple hidden people"
+                    )
+                logical_people[logical_key] = person_id
+                people.add(person_id)
     except OSError as exc:
         raise ScoringEvaluationError(f"Unable to read truth map {path}: {exc}") from exc
-    return truth
+    return truth, logical_people, people
 
 
 def _load_hard_negatives(path: Path) -> tuple[dict[tuple[str, str, str, str], str], Counter[str]]:
@@ -124,7 +191,91 @@ def _load_hard_negatives(path: Path) -> tuple[dict[tuple[str, str, str, str], st
     return pairs, by_type
 
 
-def _open_test_set(path: Path) -> tuple[Any, Any, csv.DictWriter]:
+def _row_truth(
+    row: Mapping[str, str],
+    truth: Mapping[tuple[str, int], tuple[str, str, str]],
+    row_number: int,
+) -> tuple[tuple[str, str, str], tuple[str, str, str]]:
+    try:
+        left_key = (row["left_source"], int(row["left_record_ordinal"]))
+        right_key = (row["right_source"], int(row["right_record_ordinal"]))
+        left_truth, right_truth = truth[left_key], truth[right_key]
+    except (KeyError, TypeError, ValueError) as exc:
+        raise ScoringEvaluationError(f"Unable to label scored row {row_number}: {exc}") from exc
+    if (
+        left_truth[0] != row["left_source_record_id"]
+        or right_truth[0] != row["right_source_record_id"]
+    ):
+        raise ScoringEvaluationError(f"Truth record ID mismatch at scored row {row_number}")
+    return left_truth, right_truth
+
+
+def _logical_people_for_pair(
+    pair: tuple[str, str, str, str],
+    logical_people: Mapping[tuple[str, str], str],
+) -> tuple[str, str]:
+    try:
+        return logical_people[(pair[0], pair[1])], logical_people[(pair[2], pair[3])]
+    except KeyError as exc:
+        raise ScoringEvaluationError(f"Evaluation pair references unknown source record: {exc}") from exc
+
+
+def _build_person_partitions(
+    scored_path: Path,
+    truth: Mapping[tuple[str, int], tuple[str, str, str]],
+    logical_people: Mapping[tuple[str, str], str],
+    all_people: set[str],
+    hard_pairs: Mapping[tuple[str, str, str, str], str],
+    split_rules: Mapping[str, Any],
+) -> tuple[dict[str, str], dict[str, Any]]:
+    """Keep every evaluated relationship inside one person-disjoint partition."""
+
+    union_find = PersonUnionFind(all_people)
+    candidate_edges = 0
+    try:
+        with gzip.open(scored_path, "rt", encoding="utf-8", newline="") as handle:
+            reader = csv.DictReader(handle)
+            for row_number, row in enumerate(reader, start=1):
+                left_truth, right_truth = _row_truth(row, truth, row_number)
+                union_find.union(left_truth[1], right_truth[1])
+                candidate_edges += 1
+    except OSError as exc:
+        raise ScoringEvaluationError(f"Unable to read scored pairs {scored_path}: {exc}") from exc
+
+    for pair in hard_pairs:
+        left_person, right_person = _logical_people_for_pair(pair, logical_people)
+        union_find.union(left_person, right_person)
+
+    components: dict[str, list[str]] = defaultdict(list)
+    for person in sorted(all_people):
+        components[union_find.find(person)].append(person)
+
+    person_partitions: dict[str, str] = {}
+    component_counts: Counter[str] = Counter()
+    person_counts: Counter[str] = Counter()
+    largest_component = 0
+    for members in components.values():
+        partition = _component_partition(members, split_rules)
+        component_counts[partition] += 1
+        person_counts[partition] += len(members)
+        largest_component = max(largest_component, len(members))
+        for person in members:
+            person_partitions[person] = partition
+
+    return person_partitions, {
+        "hidden_people": len(all_people),
+        "relationship_components": len(components),
+        "largest_relationship_component_people": largest_component,
+        "scored_candidate_edges_used": candidate_edges,
+        "explicit_hard_negative_edges_used": len(hard_pairs),
+        "components_by_partition": {
+            name: component_counts[name] for name in MODEL_PARTITIONS
+        },
+        "people_by_partition": {name: person_counts[name] for name in MODEL_PARTITIONS},
+    }
+
+
+def _open_labelled_set(path: Path) -> tuple[Any, Any, csv.DictWriter]:
     binary = path.open("wb")
     compressed = gzip.GzipFile(filename="", mode="wb", fileobj=binary, mtime=0)
     text = io.TextIOWrapper(compressed, encoding="utf-8", newline="")
@@ -186,12 +337,21 @@ def _canonical_metrics(counter: Counter[str]) -> dict[str, Any]:
 def _hard_negative_metrics(
     hard_pairs: Mapping[tuple[str, str, str, str], str],
     logical_scores: Mapping[tuple[str, str, str, str], tuple[float, str]],
+    logical_people: Mapping[tuple[str, str], str],
+    person_partitions: Mapping[str, str],
     selected_partitions: set[str],
 ) -> dict[str, Any]:
     overall: Counter[str] = Counter()
     by_type: dict[str, Counter[str]] = defaultdict(Counter)
     for pair, label in hard_pairs.items():
-        if _partition(_logical_payload(pair)) not in selected_partitions:
+        left_person, right_person = _logical_people_for_pair(pair, logical_people)
+        left_partition, right_partition = (
+            person_partitions[left_person],
+            person_partitions[right_person],
+        )
+        if left_partition != right_partition:
+            raise ScoringEvaluationError("A hard-negative pair crosses person partitions")
+        if left_partition not in selected_partitions:
             continue
         outcome = logical_scores.get(pair, (0.0, "blocked"))[1]
         overall[outcome] += 1
@@ -225,7 +385,10 @@ def _percentage(value: float | None) -> str:
 def _report(result: Mapping[str, Any]) -> str:
     partitions = result["pair_metrics_by_partition"]
     rows = []
-    for name, metrics in partitions.items():
+    for name in MODEL_PARTITIONS:
+        if name not in partitions:
+            continue
+        metrics = partitions[name]
         rows.append(
             [
                 name,
@@ -239,6 +402,7 @@ def _report(result: Mapping[str, Any]) -> str:
         )
     canonical = result["canonical_link_metrics"]
     hard = result["hard_negative_metrics"]["overall"]
+    isolation = result["partition_isolation"]
     lines = [
         "# Phase 6 MCT evaluation",
         "",
@@ -263,11 +427,15 @@ def _report(result: Mapping[str, Any]) -> str:
         "",
         "## Labelled test-set design",
         "",
-        "Candidate pairs are assigned by a stable SHA-256 hash to 50% development, 30% frozen test and 20% audit partitions. This preserves the natural candidate prevalence without outcome-based resampling. Person identifiers are used only to create the match/non-match label and are not written to the labelled artifact.",
+        "Hidden people connected by any scored candidate or explicit hard-negative relationship are first grouped into complete isolation components. Each component is assigned by a stable salted SHA-256 hash to 50% development, 20% validation or 30% frozen-test buckets. This retains every scored candidate while preventing one person from occurring in multiple model partitions. Outcomes are not used for assignment, and person identifiers are not written to labelled artifacts.",
+        "",
+        "## Person-isolation proof",
+        "",
+        f"The split contains **{isolation['hidden_people']:,}** hidden entities in **{isolation['relationship_components']:,}** isolation components. The largest component contains **{isolation['largest_relationship_component_people']:,}** people. All **{isolation['scored_candidate_edges_used']:,}** scored candidate edges were retained, and measured person overlap across model partitions is **{isolation['person_overlap_across_model_partitions']}**.",
         "",
         "## Isolation",
         "",
-        "The MCT configuration and scored-pair file existed before labels were opened. This evaluator cannot alter production scores or decisions. Final mode releases the previously hidden test and audit metrics; development mode exposes only development metrics.",
+        "The MCT configuration and scored-pair file existed before labels were opened. This evaluator cannot alter production scores or decisions. Final mode releases the validation and frozen-test metrics; development mode exposes only development metrics.",
         "",
     ]
     return "\n".join(lines)
@@ -282,6 +450,7 @@ def evaluate_scoring(
     output_dir: Path,
     *,
     scope: str = "development",
+    split_rules_path: Path = DEFAULT_SPLIT_RULES,
 ) -> dict[str, Any]:
     if scope not in {"development", "final"}:
         raise ScoringEvaluationError("Evaluation scope must be 'development' or 'final'")
@@ -291,7 +460,15 @@ def evaluate_scoring(
     canonical_links_path = Path(canonical_links_path)
     hard_negatives_path = Path(hard_negatives_path)
     output_dir = Path(output_dir)
-    for path in (scored_path, scoring_manifest_path, truth_map_path, canonical_links_path, hard_negatives_path):
+    split_rules_path = Path(split_rules_path)
+    for path in (
+        scored_path,
+        scoring_manifest_path,
+        truth_map_path,
+        canonical_links_path,
+        hard_negatives_path,
+        split_rules_path,
+    ):
         if not path.exists():
             raise ScoringEvaluationError(f"Required scoring-evaluation input not found: {path}")
     try:
@@ -301,18 +478,33 @@ def evaluate_scoring(
     if scoring_manifest.get("phase_boundaries", {}).get("evaluation_labels_read") is not False:
         raise ScoringEvaluationError("Scoring manifest does not prove label isolation")
 
-    truth = _load_truth(truth_map_path)
+    split_rules = _load_split_rules(split_rules_path)
+    truth, logical_people, all_people = _load_truth(truth_map_path)
     hard_pairs, _hard_types = _load_hard_negatives(hard_negatives_path)
-    selected_partitions = {"development"} if scope == "development" else {"development", "test", "audit"}
+    person_partitions, partition_isolation = _build_person_partitions(
+        scored_path,
+        truth,
+        logical_people,
+        all_people,
+        hard_pairs,
+        split_rules,
+    )
+    selected_partitions = {"development"} if scope == "development" else set(MODEL_PARTITIONS)
     pair_counters: dict[str, Counter[str]] = defaultdict(Counter)
     false_auto_features: Counter[str] = Counter()
     false_auto_conflicts: Counter[str] = Counter()
     logical_scores: dict[tuple[str, str, str, str], tuple[float, str]] = {}
-    test_path = output_dir / "labelled_test_set.csv.gz"
     output_dir.mkdir(parents=True, exist_ok=True)
-    binary = text_handle = writer = None
-    if scope == "final":
-        binary, text_handle, writer = _open_test_set(test_path)
+    artifact_partitions = ("development",) if scope == "development" else MODEL_PARTITIONS
+    artifact_paths = {
+        partition: output_dir / f"labelled_{partition}_set.csv.gz"
+        for partition in artifact_partitions
+    }
+    artifact_handles: dict[str, tuple[Any, Any, csv.DictWriter]] = {
+        partition: _open_labelled_set(path) for partition, path in artifact_paths.items()
+    }
+    people_seen: dict[str, set[str]] = {name: set() for name in MODEL_PARTITIONS}
+    candidate_partition_counts: Counter[str] = Counter()
     try:
         with gzip.open(scored_path, "rt", encoding="utf-8", newline="") as handle:
             reader = csv.DictReader(handle)
@@ -322,19 +514,20 @@ def evaluate_scoring(
                     f"Scored input is missing columns: {sorted(required - set(reader.fieldnames or []))}"
                 )
             for row_number, row in enumerate(reader, start=1):
-                try:
-                    left_key = (row["left_source"], int(row["left_record_ordinal"]))
-                    right_key = (row["right_source"], int(row["right_record_ordinal"]))
-                    left_truth, right_truth = truth[left_key], truth[right_key]
-                except (KeyError, TypeError, ValueError) as exc:
-                    raise ScoringEvaluationError(f"Unable to label scored row {row_number}: {exc}") from exc
-                if left_truth[0] != row["left_source_record_id"] or right_truth[0] != row["right_source_record_id"]:
-                    raise ScoringEvaluationError(f"Truth record ID mismatch at scored row {row_number}")
+                left_truth, right_truth = _row_truth(row, truth, row_number)
                 label = "match" if left_truth[1] == right_truth[1] else "non_match"
                 decision = row["decision"]
                 if decision not in DECISIONS:
                     raise ScoringEvaluationError(f"Unknown MCT decision {decision!r} at row {row_number}")
-                partition = _partition(_physical_payload(row))
+                left_partition = person_partitions[left_truth[1]]
+                right_partition = person_partitions[right_truth[1]]
+                if left_partition != right_partition:
+                    raise ScoringEvaluationError(
+                        f"Scored candidate row {row_number} crosses person partitions"
+                    )
+                partition = left_partition
+                candidate_partition_counts[partition] += 1
+                people_seen[partition].update((left_truth[1], right_truth[1]))
                 logical = _logical_pair(
                     row["left_source"], row["left_source_record_id"],
                     row["right_source"], row["right_source_record_id"],
@@ -349,8 +542,8 @@ def evaluate_scoring(
                     if decision == "auto_merge" and label == "non_match":
                         false_auto_features.update(filter(None, row["positive_evidence"].split(";")))
                         false_auto_conflicts.update(filter(None, row["conflicts"].split(";")))
-                if writer is not None and partition == "test":
-                    writer.writerow(
+                if partition in artifact_handles:
+                    artifact_handles[partition][2].writerow(
                         {
                             **{column: row[column] for column in TEST_COLUMNS if column in row},
                             "truth_label": label,
@@ -359,10 +552,33 @@ def evaluate_scoring(
                         }
                     )
     finally:
-        if text_handle is not None:
+        for binary, text_handle, _writer in artifact_handles.values():
             text_handle.close()
-        if binary is not None:
             binary.close()
+
+    overlap = set()
+    for left_index, left_name in enumerate(MODEL_PARTITIONS):
+        for right_name in MODEL_PARTITIONS[left_index + 1 :]:
+            overlap.update(people_seen[left_name] & people_seen[right_name])
+    if overlap:
+        raise ScoringEvaluationError(
+            f"Person-disjoint split failed: {len(overlap)} people cross model partitions"
+        )
+    if sum(candidate_partition_counts.values()) != partition_isolation["scored_candidate_edges_used"]:
+        raise ScoringEvaluationError("Person split did not retain every scored candidate pair")
+    partition_isolation.update(
+        {
+            "candidate_pairs_by_partition": {
+                name: candidate_partition_counts[name] for name in MODEL_PARTITIONS
+            },
+            "candidate_endpoint_people_by_partition": {
+                name: len(people_seen[name]) for name in MODEL_PARTITIONS
+            },
+            "person_overlap_across_model_partitions": 0,
+            "scored_candidate_pairs_crossing_partitions": 0,
+            "all_scored_candidate_pairs_retained": True,
+        }
+    )
 
     canonical_counters: Counter[str] = Counter()
     try:
@@ -378,7 +594,12 @@ def evaluate_scoring(
                     )
                 except (json.JSONDecodeError, KeyError, TypeError) as exc:
                     raise ScoringEvaluationError(f"Invalid canonical link at line {line_number}: {exc}") from exc
-                partition = _partition(_logical_payload(logical))
+                left_person, right_person = _logical_people_for_pair(logical, logical_people)
+                if left_person != right_person:
+                    raise ScoringEvaluationError(
+                        f"Canonical link at line {line_number} joins different hidden people"
+                    )
+                partition = person_partitions[left_person]
                 if partition not in selected_partitions:
                     continue
                 outcome = logical_scores.get(logical, (0.0, "blocked"))[1]
@@ -390,43 +611,61 @@ def evaluate_scoring(
     except OSError as exc:
         raise ScoringEvaluationError(f"Unable to read canonical links {canonical_links_path}: {exc}") from exc
 
-    pair_metrics = {partition: _pair_metrics(pair_counters[partition]) for partition in sorted(selected_partitions)}
+    pair_metrics = {
+        partition: _pair_metrics(pair_counters[partition])
+        for partition in MODEL_PARTITIONS
+        if partition in selected_partitions
+    }
+    labelled_pair_sets: dict[str, Any] = {}
+    for partition, path in artifact_paths.items():
+        labelled_pair_sets[partition] = {
+            "path": path.name,
+            "compression": "gzip",
+            "rows": pair_metrics[partition]["candidate_pairs"],
+            "size_bytes": path.stat().st_size,
+            "sha256": _sha256(path),
+            "person_identifiers_included": False,
+        }
     result: dict[str, Any] = {
         "phase": "mct_scoring_evaluation",
         "scope": scope,
         "partition_policy": {
-            "method": "SHA-256 of stable pair identity modulo 100",
+            "method": "SHA-256 of complete hidden-person relationship component modulo 100",
             "development": "0-49 (50%)",
-            "test": "50-79 (30%)",
-            "audit": "80-99 (20%)",
+            "validation": "50-69 (20%)",
+            "test": "70-99 (30%)",
+            "component_edges": "all scored candidates plus all explicit hard negatives",
             "outcome_stratification_used": False,
+            "person_disjoint": True,
+            "configuration_sha256": _sha256(split_rules_path),
         },
         "scoring_configuration_sha256": scoring_manifest["inputs"]["configuration"]["sha256"],
         "scored_pairs_sha256": _sha256(scored_path),
         "pair_metrics_by_partition": pair_metrics,
+        "partition_isolation": partition_isolation,
         "canonical_link_metrics": _canonical_metrics(canonical_counters),
-        "hard_negative_metrics": _hard_negative_metrics(hard_pairs, logical_scores, selected_partitions),
+        "hard_negative_metrics": _hard_negative_metrics(
+            hard_pairs,
+            logical_scores,
+            logical_people,
+            person_partitions,
+            selected_partitions,
+        ),
         "false_auto_merge_diagnostics": {
             "positive_features": dict(false_auto_features.most_common()),
             "conflicts": dict(false_auto_conflicts.most_common()),
         },
-        "labelled_test_set": None,
+        "labelled_pair_sets": labelled_pair_sets,
+        "labelled_test_set": labelled_pair_sets.get("test"),
         "isolation": {
             "scores_created_before_labels_opened": True,
             "labels_used_as_scoring_features": False,
+            "hidden_people_used_only_for_evaluation_partitioning_and_labels": True,
+            "person_disjoint_model_partitions": True,
             "overall_accuracy_reported": False,
             "clusters_formed": False,
         },
     }
-    if scope == "final":
-        result["labelled_test_set"] = {
-            "path": test_path.name,
-            "compression": "gzip",
-            "rows": pair_metrics["test"]["candidate_pairs"],
-            "size_bytes": test_path.stat().st_size,
-            "sha256": _sha256(test_path),
-            "person_identifiers_included": False,
-        }
     prefix = "mct_development_evaluation" if scope == "development" else "mct_evaluation"
     (output_dir / f"{prefix}.json").write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     (output_dir / f"{prefix}.md").write_text(_report(result), encoding="utf-8")
@@ -442,6 +681,7 @@ def main() -> int:
     parser.add_argument("--hard-negatives", type=Path, default=Path("data/generated/hard_negatives.json"))
     parser.add_argument("--output-dir", type=Path, default=Path("outputs/scoring"))
     parser.add_argument("--scope", choices=("development", "final"), default="development")
+    parser.add_argument("--split-rules", type=Path, default=DEFAULT_SPLIT_RULES)
     args = parser.parse_args()
     try:
         result = evaluate_scoring(
@@ -452,6 +692,7 @@ def main() -> int:
             args.hard_negatives,
             args.output_dir,
             scope=args.scope,
+            split_rules_path=args.split_rules,
         )
     except ScoringEvaluationError as exc:
         print(f"[scoring-evaluation] ERROR: {exc}")
@@ -464,6 +705,12 @@ def main() -> int:
             f"{'n/a' if precision is None else f'{precision:.4%}'}; auto-merges: {development['auto_merge_pairs']:,}"
         )
     if args.scope == "final":
+        validation = result["pair_metrics_by_partition"]["validation"]
+        precision = validation["auto_merge_precision"]
+        print(
+            f"[scoring-evaluation] Validation merge precision: "
+            f"{'n/a' if precision is None else f'{precision:.4%}'}; auto-merges: {validation['auto_merge_pairs']:,}"
+        )
         test = result["pair_metrics_by_partition"]["test"]
         precision = test["auto_merge_precision"]
         print(

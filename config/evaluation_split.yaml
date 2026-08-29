@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "description": "Person-disjoint labelled evaluation split over hidden-person relationship components.",
+  "partition_salt": "kestrel-person-component-split-v1",
+  "hash_method": "sha256_modulo_100",
+  "partitions": {
+    "development": [0, 50],
+    "validation": [50, 70],
+    "test": [70, 100]
+  },
+  "principles": [
+    "The split is created only inside the post-scoring evaluator.",
+    "Every scored candidate edge and explicit hard-negative edge joins its endpoint people into one isolation component.",
+    "Each complete isolation component is assigned to exactly one partition.",
+    "Every scored candidate pair is retained in exactly one partition.",
+    "No hidden person may occur in more than one partition.",
+    "No person identifier is written to a labelled pair artifact.",
+    "Pair outcomes are not used to stratify or assign partitions."
+  ]
+}
