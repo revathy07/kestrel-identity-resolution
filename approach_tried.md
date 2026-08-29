@@ -98,5 +98,25 @@ defensible outcome required by the problem's privacy asymmetry.
 
 **What replaced it.** A general household-risk cap limits ordinary email plus payment alone
 to 0.87, sending it to human review unless a third independent family or stronger verified
-evidence exists. After regeneration, development, frozen test and audit merge precision are
-all 100.0000% on this fixture, and **0/20,000 explicit hard negatives auto-merge**.
+evidence exists. After regeneration, every evaluated partition had 100.0000% merge precision
+on this fixture, and **0/20,000 explicit hard negatives auto-merge**. The later partition
+audit changed how labelled pairs are divided, not the underlying score or this safety result.
+
+## 7. Hashing individual candidate pairs into labelled partitions
+
+**What I tried.** The first labelled evaluator used a stable hash of each physical candidate
+pair to create 50% development, 30% frozen-test and 20% audit subsets. It retained natural
+pair prevalence and kept labels out of production scoring.
+
+**Why I dropped it.** A person-overlap audit found that **35,279 of 104,994 candidate
+endpoint people (33.6010%)** appeared in multiple partitions. Among people with positive
+candidate pairs, 22,205 crossed partition boundaries. This is unacceptable for an ML
+challenger because records belonging to one hidden person could influence both model
+development and reported holdout performance.
+
+**What replaced it.** The corrected evaluator groups hidden people into complete
+relationship components using every scored candidate and explicit hard-negative edge. Each
+component is assigned once to development, validation or frozen test. The new design retains
+all **204,547 candidate pairs**, assigns all **308,400 hidden entities** exactly once and has
+**zero measured person overlap**. Hidden person IDs remain confined to the evaluator and are
+not written to labelled artifacts.

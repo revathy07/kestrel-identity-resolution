@@ -148,10 +148,12 @@ edges, 22,263 review pairs and 101,243 separate decisions. It combines only the 
 feature in each evidence family, applies explicit conflict penalties and gives all 2,057
 post-normalization Rule 2 values zero weight.
 
-The frozen 30% test partition contains 61,206 candidates. Its 24,369 auto-merges have
-100.0000% observed precision; auto-merge recall within candidates is 61.2995%, increasing
-to 74.7950% when true matches sent to review are included. None of the 20,000 explicit hard
-negatives auto-merge. See [the Phase 6 report](docs/phase_6_mct_scoring_report.md) and
+The corrected person-disjoint frozen 30% test partition contains 59,727 candidates. Its
+23,824 auto-merges have 100.0000% observed precision; auto-merge recall within candidates
+is 60.7585%, increasing to 74.1603% when true matches sent to review are included. All
+204,547 candidates are retained across development, validation and test, with zero people
+appearing in more than one partition. None of the 20,000 explicit hard negatives
+auto-merge. See [the Phase 6 report](docs/phase_6_mct_scoring_report.md) and
 [the frozen evaluation](outputs/scoring/mct_evaluation.md).
 
 ## Phase 7: Rule 1 capped clustering

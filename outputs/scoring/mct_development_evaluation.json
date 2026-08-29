@@ -2,88 +2,121 @@
   "phase": "mct_scoring_evaluation",
   "scope": "development",
   "partition_policy": {
-    "method": "SHA-256 of stable pair identity modulo 100",
+    "method": "SHA-256 of complete hidden-person relationship component modulo 100",
     "development": "0-49 (50%)",
-    "test": "50-79 (30%)",
-    "audit": "80-99 (20%)",
-    "outcome_stratification_used": false
+    "validation": "50-69 (20%)",
+    "test": "70-99 (30%)",
+    "component_edges": "all scored candidates plus all explicit hard negatives",
+    "outcome_stratification_used": false,
+    "person_disjoint": true,
+    "configuration_sha256": "8252a820f9010c4ce70e90511b142c75f5e77fdbcc7c052f39f8337928e1945a"
   },
   "scoring_configuration_sha256": "5ce726c3880d0b965ce2053e6877989a5bd728d454f80ddc7b6b5f4963e76083",
   "scored_pairs_sha256": "9bd370fd099a01660fe82330ec93b461c31972f234b22b052febf2d314955824",
   "pair_metrics_by_partition": {
     "development": {
-      "candidate_pairs": 102514,
-      "true_match_pairs": 66708,
-      "true_non_match_pairs": 35806,
-      "auto_merge_pairs": 40581,
-      "auto_merge_true_positives": 40581,
+      "candidate_pairs": 103763,
+      "true_match_pairs": 67163,
+      "true_non_match_pairs": 36600,
+      "auto_merge_pairs": 41109,
+      "auto_merge_true_positives": 41109,
       "auto_merge_false_positives": 0,
       "auto_merge_precision": 1.0,
-      "auto_merge_recall_within_candidates": 0.6083378305450621,
+      "auto_merge_recall_within_candidates": 0.6120780787040484,
       "false_merge_rate": 0.0,
-      "human_review_pairs": 11134,
-      "human_review_true_matches": 9070,
-      "human_review_yield": 0.8146218789294054,
-      "leave_separate_pairs": 50799,
-      "assisted_recall_within_candidates": 0.7443035318102776
+      "human_review_pairs": 11274,
+      "human_review_true_matches": 9227,
+      "human_review_yield": 0.8184317899591982,
+      "leave_separate_pairs": 51380,
+      "assisted_recall_within_candidates": 0.749460268302488
     }
   },
+  "partition_isolation": {
+    "hidden_people": 308400,
+    "relationship_components": 281183,
+    "largest_relationship_component_people": 35,
+    "scored_candidate_edges_used": 204547,
+    "explicit_hard_negative_edges_used": 20000,
+    "components_by_partition": {
+      "development": 140511,
+      "validation": 56341,
+      "test": 84331
+    },
+    "people_by_partition": {
+      "development": 154086,
+      "validation": 61878,
+      "test": 92436
+    },
+    "candidate_pairs_by_partition": {
+      "development": 103763,
+      "validation": 41057,
+      "test": 59727
+    },
+    "candidate_endpoint_people_by_partition": {
+      "development": 52689,
+      "validation": 21130,
+      "test": 31175
+    },
+    "person_overlap_across_model_partitions": 0,
+    "scored_candidate_pairs_crossing_partitions": 0,
+    "all_scored_candidate_pairs_retained": true
+  },
   "canonical_link_metrics": {
-    "canonical_links": 49399,
-    "auto_merge": 25528,
-    "human_review": 6652,
-    "leave_separate": 12203,
-    "blocked_before_scoring": 5016,
-    "end_to_end_auto_merge_recall": 0.5167715945666916,
-    "end_to_end_assisted_recall": 0.6514301908945526,
-    "recoverable_links": 44031,
-    "recoverable_auto_merge": 25528,
-    "recoverable_human_review": 6621,
-    "recoverable_leave_separate": 11882,
+    "canonical_links": 49731,
+    "auto_merge": 25784,
+    "human_review": 6815,
+    "leave_separate": 12111,
+    "blocked_before_scoring": 5021,
+    "end_to_end_auto_merge_recall": 0.5184693651846937,
+    "end_to_end_assisted_recall": 0.6555066256459754,
+    "recoverable_links": 44325,
+    "recoverable_auto_merge": 25784,
+    "recoverable_human_review": 6785,
+    "recoverable_leave_separate": 11756,
     "recoverable_blocked": 0,
-    "recoverable_auto_merge_recall": 0.5797733415093911,
-    "recoverable_assisted_recall": 0.7301446708001181
+    "recoverable_auto_merge_recall": 0.5817033276931755,
+    "recoverable_assisted_recall": 0.7347772137619853
   },
   "hard_negative_metrics": {
     "overall": {
-      "pairs": 10065,
+      "pairs": 9938,
       "auto_merge": 0,
-      "human_review": 2024,
-      "leave_separate": 7108,
-      "blocked": 933,
+      "human_review": 1998,
+      "leave_separate": 7019,
+      "blocked": 921,
       "false_auto_merge_rate": 0.0
     },
     "by_type": {
       "common_name_city": {
-        "pairs": 2061,
+        "pairs": 1939,
         "auto_merge": 0,
-        "human_review": 2,
-        "leave_separate": 2042,
-        "blocked": 17,
+        "human_review": 3,
+        "leave_separate": 1922,
+        "blocked": 14,
         "false_auto_merge_rate": 0.0
       },
       "couple_shared_email_payment_token": {
-        "pairs": 1987,
+        "pairs": 1959,
         "auto_merge": 0,
-        "human_review": 1987,
+        "human_review": 1959,
         "leave_separate": 0,
         "blocked": 0,
         "false_auto_merge_rate": 0.0
       },
       "father_son": {
-        "pairs": 2053,
+        "pairs": 2037,
         "auto_merge": 0,
-        "human_review": 35,
-        "leave_separate": 1994,
-        "blocked": 24,
+        "human_review": 36,
+        "leave_separate": 1978,
+        "blocked": 23,
         "false_auto_merge_rate": 0.0
       },
       "university_computer_lab": {
-        "pairs": 3964,
+        "pairs": 4003,
         "auto_merge": 0,
         "human_review": 0,
-        "leave_separate": 3072,
-        "blocked": 892,
+        "leave_separate": 3119,
+        "blocked": 884,
         "false_auto_merge_rate": 0.0
       }
     }
@@ -92,10 +125,22 @@
     "positive_features": {},
     "conflicts": {}
   },
+  "labelled_pair_sets": {
+    "development": {
+      "path": "labelled_development_set.csv.gz",
+      "compression": "gzip",
+      "rows": 103763,
+      "size_bytes": 1630239,
+      "sha256": "400ebc2c04c2214599939b496dc8f85d710fef4d7e43908f9ad2312e6674d7c5",
+      "person_identifiers_included": false
+    }
+  },
   "labelled_test_set": null,
   "isolation": {
     "scores_created_before_labels_opened": true,
     "labels_used_as_scoring_features": false,
+    "hidden_people_used_only_for_evaluation_partitioning_and_labels": true,
+    "person_disjoint_model_partitions": true,
     "overall_accuracy_reported": false,
     "clusters_formed": false
   }

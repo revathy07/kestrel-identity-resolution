@@ -12,7 +12,7 @@ Evaluate development labels without releasing the frozen holdout:
 python -m src.evaluation.evaluate_scoring --output-dir outputs/scoring --scope development
 ```
 
-After freezing the configuration, release the test and audit partitions:
+After freezing the configuration, release validation and the frozen-test partition:
 
 ```bash
 python -m src.evaluation.evaluate_scoring --output-dir outputs/scoring --scope final
@@ -21,15 +21,20 @@ python -m src.evaluation.evaluate_scoring --output-dir outputs/scoring --scope f
 | Artifact | Purpose | Git policy |
 |---|---|---|
 | `scored_candidate_pairs.csv.gz` | Row-level MCT scores, evidence, conflicts and decisions | Generated locally |
-| `labelled_test_set.csv.gz` | Frozen 30% candidate holdout with labels but no person IDs | Generated locally |
+| `labelled_development_set.csv.gz` | Person-disjoint 50% development labels without person IDs | Generated locally |
+| `labelled_validation_set.csv.gz` | Person-disjoint 20% validation labels without person IDs | Generated locally |
+| `labelled_test_set.csv.gz` | Person-disjoint frozen 30% test labels without person IDs | Generated locally |
 | `mct_manifest.json` | Input hashes, thresholds, counts and phase boundaries | Committed |
 | `mct_decision_summary.csv` | Counts in the three required MCT bands | Committed |
 | `mct_feature_summary.csv` | Aggregate selected evidence features | Committed |
 | `mct_conflict_summary.csv` | Aggregate conflict and safety flags | Committed |
 | `mct_scoring_report.md` | Production scoring method and result | Committed |
 | `mct_development_evaluation.*` | Development-only calibration result | Committed |
-| `mct_evaluation.*` | Frozen test, audit and full synthetic-label result | Committed |
+| `mct_evaluation.*` | Person-isolation proof plus validation, frozen-test and full safety results | Committed |
 
 The scorer never reads labels. The evaluator runs after scoring and cannot alter an MCT
-score. Phase 6 assigns pair decision bands but does not perform transitive merging or apply
-the 12-record cluster cap.
+score. Hidden people connected by any candidate or explicit hard negative are assigned as
+complete relationship components to development, validation or frozen test. This retains
+every candidate while guaranteeing zero person overlap. Person IDs are never written to a
+labelled pair file. Phase 6 assigns pair decision bands but does not perform transitive
+merging or apply the 12-record cluster cap.

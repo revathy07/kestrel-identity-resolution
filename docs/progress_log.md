@@ -156,11 +156,12 @@ labelled evaluation, and the required written deliverables.
 - Added a review-only floor for usable email/phone evidence with ordinary contradictions;
   account or verified-email conflicts disqualify the floor. Development auto-merge precision
   remained 100% while auto-plus-review candidate recall increased to 74.4304%.
-- Froze the configuration before releasing the 30% test and 20% audit partitions.
+- Froze the configuration before releasing the original pair-hash test and audit partitions.
 - Full production result: **204,547 scored pairs**, **81,041 auto-merge edges**, **22,263
   review pairs**, and **101,243 separate decisions**.
-- Frozen-test result: **24,369 auto-merges at 100.0000% observed precision**, 61.2995%
-  auto-merge recall within candidates and 74.7950% auto-plus-review recall.
+- Historical pre-correction frozen-test result: **24,369 auto-merges at 100.0000% observed
+  precision**, 61.2995% auto-merge recall and 74.7950% auto-plus-review recall. Section 12
+  records why that partition design was rejected and provides the corrected result.
 - No pair in the complete 20,000 explicit hard-negative manifest auto-merges.
 - Phase 6 remains truth-isolated in production and forms no connected components. Rule 1's
   12-record cap is intentionally deferred to Phase 7.
@@ -184,3 +185,22 @@ labelled evaluation, and the required written deliverables.
 - Production assignments are truth-isolated and byte-deterministic; the row-level file is
   local while compact reports and hashes are publishable.
 - All **70 automated tests** pass.
+
+## 12. Person-disjoint labelled evaluation correction
+
+- Audited the original stable pair-hash split before using it for an ML challenger.
+- Found that **35,279/104,994 candidate endpoint people (33.6010%)** appeared in more than
+  one development/test/audit partition; 22,205 affected people had positive candidate pairs.
+- Preserved the pre-fix measurement in a dedicated leakage-audit report and rejected the
+  pair-hash design for model comparison.
+- Built an evaluation-only relationship graph using all 204,547 scored candidate edges and
+  all 20,000 explicit hard-negative edges. Complete hidden-person components are assigned to
+  50% development, 20% validation and 30% frozen-test hash buckets.
+- The corrected split assigns all **308,400 hidden entities** across **281,183 components**;
+  the largest isolation component contains 35 people.
+- All **204,547 candidates are retained**, zero candidates cross partitions, and measured
+  person overlap is **zero**.
+- Corrected frozen-test result: **59,727 candidates**, **23,824 auto-merges at 100.0000%
+  precision**, 60.7585% auto recall and 74.1603% auto-plus-review recall.
+- Production scored-pair hash `9bd370fd...` is unchanged; MCT decisions and Phase 7 clusters
+  were not regenerated.

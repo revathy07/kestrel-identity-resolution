@@ -2,63 +2,96 @@
   "phase": "mct_scoring_evaluation",
   "scope": "final",
   "partition_policy": {
-    "method": "SHA-256 of stable pair identity modulo 100",
+    "method": "SHA-256 of complete hidden-person relationship component modulo 100",
     "development": "0-49 (50%)",
-    "test": "50-79 (30%)",
-    "audit": "80-99 (20%)",
-    "outcome_stratification_used": false
+    "validation": "50-69 (20%)",
+    "test": "70-99 (30%)",
+    "component_edges": "all scored candidates plus all explicit hard negatives",
+    "outcome_stratification_used": false,
+    "person_disjoint": true,
+    "configuration_sha256": "8252a820f9010c4ce70e90511b142c75f5e77fdbcc7c052f39f8337928e1945a"
   },
   "scoring_configuration_sha256": "5ce726c3880d0b965ce2053e6877989a5bd728d454f80ddc7b6b5f4963e76083",
   "scored_pairs_sha256": "9bd370fd099a01660fe82330ec93b461c31972f234b22b052febf2d314955824",
   "pair_metrics_by_partition": {
-    "audit": {
-      "candidate_pairs": 40827,
-      "true_match_pairs": 26548,
-      "true_non_match_pairs": 14279,
-      "auto_merge_pairs": 16091,
-      "auto_merge_true_positives": 16091,
-      "auto_merge_false_positives": 0,
-      "auto_merge_precision": 1.0,
-      "auto_merge_recall_within_candidates": 0.6061096881120989,
-      "false_merge_rate": 0.0,
-      "human_review_pairs": 4500,
-      "human_review_true_matches": 3657,
-      "human_review_yield": 0.8126666666666666,
-      "leave_separate_pairs": 20236,
-      "assisted_recall_within_candidates": 0.7438601777911708
-    },
     "development": {
-      "candidate_pairs": 102514,
-      "true_match_pairs": 66708,
-      "true_non_match_pairs": 35806,
-      "auto_merge_pairs": 40581,
-      "auto_merge_true_positives": 40581,
+      "candidate_pairs": 103763,
+      "true_match_pairs": 67163,
+      "true_non_match_pairs": 36600,
+      "auto_merge_pairs": 41109,
+      "auto_merge_true_positives": 41109,
       "auto_merge_false_positives": 0,
       "auto_merge_precision": 1.0,
-      "auto_merge_recall_within_candidates": 0.6083378305450621,
+      "auto_merge_recall_within_candidates": 0.6120780787040484,
       "false_merge_rate": 0.0,
-      "human_review_pairs": 11134,
-      "human_review_true_matches": 9070,
-      "human_review_yield": 0.8146218789294054,
-      "leave_separate_pairs": 50799,
-      "assisted_recall_within_candidates": 0.7443035318102776
+      "human_review_pairs": 11274,
+      "human_review_true_matches": 9227,
+      "human_review_yield": 0.8184317899591982,
+      "leave_separate_pairs": 51380,
+      "assisted_recall_within_candidates": 0.749460268302488
+    },
+    "validation": {
+      "candidate_pairs": 41057,
+      "true_match_pairs": 26636,
+      "true_non_match_pairs": 14421,
+      "auto_merge_pairs": 16108,
+      "auto_merge_true_positives": 16108,
+      "auto_merge_false_positives": 0,
+      "auto_merge_precision": 1.0,
+      "auto_merge_recall_within_candidates": 0.6047454572758673,
+      "false_merge_rate": 0.0,
+      "human_review_pairs": 4499,
+      "human_review_true_matches": 3610,
+      "human_review_yield": 0.8024005334518782,
+      "leave_separate_pairs": 20450,
+      "assisted_recall_within_candidates": 0.7402763177654302
     },
     "test": {
-      "candidate_pairs": 61206,
-      "true_match_pairs": 39754,
-      "true_non_match_pairs": 21452,
-      "auto_merge_pairs": 24369,
-      "auto_merge_true_positives": 24369,
+      "candidate_pairs": 59727,
+      "true_match_pairs": 39211,
+      "true_non_match_pairs": 20516,
+      "auto_merge_pairs": 23824,
+      "auto_merge_true_positives": 23824,
       "auto_merge_false_positives": 0,
       "auto_merge_precision": 1.0,
-      "auto_merge_recall_within_candidates": 0.6129949187503144,
+      "auto_merge_recall_within_candidates": 0.6075846063604601,
       "false_merge_rate": 0.0,
-      "human_review_pairs": 6629,
-      "human_review_true_matches": 5365,
-      "human_review_yield": 0.8093226731030322,
-      "leave_separate_pairs": 30208,
-      "assisted_recall_within_candidates": 0.7479498918347839
+      "human_review_pairs": 6490,
+      "human_review_true_matches": 5255,
+      "human_review_yield": 0.8097072419106317,
+      "leave_separate_pairs": 29413,
+      "assisted_recall_within_candidates": 0.741603121573028
     }
+  },
+  "partition_isolation": {
+    "hidden_people": 308400,
+    "relationship_components": 281183,
+    "largest_relationship_component_people": 35,
+    "scored_candidate_edges_used": 204547,
+    "explicit_hard_negative_edges_used": 20000,
+    "components_by_partition": {
+      "development": 140511,
+      "validation": 56341,
+      "test": 84331
+    },
+    "people_by_partition": {
+      "development": 154086,
+      "validation": 61878,
+      "test": 92436
+    },
+    "candidate_pairs_by_partition": {
+      "development": 103763,
+      "validation": 41057,
+      "test": 59727
+    },
+    "candidate_endpoint_people_by_partition": {
+      "development": 52689,
+      "validation": 21130,
+      "test": 31175
+    },
+    "person_overlap_across_model_partitions": 0,
+    "scored_candidate_pairs_crossing_partitions": 0,
+    "all_scored_candidate_pairs_retained": true
   },
   "canonical_link_metrics": {
     "canonical_links": 99000,
@@ -124,17 +157,45 @@
     "positive_features": {},
     "conflicts": {}
   },
+  "labelled_pair_sets": {
+    "development": {
+      "path": "labelled_development_set.csv.gz",
+      "compression": "gzip",
+      "rows": 103763,
+      "size_bytes": 1630239,
+      "sha256": "400ebc2c04c2214599939b496dc8f85d710fef4d7e43908f9ad2312e6674d7c5",
+      "person_identifiers_included": false
+    },
+    "validation": {
+      "path": "labelled_validation_set.csv.gz",
+      "compression": "gzip",
+      "rows": 41057,
+      "size_bytes": 652210,
+      "sha256": "f71629d4ccd6c7f9762d5c270c4931f5e7937432061bfba1ab05e0926f8e9ded",
+      "person_identifiers_included": false
+    },
+    "test": {
+      "path": "labelled_test_set.csv.gz",
+      "compression": "gzip",
+      "rows": 59727,
+      "size_bytes": 950259,
+      "sha256": "af9466037b37f70640d656abb6171b1368b807f50ed57b3744d8711a8f342184",
+      "person_identifiers_included": false
+    }
+  },
   "labelled_test_set": {
     "path": "labelled_test_set.csv.gz",
     "compression": "gzip",
-    "rows": 61206,
-    "size_bytes": 1046603,
-    "sha256": "01414558e45d84e42d1bf7018c8b7de16272fa5253f78ee915f80eb87c8691ee",
+    "rows": 59727,
+    "size_bytes": 950259,
+    "sha256": "af9466037b37f70640d656abb6171b1368b807f50ed57b3744d8711a8f342184",
     "person_identifiers_included": false
   },
   "isolation": {
     "scores_created_before_labels_opened": true,
     "labels_used_as_scoring_features": false,
+    "hidden_people_used_only_for_evaluation_partitioning_and_labels": true,
+    "person_disjoint_model_partitions": true,
     "overall_accuracy_reported": false,
     "clusters_formed": false
   }
