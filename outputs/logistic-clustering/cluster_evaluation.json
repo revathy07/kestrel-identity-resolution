@@ -1,0 +1,80 @@
+{
+  "phase": "capped_cluster_evaluation",
+  "assignment_rows": 420000,
+  "pairwise_cluster_metrics": {
+    "predicted_merged_pairs": 99372,
+    "true_positive_merged_pairs": 99372,
+    "false_positive_merged_pairs": 0,
+    "precision": 1.0,
+    "all_hidden_true_pairs": 143115,
+    "recall_all_entities": 0.6943506969919295,
+    "human_hidden_true_pairs": 126315,
+    "human_true_positive_merged_pairs": 82572,
+    "recall_humans": 0.6536990856192851
+  },
+  "accepted_cluster_purity": {
+    "accepted_components": 342900,
+    "accepted_merged_components": 57403,
+    "mixed_person_components": 0,
+    "maximum_hidden_entities_in_component": 1
+  },
+  "canonical_link_metrics": {
+    "total_links": 99000,
+    "accepted_cluster_links": 64499,
+    "quarantined_together_links": 0,
+    "not_merged_links": 34501,
+    "recoverable_accepted_cluster_links": 64499,
+    "recoverable_quarantined_together_links": 0,
+    "recoverable_not_merged_links": 23656
+  },
+  "hard_negative_metrics": {
+    "explicit_hard_negative_pairs": 20000,
+    "co_clustered_after_transitivity": 0,
+    "co_quarantined_in_one_oversized_component": 0,
+    "kept_apart": 20000,
+    "by_type": {
+      "common_name_city": {
+        "co_clustered": 0,
+        "co_quarantined": 0,
+        "kept_apart": 4000
+      },
+      "couple_shared_email_payment_token": {
+        "co_clustered": 0,
+        "co_quarantined": 0,
+        "kept_apart": 4000
+      },
+      "father_son": {
+        "co_clustered": 0,
+        "co_quarantined": 0,
+        "kept_apart": 4000
+      },
+      "university_computer_lab": {
+        "co_clustered": 0,
+        "co_quarantined": 0,
+        "kept_apart": 8000
+      }
+    }
+  },
+  "quarantine_evaluation": {
+    "component_count": 0,
+    "record_count": 0,
+    "distinct_hidden_entities": 0,
+    "largest_component": null,
+    "components": []
+  },
+  "entity_count_context": {
+    "production_final_resolved_identity_count_including_automated_entities": 342900,
+    "hidden_distinct_entities_including_automated_entities": 308400,
+    "hidden_distinct_humans": 300000,
+    "automated_entities_not_removed_by_production_clustering": true
+  },
+  "inputs": {
+    "assignment_sha256": "293fea8753a50ada4a56c66ac019b78851a3781c6cb885063014870348233031",
+    "production_assignment_sha256_matches": true
+  },
+  "isolation": {
+    "labels_used_after_clustering_only": true,
+    "labels_used_to_form_or_reject_components": false,
+    "overall_accuracy_reported": false
+  }
+}

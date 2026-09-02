@@ -1,0 +1,49 @@
+{
+  "phase": "selected_mct_cluster_comparison",
+  "baseline_model": "heuristic_mct",
+  "challenger_model": "logistic_regression_mct",
+  "promotion_decision": "promote_logistic_clusters",
+  "promotion_checks": {
+    "same_physical_record_population": true,
+    "cluster_precision_not_lower": true,
+    "zero_false_merged_pairs": true,
+    "zero_mixed_person_components": true,
+    "zero_hard_negatives_co_clustered": true,
+    "rule1_applied_without_partial_merges": true,
+    "accepted_components_respect_size_cap": true,
+    "human_pairwise_recall_not_lower": true
+  },
+  "all_promotion_checks_passed": true,
+  "heuristic_baseline": {
+    "auto_merge_edges": 81041,
+    "final_resolved_identity_count": 355762,
+    "accepted_merged_component_count": 48814,
+    "accepted_singleton_count": 306948,
+    "quarantined_component_count": 0,
+    "quarantined_record_count": 0,
+    "largest_accepted_component_size": 6,
+    "predicted_merged_pairs": 81863,
+    "false_positive_merged_pairs": 0,
+    "cluster_precision": 1.0,
+    "human_pairwise_recall": 0.5150853026164747,
+    "mixed_person_components": 0,
+    "hard_negatives_co_clustered": 0,
+    "recoverable_canonical_links_accepted": 51576
+  },
+  "logistic_challenger": {
+    "auto_merge_edges": 99272,
+    "final_resolved_identity_count": 342900,
+    "accepted_merged_component_count": 57403,
+    "accepted_singleton_count": 285497,
+    "quarantined_component_count": 0,
+    "quarantined_record_count": 0,
+    "largest_accepted_component_size": 6,
+    "predicted_merged_pairs": 99372,
+    "false_positive_merged_pairs": 0,
+    "cluster_precision": 1.0,
+    "human_pairwise_recall": 0.6536990856192851,
+    "mixed_person_components": 0,
+    "hard_negatives_co_clustered": 0,
+    "recoverable_canonical_links_accepted": 64499
+  }
+}

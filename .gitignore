@@ -83,6 +83,17 @@ outputs/logistic/*
 !outputs/logistic/mct_evaluation.md
 !outputs/logistic/logistic_comparison.json
 !outputs/logistic/logistic_comparison.md
+!outputs/logistic-clustering/
+outputs/logistic-clustering/*
+!outputs/logistic-clustering/README.md
+!outputs/logistic-clustering/cluster_size_distribution.csv
+!outputs/logistic-clustering/quarantined_components.csv
+!outputs/logistic-clustering/clustering_manifest.json
+!outputs/logistic-clustering/clustering_report.md
+!outputs/logistic-clustering/cluster_evaluation.json
+!outputs/logistic-clustering/cluster_evaluation.md
+!outputs/logistic-clustering/cluster_comparison.json
+!outputs/logistic-clustering/cluster_comparison.md
 !outputs/clustering/
 outputs/clustering/*
 !outputs/clustering/README.md
