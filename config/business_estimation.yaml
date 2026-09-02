@@ -29,7 +29,7 @@
       "ticketing": {
         "timestamp_field": "created_ts",
         "comparison_timestamp_field": "event_ts",
-        "maximum_absolute_delay_seconds": 8,
+        "maximum_absolute_delay_seconds": 68,
         "required_missing_fields": ["account_id", "phone"]
       },
       "subscriptions": {

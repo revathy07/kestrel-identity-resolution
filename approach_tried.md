@@ -179,8 +179,9 @@ The earlier data audit had already proven that near-duplicate exports change exa
 timestamp by 2–8 seconds. The one-second corroboration rule therefore treated two physical
 versions of the same observable record inconsistently.
 
-**What replaced it.** The delay bound is eight seconds, matching the documented export
-artifact, and the same tolerance is applied at the detected burst's two boundaries after a
-second truth-free run exposed 139 edge cases. Cluster exclusion still requires every member
-to satisfy the observable policy, and both corrections were made before hidden `entity_type`
-validation.
+**What replaced it.** The timestamp-window boundaries use the documented eight-second
+export-artifact tolerance. The ticket delay bound is 68 seconds: its minute-resolution text
+can represent a 2–8 second shift crossing a minute boundary as a 60-second difference, so
+the bound combines one minute of representation precision with the documented shift.
+Cluster exclusion still requires every member to satisfy the observable policy, and these
+corrections were made before hidden `entity_type` validation.

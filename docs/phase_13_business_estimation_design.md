@@ -33,10 +33,13 @@ shift exactly one timestamp by 2–8 seconds. The corroboration bound was theref
 to eight seconds before hidden truth was opened; the all-members cluster rule itself was not
 relaxed.
 
-That correction initially left 139 mixed clusters because shifted records at the exact edge
-fell outside the detected timestamp window. The same documented eight-second tolerance is
-now applied to both window boundaries. This resolves an internal transformation inconsistency
-without moving the detected burst or referencing hidden labels.
+That correction initially left 139 mixed ticket clusters. Inspection showed that the
+ticket source stores timestamps only to the minute: a documented 2–8 second duplicate shift
+crossing a minute boundary is represented as a 60-second parsed delay. The observable delay
+allowance is therefore 68 seconds (one minute of source precision plus the documented
+eight-second shift). The same eight-second tolerance is applied to detected window boundaries.
+These are representation-aware corrections made without moving the detected burst or
+referencing hidden labels.
 
 The exact frozen rules are in
 [`config/business_estimation.yaml`](../config/business_estimation.yaml). Hidden truth is
