@@ -153,3 +153,17 @@ loss with L2 regularization. The implementation, optimizer settings, full featur
 and generic all-pairs interaction rule are frozen in versioned files before validation is
 opened. Probability quality is assessed explicitly rather than assumed from the library
 name.
+
+## 10. Evaluating raw probabilities while publishing rounded probabilities
+
+**What I tried.** The first logistic evaluator applied the 0.88 and 0.62 bands to full
+floating-point probabilities, while production scoring serialized six decimal places before
+choosing a decision.
+
+**Why I dropped it.** A value such as 0.8799996 would be review during validation but become
+0.880000 and auto-merge after publication. No current validation pair changed bands this
+way, but the two code paths did not express one identical contract.
+
+**What replaced it.** Evaluation now rounds to the same six decimals before band assignment,
+with a regression test for both boundaries. The four candidates were regenerated and the
+same L2=0.001 validation winner remained unchanged.

@@ -21,8 +21,8 @@ how identifier evidence becomes an MCT score.
 | Normalization | Create comparable derived identifiers while preserving raw values | 3.82 million traceable observations |
 | Blocking | Create bounded plausible pairs without labels | 88.2 billion possible pairs reduced to 204,547 |
 | Label design | Partition complete hidden-person relationship components | Zero person overlap across development, validation and test |
-| Scoring | Compare heuristic and empirical likelihood-ratio MCT approaches | Heuristic retained on validation safety |
-| Clustering | Union only selected auto-merge edges and enforce Rule 1 | 355,762 operational identities; no oversized cluster |
+| Scoring | Compare heuristic, likelihood-ratio and logistic MCT approaches | Logistic selected on validation safety and recall |
+| Clustering | Union only selected auto-merge edges and enforce Rule 1 | Heuristic cluster baseline complete; logistic rerun next |
 
 ## Mandatory assessment controls
 
@@ -118,6 +118,45 @@ The test result characterizes stability but does not reverse the validation deci
 models auto-merged 0/20,000 explicit hard negatives, demonstrating that curated hard
 negatives do not replace general precision measurement.
 
+## MCT approach 3: logistic-regression challenger
+
+The third scorer directly models correlated evidence. It uses the same 19 binary evidence
+and conflict events plus every unordered pairwise interaction, giving 190 coefficients and
+one intercept. All interactions were declared before validation; the failed FS pair did not
+cause a one-off feature to be added.
+
+Four L2 strengths were fitted on 103,763 development pairs using deterministic mini-batch
+optimization. The existing heuristic score, heuristic decision, blocking rule, record
+identity, person identity and hard-negative type were excluded. The direct logistic
+probability becomes the MCT score, and the required 0.88/0.62 boundaries remain unchanged.
+
+The selected L2 strength was 0.001. Selection used validation only:
+
+| Validation metric | Heuristic | Fellegi-Sunter | Logistic |
+|---|---:|---:|---:|
+| False auto-merges | 0 | 1 | 0 |
+| Auto-merge precision | 100.0000% | 99.9949% | 100.0000% |
+| Auto recall | 60.4745% | 74.1065% | 74.1027% |
+| Human-review pairs | 4,499 | 3,952 | 4,226 |
+| Auto + review recall | 74.0276% | 87.1565% | 88.0763% |
+
+Fellegi-Sunter is excluded by the zero-false-auto-merge gate. Logistic matches the
+heuristic's observed precision while materially improving both recall measures, so it is
+the selected MCT. The decision was committed before the logistic frozen test was opened.
+
+| Frozen-test metric | Heuristic | Fellegi-Sunter | Logistic |
+|---|---:|---:|---:|
+| False auto-merges | 0 | 0 | 0 |
+| Auto-merge precision | 100.0000% | 100.0000% | 100.0000% |
+| Auto recall | 60.7585% | 74.2292% | 74.2751% |
+| Human-review pairs | 6,490 | 5,818 | 6,232 |
+| Auto + review recall | 74.1603% | 87.3632% | 88.3834% |
+
+Calibration is assessed with log loss, Brier score and equal-width reliability bins. No
+post-hoc transform was fitted on validation because validation already selects the model.
+The selected validation Brier score is 0.064285 and its ten-bin expected calibration error
+is 0.013114.
+
 ## Selected production approach
 
 The current selected path is:
@@ -125,20 +164,19 @@ The current selected path is:
 1. apply Rule 2 frequency suppression;
 2. generate bounded, truth-isolated candidates;
 3. extract explainable agreement and conflict features;
-4. apply the heuristic MCT weights and exact assessment bands;
+4. apply the selected logistic MCT and exact assessment bands;
 5. transitively union only auto-merge edges;
 6. enforce Rule 1 on complete connected components; and
 7. evaluate with hidden truth only after production outputs and hashes exist.
 
-The rejected Fellegi-Sunter scorer was not passed into clustering. Phase 7 remains based on
-the safer heuristic decisions.
+The rejected Fellegi-Sunter scorer was not passed into clustering. The committed Phase 7
+cluster artifacts still preserve the earlier heuristic baseline; they are not silently
+rewritten when model selection changes.
 
-## Next experiment
+## Next controlled step
 
-An interpretable logistic-regression challenger will use the same person-disjoint development
-and validation protocol. Its purpose is to learn correlated effects and interactions—such
-as name-and-DOB agreement combined with account conflict—without manually patching the
-rejected likelihood model. It will be retained only if it preserves merge precision while
-improving recall or review workload.
+Rerun capped transitive clustering from the selected logistic auto-merge edges, apply Rule 1
+to complete connected components, and compare cluster precision, mixed-person components,
+hard-negative connectivity and quarantine volume against the preserved heuristic baseline.
 
 Detailed failed approaches and fixes are retained in [`approach_tried.md`](approach_tried.md).

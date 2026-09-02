@@ -163,6 +163,14 @@ reducing precision to 99.9949%. The heuristic MCT remained selected under the pr
 precision-first rule; the frozen comparison is retained in
 [the challenger report](outputs/fellegi_sunter/fs_comparison.md).
 
+The next challenger fitted an L2-regularized logistic regression to the same development
+partition using 19 binary events and all 171 pairwise interactions. On validation, the
+selected L2=0.001 candidate produced 19,738 auto-merges, zero false auto-merges, 100.0000%
+precision, 74.1027% auto recall and 88.0763% auto-plus-review recall. It therefore replaces
+the heuristic as the selected MCT under the predeclared precision-first gate. The frozen
+test independently retained 100.0000% precision with 74.2751% auto recall and 88.3834%
+assisted recall. See [the three-model comparison](outputs/logistic/logistic_comparison.md).
+
 ## Phase 7: Rule 1 capped clustering
 
 Form transitive components from auto-merge edges only:
@@ -177,6 +185,10 @@ from one hidden entity. Evaluation reports 81,863 implied merged record pairs at
 precision, zero mixed-person clusters and 0/20,000 hard negatives connected transitively.
 See [the Phase 7 report](docs/phase_7_capped_clustering_report.md) and
 [the cluster evaluation](outputs/clustering/cluster_evaluation.md).
+
+These currently committed cluster artifacts intentionally preserve the earlier heuristic
+MCT run. The next controlled step is to rerun Rule 1 clustering with the newly selected
+logistic edges and compare cluster-level safety before replacing them.
 
 ## Verified dataset
 
@@ -200,7 +212,7 @@ resolver.
 - The generator accepts `--seed`, `--scale`, and `--output-dir` arguments.
 - Validators are read-only and return a nonzero exit status when a mandatory check fails.
 - Temporary fixtures, caches, and large reproducible frequency tables are excluded from Git.
-- The automated suite contains 73 tests, including profiling/normalization/blocking/scoring/clustering isolation,
+- The automated suite contains 80 tests, including profiling/normalization/blocking/scoring/clustering isolation,
   deterministic output and byte-level input immutability.
 
 ## AI usage

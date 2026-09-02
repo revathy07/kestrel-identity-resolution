@@ -226,3 +226,31 @@ labelled evaluation, and the required written deliverables.
 - The heuristic MCT remains selected; Phase 7 was not regenerated with rejected edges.
 - All **73 automated tests** pass, including development-only training, deterministic
   application and validation-release isolation.
+
+## 14. Logistic-regression MCT challenger
+
+- Froze a 190-feature design before fitting: 19 binary evidence/conflict events and all 171
+  unordered pairwise interactions, with four predeclared L2 strengths.
+- The workstation's Application Control policy blocked SciPy `_sparsetools`, so the standard
+  scikit-learn path was retained as a documented dead end rather than bypassing security.
+  Pinned NumPy directly optimizes ordinary L2 logistic loss with deterministic mini-batch
+  Adam.
+- Added executable leakage boundaries: only development rows fit coefficients, only
+  validation rows select regularization, and production scoring rejects labels and hidden
+  person identifiers.
+- Added a six-decimal threshold-parity regression after auditing raw-vs-published score
+  decisions. None of the real validation candidates changed band, and selection was
+  unaffected.
+- Trained four candidates on **103,763 development pairs**. L2=0.001 was selected on the
+  **41,057-pair validation set** with **19,738 auto-merges, zero false auto-merges, 100.0000%
+  precision, 74.1027% auto recall and 88.0763% assisted recall**.
+- Committed that validation decision before releasing logistic test results.
+- The **59,727-pair frozen test** retained **100.0000% precision**, with 74.2751% auto recall
+  and 88.3834% assisted recall. None of 20,000 explicit hard negatives auto-merged.
+- Full truth-free application assigns **99,272 auto-merge**, **20,560 review** and **84,715
+  leave-separate** decisions across all 204,547 candidates.
+- A reproducible three-model comparison selects logistic over the heuristic because it
+  preserves the zero-validation-false-merge result while improving recall. Fellegi-Sunter
+  remains ineligible because of its one validation false merge.
+- All **80 automated tests** pass. The next controlled step is cluster-level validation of
+  the selected logistic edges before replacing the preserved heuristic cluster artifacts.

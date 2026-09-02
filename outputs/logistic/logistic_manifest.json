@@ -1,0 +1,40 @@
+{
+  "phase": "logistic_challenger_scoring",
+  "model_version": 1,
+  "candidate_pairs_scored": 204547,
+  "decision_counts": {
+    "auto_merge": 99272,
+    "human_review": 20560,
+    "leave_separate": 84715
+  },
+  "thresholds": {
+    "auto_merge_minimum": 0.88,
+    "human_review_minimum": 0.62
+  },
+  "inputs": {
+    "pair_features": {
+      "path": "outputs/scoring/scored_candidate_pairs.csv.gz",
+      "sha256": "9bd370fd099a01660fe82330ec93b461c31972f234b22b052febf2d314955824"
+    },
+    "model": {
+      "path": "outputs/logistic/logistic_model.json",
+      "sha256": "d217317f5887e5c2f0a6e2b4e79544935163c168387917cfa67c381026a84e27"
+    },
+    "configuration": {
+      "path": "config/logistic_challenger.yaml",
+      "sha256": "2d5e43289af16c7ba30f554ad7a247a67bb25909b83820e8286e3072772212ca"
+    }
+  },
+  "scored_output": {
+    "path": "outputs/logistic/logistic_scored_candidate_pairs.csv.gz",
+    "compression": "gzip",
+    "rows": 204547,
+    "sha256": "4ae3d67d5aa3502b507bf6b92264768882d2a02fa9b2062378a69d7eadd8c461"
+  },
+  "phase_boundaries": {
+    "evaluation_labels_read": false,
+    "hidden_person_identifiers_read": false,
+    "heuristic_scores_used_as_features": false,
+    "clusters_formed": false
+  }
+}

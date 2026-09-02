@@ -1,0 +1,117 @@
+{
+  "phase": "three_model_mct_comparison",
+  "selection_partition": "validation",
+  "selection_policy": [
+    "require_zero_false_auto_merges",
+    "maximize_auto_merge_recall",
+    "maximize_assisted_recall",
+    "minimize_review_pairs"
+  ],
+  "frozen_test_used_for_selection": false,
+  "selected_model": "logistic_regression_mct",
+  "selection_reason": "Fellegi-Sunter is ineligible because it produced one validation false auto-merge. Logistic regression matches the heuristic's zero false auto-merges while materially improving auto and assisted recall, so it wins the predeclared validation ordering.",
+  "models": {
+    "heuristic_mct": {
+      "validation": {
+        "candidate_pairs": 41057,
+        "auto_merge_pairs": 16108,
+        "auto_merge_true_positives": 16108,
+        "auto_merge_false_positives": 0,
+        "auto_merge_precision": 1.0,
+        "auto_merge_recall_within_candidates": 0.6047454572758673,
+        "human_review_pairs": 4499,
+        "human_review_true_matches": 3610,
+        "assisted_recall_within_candidates": 0.7402763177654302,
+        "leave_separate_pairs": 20450
+      },
+      "frozen_test": {
+        "candidate_pairs": 59727,
+        "auto_merge_pairs": 23824,
+        "auto_merge_true_positives": 23824,
+        "auto_merge_false_positives": 0,
+        "auto_merge_precision": 1.0,
+        "auto_merge_recall_within_candidates": 0.6075846063604601,
+        "human_review_pairs": 6490,
+        "human_review_true_matches": 5255,
+        "assisted_recall_within_candidates": 0.741603121573028,
+        "leave_separate_pairs": 29413
+      },
+      "full_population_decisions": {
+        "auto_merge": 81041,
+        "human_review": 22263,
+        "leave_separate": 101243
+      },
+      "explicit_hard_negative_auto_merges": 0,
+      "recoverable_canonical_auto_recall": 0.5800465089898474,
+      "recoverable_canonical_assisted_recall": 0.7316885032045828
+    },
+    "fellegi_sunter_mct": {
+      "validation": {
+        "candidate_pairs": 41057,
+        "auto_merge_pairs": 19740,
+        "auto_merge_true_positives": 19739,
+        "auto_merge_false_positives": 1,
+        "auto_merge_precision": 0.9999493414387032,
+        "auto_merge_recall_within_candidates": 0.741064724433098,
+        "human_review_pairs": 3952,
+        "human_review_true_matches": 3476,
+        "assisted_recall_within_candidates": 0.8715647995194473,
+        "leave_separate_pairs": 17365
+      },
+      "frozen_test": {
+        "candidate_pairs": 59727,
+        "auto_merge_pairs": 29106,
+        "auto_merge_true_positives": 29106,
+        "auto_merge_false_positives": 0,
+        "auto_merge_precision": 1.0,
+        "auto_merge_recall_within_candidates": 0.7422917038586111,
+        "human_review_pairs": 5818,
+        "human_review_true_matches": 5150,
+        "assisted_recall_within_candidates": 0.8736323990716891,
+        "leave_separate_pairs": 24803
+      },
+      "full_population_decisions": {
+        "auto_merge": 99247,
+        "human_review": 19226,
+        "leave_separate": 86074
+      },
+      "explicit_hard_negative_auto_merges": 0,
+      "recoverable_canonical_auto_recall": 0.7306221995349101,
+      "recoverable_canonical_assisted_recall": 0.8621405478985877
+    },
+    "logistic_regression_mct": {
+      "validation": {
+        "candidate_pairs": 41057,
+        "auto_merge_pairs": 19738,
+        "auto_merge_true_positives": 19738,
+        "auto_merge_false_positives": 0,
+        "auto_merge_precision": 1.0,
+        "auto_merge_recall_within_candidates": 0.7410271812584472,
+        "human_review_pairs": 4226,
+        "human_review_true_matches": 3722,
+        "assisted_recall_within_candidates": 0.8807628773089052,
+        "leave_separate_pairs": 17093
+      },
+      "frozen_test": {
+        "candidate_pairs": 59727,
+        "auto_merge_pairs": 29124,
+        "auto_merge_true_positives": 29124,
+        "auto_merge_false_positives": 0,
+        "auto_merge_precision": 1.0,
+        "auto_merge_recall_within_candidates": 0.7427507587156665,
+        "human_review_pairs": 6232,
+        "human_review_true_matches": 5532,
+        "assisted_recall_within_candidates": 0.883833618117365,
+        "leave_separate_pairs": 24371
+      },
+      "full_population_decisions": {
+        "auto_merge": 99272,
+        "human_review": 20560,
+        "leave_separate": 84715
+      },
+      "explicit_hard_negative_auto_merges": 0,
+      "recoverable_canonical_auto_recall": 0.7314389427712552,
+      "recoverable_canonical_assisted_recall": 0.8761159321649368
+    }
+  }
+}
