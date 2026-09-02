@@ -70,16 +70,23 @@ These are transparent planning scenarios, not measured Kestrel handling times. N
 false-merge cost is invented because the assessment supplies none; the report instead states
 the affected-data and breach consequences and identifies the inputs required for costing.
 
-## Reported count range
+## Reported count range and validation refactor
 
 - The upper estimate removes only high-confidence observable automation/QA clusters and
   assumes no uncertain link resolves.
 - The central estimate is the median candidate-resolvable Monte Carlo count.
 - The statistical interval is the 5th–95th percentile across simulations.
-- A separate conservative lower sensitivity subtracts at most one additional identity for
-  each canonical link known from evaluation to be blocked as deliberately unrecoverable.
-  It is explicitly not a proposal to merge zero-evidence records.
+- A separate conservative lower sensitivity subtracts at most one identity for every
+  canonical link still unresolved after operational clustering: both recoverable links not
+  merged and deliberately blocked links. It starts from the traffic-excluded upper count,
+  deliberately ignores link overlap and is explicitly not a proposal to merge those records.
 
-The known hidden human total is released only after these outputs and configuration hashes
-exist. It evaluates whether the range covered this synthetic fixture; it does not become the
-reported production method.
+The first frozen range subtracted only blocked links from the Monte Carlo fifth percentile.
+When the known hidden human total was released, that range (304,896–333,000) missed the
+300,000-person fixture. The failure was committed before revision. Its root cause was that
+the lower sensitivity remained conditional on candidate-pair recovery and did not represent
+the full systematic unresolved-link risk. The replacement above is a general link-ceiling
+calculation; it does not insert or algebraically target the known 300,000 total.
+
+Hidden truth evaluates coverage on this synthetic fixture; it does not change the selected
+model, MCT thresholds, operational clusters or central candidate-resolvable estimate.

@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "description": "Frozen Phase 13 observable exclusions and aggregate customer-count scenario design.",
+  "version": 2,
+  "description": "Frozen observable exclusions and validation-refactored aggregate customer-count design.",
   "reported_business_reference_counts": {
     "marketing_users": 400000,
     "finance_people": 300000
@@ -63,7 +63,7 @@
     "operational_identity_count": "Selected auto-merge clusters before traffic exclusions or uncertain-link adjustment.",
     "marketing_safe_upper": "Operational identities after high-confidence observable automation and QA cluster exclusions, with no uncertain links assumed resolved.",
     "candidate_resolvable_estimate": "Monte Carlo count after statistically sampling unresolved candidate edges and respecting transitive overlap and Rule 1.",
-    "defensible_lower_sensitivity": "Fifth-percentile candidate-resolvable count minus at most one identity for each canonical link blocked as deliberately unrecoverable; this is a conservative sensitivity, not an automatic merge plan."
+    "defensible_lower_sensitivity": "Traffic-excluded upper count minus at most one identity for every canonical link still unresolved after operational clustering, including recoverable-not-merged and blocked links; this conservative ceiling is not an automatic merge plan."
   },
   "principles": [
     "Hidden entity_type and person_id never define a production exclusion or count adjustment.",
@@ -73,6 +73,7 @@
     "Sampled edges are combined transitively so overlapping review pairs are not subtracted independently.",
     "Rule 1 is applied to every sampled transitive component; oversized components create no additional reduction.",
     "Frozen-test labels estimate score-bin match probabilities; development labels and full hidden population totals do not set the estimate.",
-    "The known hidden human total is opened only after the estimate is frozen, to evaluate coverage on this synthetic fixture."
+    "The known hidden human total is opened only after the estimate is frozen, to evaluate coverage on this synthetic fixture.",
+    "A failed frozen-range coverage check may change the general sensitivity method, but never the selected model, thresholds, operational clusters or central estimate."
   ]
 }

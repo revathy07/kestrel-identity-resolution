@@ -9,6 +9,7 @@ from src.business.estimate_customers import (
     parse_timestamp,
     score_bin_index,
     simulate_counts,
+    unresolved_link_lower_sensitivity,
 )
 
 
@@ -86,6 +87,11 @@ class BusinessEstimationTests(unittest.TestCase):
         self.assertEqual(rows[0]["accepted_identity_reduction"], 0)
         self.assertEqual(rows[0]["oversized_sampled_components"], 1)
         self.assertEqual(rows[0]["estimated_identity_count"], 3)
+
+    def test_lower_sensitivity_covers_every_unresolved_canonical_link_once(self) -> None:
+        self.assertEqual(unresolved_link_lower_sensitivity(333_000, 23_656, 10_105), 299_239)
+        with self.assertRaises(ValueError):
+            unresolved_link_lower_sensitivity(100, -1, 2)
 
 
 if __name__ == "__main__":

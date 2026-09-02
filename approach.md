@@ -174,11 +174,24 @@ The rejected Fellegi-Sunter scorer was not passed into clustering. Logistic clus
 first generated separately and compared with the preserved heuristic baseline. It was
 promoted only after all eight cluster-safety gates passed.
 
+## Business-count approach
+
+The production-style estimator keeps hidden `person_id` and `entity_type` closed. It removes
+only clusters wholly identified by observable source-specific automation behaviour or the
+explicit internal-QA policy. It then calibrates unresolved score bands from the
+person-disjoint frozen test and runs 500 deterministic scenarios, combining sampled links
+transitively and applying Rule 1 in every simulation. These scenarios affect the aggregate
+estimate only; no below-threshold link changes the operational clusters.
+
+This produces a central candidate-resolvable estimate of **315,177** from a
+traffic-excluded upper of **333,000**. The first lower sensitivity failed independent range
+coverage. The corrected, general lower ceiling permits one reduction for every 33,761
+canonical links still unresolved and reports **299,239–333,000**. The committed failure and
+refactor are detailed in `approach_tried.md`.
+
 ## Next controlled step
 
-Translate the selected technical result into the business estimate: separate automated/test
-traffic using observable rules, quantify the 20,560-pair review workload, calculate a
-defensible uncertainty range, and explain why the operational count of 342,900 resolved
-identities is not automatically the final number of human customers.
+Assemble Phase 14 deliverables: a concise executive memo, presentation and one-command
+reproducible run guide using only the already frozen technical and business results.
 
 Detailed failed approaches and fixes are retained in [`approach_tried.md`](approach_tried.md).

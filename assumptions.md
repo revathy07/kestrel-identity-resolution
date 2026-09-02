@@ -54,7 +54,7 @@ if they are wrong.
     exists. If payment tokens are actually person-specific rather than household-specific,
     this is conservative and increases review volume rather than privacy risk.
 
-11. **Human review capacity can absorb roughly 22,263 pair decisions for this run.** If that
+11. **Human review capacity can absorb 20,560 physical pair decisions for this run.** If that
     queue is operationally unaffordable, records must not be silently auto-merged. The safe
     alternatives are improved independent evidence, prioritised review, or leaving more
     pairs separate.
@@ -78,3 +78,18 @@ if they are wrong.
     Auto-merge edges must not be deployed until Phase 7 applies Rule 1 exactly: every
     connected component with more than 12 source records is rejected in full and
     quarantined, never partially merged.
+
+16. **Recent dense activity plus source-specific corroboration is a usable automation
+    signal.** It is not a universal bot classifier. The synthetic evaluation reaches 100%
+    record precision and recall, but production needs drift monitoring and sampled labels.
+    Ticket timestamps have minute precision, so their delay tolerance includes one minute
+    plus the documented eight-second duplicate-export shift.
+
+17. **The internal QA definition is a business policy, not a hidden class label.** Only
+    clusters whose every record has the explicit staff-test domain or test-name signal are
+    removed. The supplied truth map cannot establish QA classifier precision.
+
+18. **The 299,239 lower endpoint is a sensitivity, not an expected count.** It permits one
+    reduction for every unresolved canonical link and ignores overlap, so it can overstate
+    the possible reduction. The 315,177 central estimate is based on frozen-test score-bin
+    rates; neither number authorizes below-threshold operational merges.

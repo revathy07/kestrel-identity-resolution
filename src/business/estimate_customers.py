@@ -542,6 +542,22 @@ def _scenario_summary(rows: Sequence[Mapping[str, Any]], percentiles: Sequence[i
     }
 
 
+def unresolved_link_lower_sensitivity(
+    traffic_excluded_upper: int,
+    recoverable_links_not_merged: int,
+    blocked_links: int,
+) -> int:
+    """Return a conservative lower count without accepting any unresolved link.
+
+    Each unresolved canonical link is allowed to reduce the upper count once. Links may
+    overlap, so this is intentionally a lower sensitivity rather than a merge forecast.
+    """
+
+    if min(traffic_excluded_upper, recoverable_links_not_merged, blocked_links) < 0:
+        raise BusinessEstimationError("Count-sensitivity inputs cannot be negative")
+    return max(0, traffic_excluded_upper - recoverable_links_not_merged - blocked_links)
+
+
 def _write_csv(path: Path, rows: Iterable[Mapping[str, Any]], headers: list[str]) -> None:
     with path.open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=headers)
@@ -559,7 +575,7 @@ def _report(result: Mapping[str, Any]) -> str:
             "",
             "## Recommended business statement",
             "",
-            f"Kestrel has an estimated **{counts['recommended_candidate_resolvable_count']:,} human customers** under the candidate-resolvable scenario. A defensible range is **{counts['defensible_range_lower']:,} to {counts['defensible_range_upper']:,}**. The lower end includes an explicit zero-evidence sensitivity; the upper end assumes no uncertain candidate link resolves after high-confidence traffic exclusions.",
+            f"Kestrel has an estimated **{counts['recommended_candidate_resolvable_count']:,} human customers** under the candidate-resolvable scenario. A defensible range is **{counts['defensible_range_lower']:,} to {counts['defensible_range_upper']:,}**. The lower end includes an explicit all-unresolved-link sensitivity; the upper end assumes no uncertain candidate link resolves after high-confidence traffic exclusions.",
             "",
             "This is an aggregate estimate, not permission to merge records below MCT 0.88. The operational identity table remains at 342,900 and keeps review/separate records distinct.",
             "",
@@ -572,8 +588,8 @@ def _report(result: Mapping[str, Any]) -> str:
             f"- Marketing-safe upper after exclusions: **{counts['marketing_safe_upper']:,}**",
             f"- Review-only median scenario: **{counts['review_only_median']:,}**",
             f"- All-candidate median scenario: **{counts['recommended_candidate_resolvable_count']:,}**",
-            f"- Candidate statistical interval: **{counts['candidate_statistical_lower']:,}–{counts['candidate_statistical_upper']:,}**",
-            f"- Zero-evidence lower sensitivity: **{counts['defensible_range_lower']:,}**",
+            f"- Candidate statistical interval: **{counts['candidate_statistical_lower']:,}-{counts['candidate_statistical_upper']:,}**",
+            f"- All-unresolved-link lower sensitivity: **{counts['defensible_range_lower']:,}**",
             "",
             "## Marketing versus Finance",
             "",
@@ -594,7 +610,7 @@ def _report(result: Mapping[str, Any]) -> str:
             "- Frozen-test score-bin match rates drive 500 deterministic simulations with Jeffreys uncertainty.",
             "- Candidate edges are collapsed to unique operational-cluster pairs, sampled, unioned transitively and checked against Rule 1.",
             "- Simulations estimate aggregate people; they never rewrite operational clusters or accept below-threshold links.",
-            "- The lower zero-evidence sensitivity is deliberately conservative and may overstate the possible reduction because canonical links can overlap.",
+            "- The lower link sensitivity is deliberately conservative and may overstate the possible reduction because canonical links can overlap or touch already excluded traffic.",
             "- Real production behaviour may differ from the synthetic fixture; ongoing labelled review and false-merge monitoring are required.",
             "",
         ]
@@ -672,10 +688,14 @@ def estimate_customers(
     candidate_summary = _scenario_summary(all_rows, percentiles)
     phase12 = json.loads(Path(phase12_summary_path).read_text(encoding="utf-8"))
     zero_evidence_sensitivity = int(phase12["blocking_summary"]["blocked_all_links"])
+    recoverable_not_merged = int(phase12["cluster_summary"]["recoverable_links_not_merged"])
+    unresolved_link_sensitivity = zero_evidence_sensitivity + recoverable_not_merged
     candidate_lower = candidate_summary["identity_count_percentiles"]["p05"]
     candidate_median = candidate_summary["identity_count_percentiles"]["p50"]
     candidate_upper = candidate_summary["identity_count_percentiles"]["p95"]
-    lower_sensitivity = max(0, candidate_lower - zero_evidence_sensitivity)
+    lower_sensitivity = unresolved_link_lower_sensitivity(
+        base_count, recoverable_not_merged, zero_evidence_sensitivity
+    )
     workload = config["review_workload"]
     review_pairs = int(phase12["operational_review_context"]["review_pairs"])
     hours = {minutes: review_pairs * minutes / 60 for minutes in workload["minutes_per_pair_scenarios"]}
@@ -703,6 +723,9 @@ def estimate_customers(
             "recommended_candidate_resolvable_count": candidate_median,
             "candidate_statistical_upper": candidate_upper,
             "zero_evidence_link_sensitivity": zero_evidence_sensitivity,
+            "recoverable_not_merged_link_sensitivity": recoverable_not_merged,
+            "all_unresolved_canonical_link_sensitivity": unresolved_link_sensitivity,
+            "lower_sensitivity_reference_count": base_count,
             "defensible_range_lower": lower_sensitivity,
             "defensible_range_upper": base_count,
             "range_includes_unobservable_duplicate_sensitivity": True,
@@ -799,7 +822,7 @@ def estimate_customers(
     if show_progress:
         print(
             f"[business] Complete: recommended {candidate_median:,}; "
-            f"range {lower_sensitivity:,}–{base_count:,}"
+            f"range {lower_sensitivity:,}-{base_count:,}"
         )
     return result
 

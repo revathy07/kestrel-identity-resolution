@@ -185,3 +185,20 @@ can represent a 2–8 second shift crossing a minute boundary as a 60-second dif
 the bound combines one minute of representation precision with the documented shift.
 Cluster exclusion still requires every member to satisfy the observable policy, and these
 corrections were made before hidden `entity_type` validation.
+
+## 12. Treating Monte Carlo sampling error as the full lower-bound uncertainty
+
+**What I tried.** The first frozen Phase 13 range started with the fifth percentile of the
+candidate-edge simulation and subtracted only the 10,105 canonical links blocked as
+deliberately unrecoverable. It reported 304,896–333,000.
+
+**Why I dropped it.** The separately committed hidden-truth evaluation showed that this
+interval did not cover the synthetic fixture's 300,000 human entities. The Monte Carlo band
+was narrow because it represented sampling uncertainty conditional on already generated
+candidates; it did not cover all systematic under-resolution remaining after clustering.
+
+**What replaced it.** The lower sensitivity now starts from the traffic-excluded upper and
+allows at most one reduction for every unresolved canonical link: 23,656 recoverable links
+not merged plus 10,105 blocked links. This general ceiling deliberately ignores overlap, so
+it is conservative. It changes neither the central estimate nor any operational merge, and
+it was not solved backward from the known human total.

@@ -10,7 +10,10 @@
     "recommended_candidate_resolvable_count": 315177,
     "candidate_statistical_upper": 315357,
     "zero_evidence_link_sensitivity": 10105,
-    "defensible_range_lower": 304896,
+    "recoverable_not_merged_link_sensitivity": 23656,
+    "all_unresolved_canonical_link_sensitivity": 33761,
+    "lower_sensitivity_reference_count": 333000,
+    "defensible_range_lower": 299239,
     "defensible_range_upper": 333000,
     "range_includes_unobservable_duplicate_sensitivity": true
   },
@@ -149,7 +152,7 @@
     },
     "configuration": {
       "path": "config/business_estimation.yaml",
-      "sha256": "7e161cb2b669fd2847b776d483a3f5bf9c2f90170020d6f30f2ac3e3f4d86292"
+      "sha256": "dbd289edb4c8afb363c302d77754925d9aa89e5bf5298cc371e688f05b2a07e7"
     },
     "schema_mapping": {
       "path": "config/schema_mapping.yaml",

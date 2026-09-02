@@ -298,3 +298,28 @@ labelled evaluation, and the required written deliverables.
 - Preserved the exact MCT boundaries and selected coefficients; Phase 12 changes no model,
   calibration transform, candidate pair, decision or cluster and reports no overall accuracy.
 - All **87 automated tests** pass.
+
+## 17. Business customer-count estimate and validation refactor
+
+- Froze an observable traffic policy before opening `entity_type`: latest dense timestamp
+  window plus source-specific corroboration, with all members required for cluster removal.
+- Reconciled source representation artifacts before truth release. In particular, minute-
+  resolution ticket timestamps require a 68-second delay allowance for the documented
+  2–8-second duplicate shift crossing a minute boundary.
+- Truth-isolated classification excludes **8,400 automation clusters / 21,000 records** and
+  **1,500 internal-QA clusters / records** from 342,900 operational identities, leaving a
+  **333,000** marketing-safe upper.
+- Calibrated unresolved edges from only the person-disjoint frozen test and ran **500**
+  deterministic review-only and all-unresolved scenarios with transitive union and Rule 1.
+- Central candidate-resolvable result: **315,177**; review-only median: **319,679**.
+- Preserved the first frozen range (**304,896–333,000**) and its failed hidden-truth coverage
+  in Git before revising the systematic lower sensitivity.
+- Refactored the lower endpoint to allow one reduction for all **33,761 unresolved canonical
+  links** (23,656 recoverable-not-merged plus 10,105 blocked), producing the defensible
+  sensitivity range **299,239–333,000** without changing the central estimate or clusters.
+- Separate truth evaluation confirms **100.0000% automation precision and recall** on this
+  synthetic fixture, zero human entities removed by the automation policy, and corrected
+  range coverage of the 300,000 hidden human entities.
+- Quantified the **20,560 physical-pair** review queue as 685.3 hours at two minutes per pair
+  or 1,713.3 hours at five minutes, explicitly marked as planning assumptions.
+- All **97 automated tests** pass.

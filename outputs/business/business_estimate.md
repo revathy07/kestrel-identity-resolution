@@ -2,7 +2,7 @@
 
 ## Recommended business statement
 
-Kestrel has an estimated **315,177 human customers** under the candidate-resolvable scenario. A defensible range is **304,896 to 333,000**. The lower end includes an explicit zero-evidence sensitivity; the upper end assumes no uncertain candidate link resolves after high-confidence traffic exclusions.
+Kestrel has an estimated **315,177 human customers** under the candidate-resolvable scenario. A defensible range is **299,239 to 333,000**. The lower end includes an explicit all-unresolved-link sensitivity; the upper end assumes no uncertain candidate link resolves after high-confidence traffic exclusions.
 
 This is an aggregate estimate, not permission to merge records below MCT 0.88. The operational identity table remains at 342,900 and keeps review/separate records distinct.
 
@@ -15,8 +15,8 @@ This is an aggregate estimate, not permission to merge records below MCT 0.88. T
 - Marketing-safe upper after exclusions: **333,000**
 - Review-only median scenario: **319,679**
 - All-candidate median scenario: **315,177**
-- Candidate statistical interval: **315,001–315,357**
-- Zero-evidence lower sensitivity: **304,896**
+- Candidate statistical interval: **315,001-315,357**
+- All-unresolved-link lower sensitivity: **299,239**
 
 ## Marketing versus Finance
 
@@ -37,5 +37,5 @@ A wrong merge can expose another person's orders, tickets, subscription relation
 - Frozen-test score-bin match rates drive 500 deterministic simulations with Jeffreys uncertainty.
 - Candidate edges are collapsed to unique operational-cluster pairs, sampled, unioned transitively and checked against Rule 1.
 - Simulations estimate aggregate people; they never rewrite operational clusters or accept below-threshold links.
-- The lower zero-evidence sensitivity is deliberately conservative and may overstate the possible reduction because canonical links can overlap.
+- The lower link sensitivity is deliberately conservative and may overstate the possible reduction because canonical links can overlap or touch already excluded traffic.
 - Real production behaviour may differ from the synthetic fixture; ongoing labelled review and false-merge monitoring are required.

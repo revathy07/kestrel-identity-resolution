@@ -14,11 +14,12 @@ building a defensible identity-matching layer across five disconnected customer 
 | Candidate blocking | Complete |
 | MCT scoring and labelled pair evaluation | Complete |
 | Rule 1 capped clustering and evaluation | Complete |
-| Business count, memo and presentation | Next |
+| Business customer-count estimate and risk summary | Complete |
+| Final memo and presentation | Next |
 
-The repository currently completes deterministic candidate generation, explainable MCT
-pair scoring, and Rule 1 capped transitive clustering. It does not yet claim completion of
-the business-count recommendation or final assessment deliverables.
+The repository currently completes the resolver, capped clustering, consolidated evaluation
+and a truth-isolated business customer-count estimate. The final assessment memo and
+presentation remain to be produced.
 
 ## Repository layout
 
@@ -35,6 +36,7 @@ src/normalization/              derived, traceable identifier normalization
 src/blocking/                   truth-isolated candidate generation
 src/scoring/                    explainable pair features and MCT decisions
 src/clustering/                 transitive components and Rule 1 quarantine
+src/business/                   traffic policy and aggregate count scenarios
 src/evaluation/                 post-generation synthetic-label measurement
 src/validate_generated_data.py independent compliance validator
 tests/                          focused generator and validator tests
@@ -213,6 +215,34 @@ social-logins/ticketing and 59.7687% for app-users/ticketing. Blocking loses zer
 recoverable canonical links, so remaining recoverable losses occur at conservative scoring
 and decision stages. See [the Phase 12 report](outputs/evaluation/evaluation_report.md).
 
+## Phase 13: business count, uncertainty and operational risk
+
+Run the estimator first, then the isolated hidden-truth evaluator:
+
+```bash
+python -m src.business.estimate_customers
+python -m src.evaluation.evaluate_business_estimate
+```
+
+The selected clusters contain 342,900 operational identities. Observable, source-specific
+behaviour identifies and excludes 8,400 automation clusters and the explicit QA policy
+excludes 1,500 wholly flagged clusters, producing a 333,000 upper count. Frozen-test
+score-bin match rates drive 500 deterministic transitive simulations without changing any
+operational merge. Their central candidate-resolvable estimate is **315,177**.
+
+The reported range is **299,239–333,000**. Its lower endpoint is a deliberately conservative
+sensitivity allowing one identity reduction for every 33,761 canonical link still unresolved
+after clustering; it is not permission to merge those links. The first frozen lower method
+reported 304,896 and failed hidden-truth range coverage. That failure remains in Git history;
+the general systematic-risk correction was committed without changing the central estimate,
+model, thresholds or clusters. The corrected range covers the synthetic 300,000-human truth.
+
+The review queue has 20,560 physical pairs, or 15,247 unique operational-cluster pairs.
+Planning scenarios imply 685.3 analyst hours at two minutes per pair or 1,713.3 hours at five
+minutes. See the [business summary](outputs/business/business_estimate.md),
+[design/refactor record](docs/phase_13_business_estimation_design.md) and
+[hidden-truth evaluation](outputs/business/business_estimate_evaluation.md).
+
 ## Verified dataset
 
 The committed full-scale fixture contains 300,000 invented people and 420,000 physical
@@ -235,7 +265,7 @@ resolver.
 - The generator accepts `--seed`, `--scale`, and `--output-dir` arguments.
 - Validators are read-only and return a nonzero exit status when a mandatory check fails.
 - Temporary fixtures, caches, and large reproducible frequency tables are excluded from Git.
-- The automated suite contains 87 tests, including profiling/normalization/blocking/scoring/clustering isolation,
+- The automated suite contains 97 tests, including profiling/normalization/blocking/scoring/clustering/business isolation,
   deterministic output and byte-level input immutability.
 
 ## AI usage

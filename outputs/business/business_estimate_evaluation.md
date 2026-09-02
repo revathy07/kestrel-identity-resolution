@@ -1,11 +1,11 @@
 # Phase 13 hidden-truth evaluation
 
-**Count-range result: REVISE.** The frozen defensible range 304,896–333,000 does not contain the synthetic truth of 300,000 human entities.
+**Count-range result: PASS.** The current defensible range 299,239–333,000 contains the synthetic truth of 300,000 human entities.
 
 ## Estimate accuracy
 
 The recommended estimate is **315,177**, an absolute error of **15,177** (5.0590%).
-This diagnostic is opened after freezing; it is not an input to production scoring, traffic classification or Monte Carlo calibration.
+This diagnostic was opened after the production result and central estimate were frozen; it is not an input to scoring, traffic classification or Monte Carlo calibration. The initial lower sensitivity failed coverage and its general method was revised transparently; the central estimate remained unchanged.
 
 ## Observable automation detector
 

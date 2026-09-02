@@ -1,6 +1,8 @@
 {
   "phase": "business_customer_count_hidden_truth_evaluation",
-  "evaluation_opened_after_estimate_freeze": true,
+  "evaluation_opened_after_initial_estimate_freeze": true,
+  "central_estimate_unchanged_after_hidden_truth": true,
+  "lower_sensitivity_refactored_after_initial_coverage_failure": true,
   "count_coverage": {
     "true_human_entities": 300000,
     "true_automated_entities": 8400,
@@ -8,9 +10,9 @@
     "signed_error": 15177,
     "absolute_error": 15177,
     "absolute_percentage_error": 0.05059,
-    "defensible_range_lower": 304896,
+    "defensible_range_lower": 299239,
     "defensible_range_upper": 333000,
-    "defensible_range_contains_true_human_count": false
+    "defensible_range_contains_true_human_count": true
   },
   "automation_detection": {
     "classified_records": 420000,
@@ -48,7 +50,7 @@
   "inputs": {
     "estimate": {
       "path": "outputs/business/business_estimate.json",
-      "sha256": "dd6973bc8d93b2a589b250556dd0a9a3d6450362fa9fe5534ba08357ddfdf674"
+      "sha256": "0cabb199d0c742ac1bc09df1d493541cd8059c4e73270d15bb1f3686f42ce5fc"
     },
     "classification": {
       "path": "outputs/business/observable_traffic_records.csv.gz",

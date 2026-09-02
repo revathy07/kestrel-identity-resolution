@@ -184,7 +184,7 @@ def _report(result: Mapping[str, Any]) -> str:
         [
             "# Phase 13 hidden-truth evaluation",
             "",
-            f"**Count-range result: {status}.** The frozen defensible range "
+            f"**Count-range result: {status}.** The current defensible range "
             f"{count['defensible_range_lower']:,}–{count['defensible_range_upper']:,} "
             f"{'contains' if status == 'PASS' else 'does not contain'} the synthetic truth of "
             f"{count['true_human_entities']:,} human entities.",
@@ -193,8 +193,10 @@ def _report(result: Mapping[str, Any]) -> str:
             "",
             f"The recommended estimate is **{count['recommended_estimate']:,}**, an absolute "
             f"error of **{count['absolute_error']:,}** ({_percentage(count['absolute_percentage_error'])}).",
-            "This diagnostic is opened after freezing; it is not an input to production scoring, "
-            "traffic classification or Monte Carlo calibration.",
+            "This diagnostic was opened after the production result and central estimate were "
+            "frozen; it is not an input to scoring, traffic classification or Monte Carlo "
+            "calibration. The initial lower sensitivity failed coverage and its general method "
+            "was revised transparently; the central estimate remained unchanged.",
             "",
             "## Observable automation detector",
             "",
@@ -262,7 +264,9 @@ def evaluate_business_estimate(
     upper = int(count["defensible_range_upper"])
     result = {
         "phase": "business_customer_count_hidden_truth_evaluation",
-        "evaluation_opened_after_estimate_freeze": True,
+        "evaluation_opened_after_initial_estimate_freeze": True,
+        "central_estimate_unchanged_after_hidden_truth": True,
+        "lower_sensitivity_refactored_after_initial_coverage_failure": True,
         "count_coverage": {
             "true_human_entities": true_humans,
             "true_automated_entities": true_bots,
