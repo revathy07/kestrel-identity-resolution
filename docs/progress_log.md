@@ -274,3 +274,27 @@ labelled evaluation, and the required written deliverables.
 - The former heuristic artifacts remain recoverable in Git history, and the complete compact
   comparison remains under `outputs/logistic-clustering`.
 - All **83 automated tests** pass after promotion.
+
+## 16. Consolidated Phase 12 evaluation and error analysis
+
+- Added a post-selection evaluator that verifies hashes across the selected logistic score,
+  labelled evaluation and promoted cluster artifacts before calculating diagnostics.
+- Restricted source-pair, evidence, identifier-availability and error conclusions to the
+  **59,727-pair person-disjoint frozen test**. Development outcomes are used only to reconcile
+  the full operational decision volume.
+- Frozen-test result: **29,124 auto-merges, zero observed false auto-merges, 100.0000%
+  precision, 74.2751% auto recall and 88.3834% assisted recall**.
+- Measured probability behaviour without refitting: Brier score **0.062639**, log loss
+  **0.194626** and ten-bin expected calibration error **0.015856**.
+- Located the principal false-negative concentration in ticketing-linked pairs. Auto recall
+  is 59.2519% for social-logins/ticketing and 59.7687% for app-users/ticketing.
+- Separated endpoint missingness from disagreement by streaming valid normalized identifier
+  availability for 61,153 frozen-test endpoints.
+- Attributed canonical-link losses by pipeline stage: blocking retains all **88,155/88,155
+  recoverable links**, pair scoring sends 12,754 to review and 10,921 to separate, while
+  transitive clustering accepts 64,499 and leaves 23,656 recoverable links unresolved.
+- Grouped the 5,532 reviewed and 4,555 separated frozen-test true matches into 20 aggregate
+  error patterns without exposing record or person identifiers.
+- Preserved the exact MCT boundaries and selected coefficients; Phase 12 changes no model,
+  calibration transform, candidate pair, decision or cluster and reports no overall accuracy.
+- All **87 automated tests** pass.

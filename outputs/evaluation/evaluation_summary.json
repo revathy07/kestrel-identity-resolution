@@ -1,0 +1,298 @@
+{
+  "phase": "consolidated_selected_resolver_evaluation",
+  "selected_model": "logistic_regression_mct_l2_0.001",
+  "subgroup_evaluation_partition": "frozen_test",
+  "frozen_test_summary": {
+    "candidate_pairs": 59727,
+    "true_match_pairs": 39211,
+    "true_non_match_pairs": 20516,
+    "auto_merge_pairs": 29124,
+    "auto_merge_true_positives": 29124,
+    "auto_merge_false_positives": 0,
+    "auto_merge_precision": 1.0,
+    "auto_merge_recall": 0.7427507587156665,
+    "human_review_pairs": 6232,
+    "human_review_true_matches": 5532,
+    "human_review_yield": 0.8876765083440308,
+    "assisted_recall": 0.883833618117365,
+    "leave_separate_pairs": 24371,
+    "leave_separate_true_matches": 4555
+  },
+  "operational_decision_summary": {
+    "candidate_pairs": 204547,
+    "true_match_pairs": 133010,
+    "true_non_match_pairs": 71537,
+    "auto_merge_pairs": 99272,
+    "auto_merge_true_positives": 99272,
+    "auto_merge_false_positives": 0,
+    "auto_merge_precision": 1.0,
+    "auto_merge_recall": 0.7463498985038719,
+    "human_review_pairs": 20560,
+    "human_review_true_matches": 18174,
+    "human_review_yield": 0.8839494163424124,
+    "assisted_recall": 0.8829862416359672,
+    "leave_separate_pairs": 84715,
+    "leave_separate_true_matches": 15564
+  },
+  "calibration_summary": {
+    "validation": {
+      "brier_score": 0.06428514969537409,
+      "log_loss": 0.19953639633447587,
+      "expected_calibration_error_10_bins": 0.013113887473512427
+    },
+    "test": {
+      "brier_score": 0.06263940219774718,
+      "log_loss": 0.1946262462857735,
+      "expected_calibration_error_10_bins": 0.015856114922899206
+    },
+    "posthoc_transform_fitted": false
+  },
+  "blocking_summary": {
+    "all_canonical_links": 99000,
+    "blocked_all_links": 10105,
+    "recoverable_links": 88155,
+    "recoverable_links_blocked": 0,
+    "recoverable_blocking_recall": 1.0
+  },
+  "cluster_summary": {
+    "pairwise_precision": 1.0,
+    "human_pairwise_recall": 0.6536990856192851,
+    "false_merged_pairs": 0,
+    "mixed_person_components": 0,
+    "hard_negatives_co_clustered": 0,
+    "recoverable_links_accepted": 64499,
+    "recoverable_links_not_merged": 23656
+  },
+  "operational_review_context": {
+    "review_pairs": 20560,
+    "frozen_test_review_pairs": 6232,
+    "frozen_test_review_true_matches": 5532,
+    "frozen_test_review_yield": 0.8876765083440308,
+    "projected_true_matches_at_test_yield": 18251,
+    "projection_is_customer_count_adjustment": false
+  },
+  "diagnostic_highlights": {
+    "lowest_auto_recall_source_pairs": [
+      {
+        "source_pair": "social_logins+ticketing",
+        "candidate_pairs": 6901,
+        "true_match_pairs": 6523,
+        "true_non_match_pairs": 378,
+        "auto_merge_pairs": 3865,
+        "auto_merge_true_positives": 3865,
+        "auto_merge_false_positives": 0,
+        "auto_merge_precision": 1.0,
+        "auto_merge_recall": 0.5925187797025908,
+        "human_review_pairs": 1384,
+        "human_review_true_matches": 1346,
+        "human_review_yield": 0.9725433526011561,
+        "assisted_recall": 0.7988655526598191,
+        "leave_separate_pairs": 1652,
+        "leave_separate_true_matches": 1312
+      },
+      {
+        "source_pair": "app_users+ticketing",
+        "candidate_pairs": 22925,
+        "true_match_pairs": 18068,
+        "true_non_match_pairs": 4857,
+        "auto_merge_pairs": 10799,
+        "auto_merge_true_positives": 10799,
+        "auto_merge_false_positives": 0,
+        "auto_merge_precision": 1.0,
+        "auto_merge_recall": 0.5976865176001771,
+        "human_review_pairs": 4262,
+        "human_review_true_matches": 4085,
+        "human_review_yield": 0.9584702017832004,
+        "assisted_recall": 0.8237768430374142,
+        "leave_separate_pairs": 7864,
+        "leave_separate_true_matches": 3184
+      },
+      {
+        "source_pair": "ticketing+ticketing",
+        "candidate_pairs": 1521,
+        "true_match_pairs": 1190,
+        "true_non_match_pairs": 331,
+        "auto_merge_pairs": 1031,
+        "auto_merge_true_positives": 1031,
+        "auto_merge_false_positives": 0,
+        "auto_merge_precision": 1.0,
+        "auto_merge_recall": 0.8663865546218488,
+        "human_review_pairs": 146,
+        "human_review_true_matches": 100,
+        "human_review_yield": 0.684931506849315,
+        "assisted_recall": 0.9504201680672268,
+        "leave_separate_pairs": 344,
+        "leave_separate_true_matches": 59
+      },
+      {
+        "source_pair": "app_users+store_customers",
+        "candidate_pairs": 5718,
+        "true_match_pairs": 1504,
+        "true_non_match_pairs": 4214,
+        "auto_merge_pairs": 1503,
+        "auto_merge_true_positives": 1503,
+        "auto_merge_false_positives": 0,
+        "auto_merge_precision": 1.0,
+        "auto_merge_recall": 0.9993351063829787,
+        "human_review_pairs": 84,
+        "human_review_true_matches": 1,
+        "human_review_yield": 0.011904761904761904,
+        "assisted_recall": 1.0,
+        "leave_separate_pairs": 4131,
+        "leave_separate_true_matches": 0
+      },
+      {
+        "source_pair": "app_users+app_users",
+        "candidate_pairs": 3634,
+        "true_match_pairs": 1316,
+        "true_non_match_pairs": 2318,
+        "auto_merge_pairs": 1316,
+        "auto_merge_true_positives": 1316,
+        "auto_merge_false_positives": 0,
+        "auto_merge_precision": 1.0,
+        "auto_merge_recall": 1.0,
+        "human_review_pairs": 0,
+        "human_review_true_matches": 0,
+        "human_review_yield": null,
+        "assisted_recall": 1.0,
+        "leave_separate_pairs": 2318,
+        "leave_separate_true_matches": 0
+      }
+    ],
+    "identifier_availability": [
+      {
+        "identifier_family": "email",
+        "availability_state": "both_present",
+        "candidate_pairs": 57635,
+        "true_match_pairs": 37861,
+        "true_non_match_pairs": 19774,
+        "auto_merge_pairs": 28227,
+        "auto_merge_true_positives": 28227,
+        "auto_merge_false_positives": 0,
+        "auto_merge_precision": 1.0,
+        "auto_merge_recall": 0.7455429069491033,
+        "human_review_pairs": 5957,
+        "human_review_true_matches": 5290,
+        "human_review_yield": 0.888030888030888,
+        "assisted_recall": 0.8852645202186947,
+        "leave_separate_pairs": 23451,
+        "leave_separate_true_matches": 4344
+      },
+      {
+        "identifier_family": "email",
+        "availability_state": "neither_present",
+        "candidate_pairs": 16,
+        "true_match_pairs": 2,
+        "true_non_match_pairs": 14,
+        "auto_merge_pairs": 2,
+        "auto_merge_true_positives": 2,
+        "auto_merge_false_positives": 0,
+        "auto_merge_precision": 1.0,
+        "auto_merge_recall": 1.0,
+        "human_review_pairs": 1,
+        "human_review_true_matches": 0,
+        "human_review_yield": 0.0,
+        "assisted_recall": 1.0,
+        "leave_separate_pairs": 13,
+        "leave_separate_true_matches": 0
+      },
+      {
+        "identifier_family": "phone",
+        "availability_state": "both_present",
+        "candidate_pairs": 31507,
+        "true_match_pairs": 23237,
+        "true_non_match_pairs": 8270,
+        "auto_merge_pairs": 23212,
+        "auto_merge_true_positives": 23212,
+        "auto_merge_false_positives": 0,
+        "auto_merge_precision": 1.0,
+        "auto_merge_recall": 0.9989241296208633,
+        "human_review_pairs": 110,
+        "human_review_true_matches": 25,
+        "human_review_yield": 0.22727272727272727,
+        "assisted_recall": 1.0,
+        "leave_separate_pairs": 8185,
+        "leave_separate_true_matches": 0
+      },
+      {
+        "identifier_family": "phone",
+        "availability_state": "neither_present",
+        "candidate_pairs": 15746,
+        "true_match_pairs": 5327,
+        "true_non_match_pairs": 10419,
+        "auto_merge_pairs": 4742,
+        "auto_merge_true_positives": 4742,
+        "auto_merge_false_positives": 0,
+        "auto_merge_precision": 1.0,
+        "auto_merge_recall": 0.8901820912333396,
+        "human_review_pairs": 363,
+        "human_review_true_matches": 322,
+        "human_review_yield": 0.8870523415977961,
+        "assisted_recall": 0.950628871785245,
+        "leave_separate_pairs": 10641,
+        "leave_separate_true_matches": 263
+      }
+    ],
+    "unresolved_true_match_patterns": 20
+  },
+  "artifact_rows": {
+    "source_pair_performance": 11,
+    "evidence_event_performance": 19,
+    "identifier_availability_performance": 23,
+    "score_band_performance": 20,
+    "unresolved_match_patterns": 20,
+    "hard_negative_performance": 4,
+    "pipeline_loss_attribution": 16
+  },
+  "inputs": {
+    "labels": {
+      "development": {
+        "path": "outputs/logistic/labelled_development_set.csv.gz",
+        "sha256": "459de6cd430e161e453066a4e914c6aa62b2e648db04b360392588eb35f68ec2",
+        "rows": 103763
+      },
+      "validation": {
+        "path": "outputs/logistic/labelled_validation_set.csv.gz",
+        "sha256": "d12cb18b2b603e43888354a129410c8f9ffc6b9f9e6dbc55064a155fa7d4eda9",
+        "rows": 41057
+      },
+      "test": {
+        "path": "outputs/logistic/labelled_test_set.csv.gz",
+        "sha256": "5c2093d0f05b6db6e05ff20e157a64580eec4f288cc4bf2d6388fe027fe8b770",
+        "rows": 59727
+      }
+    },
+    "normalized_identifiers": {
+      "path": "outputs/normalization/normalized_identifiers.csv.gz",
+      "sha256": "b7b0ce1b2fefee13dffbf2b7d80fc3769cdf337ffa6b33ee9c6baee6f2975c54"
+    },
+    "blocking_evaluation": {
+      "path": "outputs/blocking/blocking_evaluation.json",
+      "sha256": "c224e5080a70ff970b8f961f1bacf40bf9d6f5ec50ddb31c6730d08fe2d281f9"
+    },
+    "scoring_evaluation": {
+      "path": "outputs/logistic/mct_evaluation.json",
+      "sha256": "55397fa5197dde2263484336b5fb90c3a751ea53d8a2ecbdff525f6b59fe9d43"
+    },
+    "scoring_manifest": {
+      "path": "outputs/logistic/logistic_manifest.json",
+      "sha256": "8d27cedb6dc73efffdb12dea94562cac6aefc7ca4f6ca80cb126e7852d4d6bda"
+    },
+    "cluster_evaluation": {
+      "path": "outputs/clustering/cluster_evaluation.json",
+      "sha256": "58b4924c1bd949e7f859a31b8d667349f8cb1d1af23121ba4221fec45be437c7"
+    },
+    "clustering_manifest": {
+      "path": "outputs/clustering/clustering_manifest.json",
+      "sha256": "0fc0d6ab9744a93df78afbda9ca6ca47d67b819499e4c6bf40190ffb74b13cb4"
+    }
+  },
+  "isolation": {
+    "model_or_threshold_modified": false,
+    "clusters_modified": false,
+    "labels_used_post_model_selection_only": true,
+    "person_identifiers_in_outputs": false,
+    "subgroup_conclusions_use_frozen_test": true,
+    "overall_accuracy_reported": false
+  }
+}

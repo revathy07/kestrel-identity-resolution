@@ -1,0 +1,17 @@
+population,stage,outcome,links
+all_canonical_links,generated_truth,total,99000
+all_canonical_links,blocking,retained,88895
+all_canonical_links,blocking,blocked,10105
+all_canonical_links,pair_scoring,auto_merge,64480
+all_canonical_links,pair_scoring,human_review,13494
+all_canonical_links,pair_scoring,leave_separate,10921
+all_canonical_links,final_clustering,accepted_cluster,64499
+all_canonical_links,final_clustering,not_merged,34501
+recoverable_canonical_links,generated_truth,total,88155
+recoverable_canonical_links,blocking,retained,88155
+recoverable_canonical_links,blocking,blocked,0
+recoverable_canonical_links,pair_scoring,auto_merge,64480
+recoverable_canonical_links,pair_scoring,human_review,12754
+recoverable_canonical_links,pair_scoring,leave_separate,10921
+recoverable_canonical_links,final_clustering,accepted_cluster,64499
+recoverable_canonical_links,final_clustering,not_merged,23656

@@ -1,0 +1,12 @@
+source_pair,candidate_pairs,true_match_pairs,true_non_match_pairs,auto_merge_pairs,auto_merge_true_positives,auto_merge_false_positives,auto_merge_precision,auto_merge_recall,human_review_pairs,human_review_true_matches,human_review_yield,assisted_recall,leave_separate_pairs,leave_separate_true_matches
+app_users+app_users,3634,1316,2318,1316,1316,0,1.0,1.0,0,0,,1.0,2318,0
+app_users+social_logins,7862,6842,1020,6842,6842,0,1.0,1.0,26,0,0.0,1.0,994,0
+app_users+store_customers,5718,1504,4214,1503,1503,0,1.0,0.9993351063829787,84,1,0.011904761904761904,1.0,4131,0
+app_users+ticketing,22925,18068,4857,10799,10799,0,1.0,0.5976865176001771,4262,4085,0.9584702017832004,0.8237768430374142,7864,3184
+social_logins+social_logins,2035,1929,106,1929,1929,0,1.0,1.0,0,0,,1.0,106,0
+social_logins+store_customers,673,420,253,420,420,0,1.0,1.0,18,0,0.0,1.0,235,0
+social_logins+ticketing,6901,6523,378,3865,3865,0,1.0,0.5925187797025908,1384,1346,0.9725433526011561,0.7988655526598191,1652,1312
+store_customers+store_customers,3535,883,2652,883,883,0,1.0,1.0,205,0,0.0,1.0,2447,0
+store_customers+ticketing,3194,0,3194,0,0,0,,,107,0,0.0,,3087,0
+subscriptions+subscriptions,1729,536,1193,536,536,0,1.0,1.0,0,0,,1.0,1193,0
+ticketing+ticketing,1521,1190,331,1031,1031,0,1.0,0.8663865546218488,146,100,0.684931506849315,0.9504201680672268,344,59

@@ -23,6 +23,7 @@ how identifier evidence becomes an MCT score.
 | Label design | Partition complete hidden-person relationship components | Zero person overlap across development, validation and test |
 | Scoring | Compare heuristic, likelihood-ratio and logistic MCT approaches | Logistic selected on validation safety and recall |
 | Clustering | Union only selected auto-merge edges and enforce Rule 1 | Logistic clusters promoted after 8/8 safety gates passed |
+| Evaluation | Diagnose performance after selection using the frozen test | Source, evidence, availability, calibration and loss tables complete |
 
 ## Mandatory assessment controls
 

@@ -192,6 +192,27 @@ The selected cluster artifacts passed all eight promotion gates. The preserved
 [heuristic-versus-logistic comparison](outputs/logistic-clustering/cluster_comparison.md)
 records the baseline, safety checks and 13.8614 percentage-point recall improvement.
 
+## Phase 12: consolidated evaluation and error analysis
+
+Run the post-selection evaluator without changing the model or clusters:
+
+```bash
+python -m src.evaluation.consolidate_evaluation
+```
+
+The consolidated evaluator uses only the person-disjoint frozen test for subgroup and error
+conclusions. It reports source-pair, evidence-event, endpoint-identifier availability,
+calibration-band, hard-negative and pipeline-loss tables. On 59,727 frozen-test candidates,
+the selected model has 29,124 auto-merges, zero observed false auto-merges, 74.2751% auto
+recall and 88.3834% assisted recall. The frozen-test Brier score is 0.062639 and ten-bin ECE
+is 0.015856.
+
+Error analysis identifies 5,532 true matches routed to review and 4,555 left separate. The
+weakest large subgroups are ticketing-linked pairs: auto recall is 59.2519% for
+social-logins/ticketing and 59.7687% for app-users/ticketing. Blocking loses zero of 88,155
+recoverable canonical links, so remaining recoverable losses occur at conservative scoring
+and decision stages. See [the Phase 12 report](outputs/evaluation/evaluation_report.md).
+
 ## Verified dataset
 
 The committed full-scale fixture contains 300,000 invented people and 420,000 physical
@@ -214,7 +235,7 @@ resolver.
 - The generator accepts `--seed`, `--scale`, and `--output-dir` arguments.
 - Validators are read-only and return a nonzero exit status when a mandatory check fails.
 - Temporary fixtures, caches, and large reproducible frequency tables are excluded from Git.
-- The automated suite contains 83 tests, including profiling/normalization/blocking/scoring/clustering isolation,
+- The automated suite contains 87 tests, including profiling/normalization/blocking/scoring/clustering isolation,
   deterministic output and byte-level input immutability.
 
 ## AI usage
