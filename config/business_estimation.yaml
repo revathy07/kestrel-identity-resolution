@@ -53,6 +53,11 @@
     "rule1_maximum_source_records": 12,
     "oversized_sampled_component_action": "no_additional_count_reduction"
   },
+  "review_workload": {
+    "minutes_per_pair_scenarios": [2, 5],
+    "analyst_workday_hours": 8,
+    "note": "Planning assumptions only; replace with measured handling time before staffing."
+  },
   "count_definitions": {
     "operational_identity_count": "Selected auto-merge clusters before traffic exclusions or uncertain-link adjustment.",
     "marketing_safe_upper": "Operational identities after high-confidence observable automation and QA cluster exclusions, with no uncertain links assumed resolved.",

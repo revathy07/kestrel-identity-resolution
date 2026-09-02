@@ -51,6 +51,11 @@ transitively and some are non-matches. The estimator instead:
 These sampled links never alter the operational cluster assignment. They support an
 aggregate count estimate only.
 
+Review workload is shown at two and five minutes per pair, with an eight-hour analyst day.
+These are transparent planning scenarios, not measured Kestrel handling times. No monetary
+false-merge cost is invented because the assessment supplies none; the report instead states
+the affected-data and breach consequences and identifies the inputs required for costing.
+
 ## Reported count range
 
 - The upper estimate removes only high-confidence observable automation/QA clusters and
