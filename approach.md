@@ -22,7 +22,7 @@ how identifier evidence becomes an MCT score.
 | Blocking | Create bounded plausible pairs without labels | 88.2 billion possible pairs reduced to 204,547 |
 | Label design | Partition complete hidden-person relationship components | Zero person overlap across development, validation and test |
 | Scoring | Compare heuristic, likelihood-ratio and logistic MCT approaches | Logistic selected on validation safety and recall |
-| Clustering | Union only selected auto-merge edges and enforce Rule 1 | Heuristic cluster baseline complete; logistic rerun next |
+| Clustering | Union only selected auto-merge edges and enforce Rule 1 | Logistic clusters promoted after 8/8 safety gates passed |
 
 ## Mandatory assessment controls
 
@@ -169,14 +169,15 @@ The current selected path is:
 6. enforce Rule 1 on complete connected components; and
 7. evaluate with hidden truth only after production outputs and hashes exist.
 
-The rejected Fellegi-Sunter scorer was not passed into clustering. The committed Phase 7
-cluster artifacts still preserve the earlier heuristic baseline; they are not silently
-rewritten when model selection changes.
+The rejected Fellegi-Sunter scorer was not passed into clustering. Logistic clustering was
+first generated separately and compared with the preserved heuristic baseline. It was
+promoted only after all eight cluster-safety gates passed.
 
 ## Next controlled step
 
-Rerun capped transitive clustering from the selected logistic auto-merge edges, apply Rule 1
-to complete connected components, and compare cluster precision, mixed-person components,
-hard-negative connectivity and quarantine volume against the preserved heuristic baseline.
+Translate the selected technical result into the business estimate: separate automated/test
+traffic using observable rules, quantify the 20,560-pair review workload, calculate a
+defensible uncertainty range, and explain why the operational count of 342,900 resolved
+identities is not automatically the final number of human customers.
 
 Detailed failed approaches and fixes are retained in [`approach_tried.md`](approach_tried.md).

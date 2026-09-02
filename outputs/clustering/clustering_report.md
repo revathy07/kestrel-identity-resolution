@@ -3,13 +3,13 @@
 ## Outcome
 
 - Physical source records: **420,000**
-- MCT auto-merge edges consumed: **81,041**
-- Proposed connected components: **355,762**
-- Accepted merged components: **48,814**
-- Accepted singleton components: **306,948**
+- MCT auto-merge edges consumed: **99,272**
+- Proposed connected components: **342,900**
+- Accepted merged components: **57,403**
+- Accepted singleton components: **285,497**
 - Components rejected by Rule 1: **0**
 - Records quarantined: **0**
-- Final resolved identity records: **355,762**
+- Final resolved identity records: **342,900**
 
 ## Rule 1
 
@@ -19,12 +19,12 @@ Components containing up to and including 12 physical source records are accepte
 
 | Size | Status | Components | Records |
 |---|---|---|---|
-| 1 | accepted_singleton | 306,948 | 306,948 |
-| 2 | accepted_merged | 34,700 | 69,400 |
-| 3 | accepted_merged | 13,498 | 40,494 |
-| 4 | accepted_merged | 119 | 476 |
-| 5 | accepted_merged | 300 | 1,500 |
-| 6 | accepted_merged | 197 | 1,182 |
+| 1 | accepted_singleton | 285,497 | 285,497 |
+| 2 | accepted_merged | 39,181 | 78,362 |
+| 3 | accepted_merged | 17,547 | 52,641 |
+| 4 | accepted_merged | 175 | 700 |
+| 5 | accepted_merged | 200 | 1,000 |
+| 6 | accepted_merged | 300 | 1,800 |
 
 ## Largest proposed component
 

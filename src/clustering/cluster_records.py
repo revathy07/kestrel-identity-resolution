@@ -445,7 +445,7 @@ def cluster_records(
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--normalized-path", type=Path, default=Path("outputs/normalization/normalized_identifiers.csv.gz"))
-    parser.add_argument("--scored-path", type=Path, default=Path("outputs/scoring/scored_candidate_pairs.csv.gz"))
+    parser.add_argument("--scored-path", type=Path, default=Path("outputs/logistic/logistic_scored_candidate_pairs.csv.gz"))
     parser.add_argument("--output-dir", type=Path, default=Path("outputs/clustering"))
     parser.add_argument("--rules", type=Path, default=DEFAULT_RULES)
     args = parser.parse_args()

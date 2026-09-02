@@ -176,19 +176,21 @@ assisted recall. See [the three-model comparison](outputs/logistic/logistic_comp
 Form transitive components from auto-merge edges only:
 
 ```bash
-python -m src.clustering.cluster_records --normalized-path outputs/normalization/normalized_identifiers.csv.gz --scored-path outputs/scoring/scored_candidate_pairs.csv.gz --output-dir outputs/clustering
+python -m src.clustering.cluster_records --normalized-path outputs/normalization/normalized_identifiers.csv.gz --scored-path outputs/logistic/logistic_scored_candidate_pairs.csv.gz --output-dir outputs/clustering
 ```
 
-The full run forms 355,762 components: 48,814 accepted merged components and 306,948
-singletons. No component exceeds Rule 1's 12-record cap; the largest contains six records
-from one hidden entity. Evaluation reports 81,863 implied merged record pairs at 100.0000%
-precision, zero mixed-person clusters and 0/20,000 hard negatives connected transitively.
+The selected logistic run forms 342,900 components: 57,403 accepted merged components and
+285,497 singletons. No component exceeds Rule 1's 12-record cap; the largest contains six
+records from one hidden entity. Evaluation reports 99,372 implied merged record pairs at
+100.0000% precision, zero mixed-person clusters and 0/20,000 hard negatives connected
+transitively. Human pairwise cluster recall is 65.3699%, up from the heuristic baseline's
+51.5085%.
 See [the Phase 7 report](docs/phase_7_capped_clustering_report.md) and
 [the cluster evaluation](outputs/clustering/cluster_evaluation.md).
 
-These currently committed cluster artifacts intentionally preserve the earlier heuristic
-MCT run. The next controlled step is to rerun Rule 1 clustering with the newly selected
-logistic edges and compare cluster-level safety before replacing them.
+The selected cluster artifacts passed all eight promotion gates. The preserved
+[heuristic-versus-logistic comparison](outputs/logistic-clustering/cluster_comparison.md)
+records the baseline, safety checks and 13.8614 percentage-point recall improvement.
 
 ## Verified dataset
 
@@ -212,7 +214,7 @@ resolver.
 - The generator accepts `--seed`, `--scale`, and `--output-dir` arguments.
 - Validators are read-only and return a nonzero exit status when a mandatory check fails.
 - Temporary fixtures, caches, and large reproducible frequency tables are excluded from Git.
-- The automated suite contains 80 tests, including profiling/normalization/blocking/scoring/clustering isolation,
+- The automated suite contains 83 tests, including profiling/normalization/blocking/scoring/clustering isolation,
   deterministic output and byte-level input immutability.
 
 ## AI usage

@@ -3,7 +3,7 @@
 Generate production components from the repository root:
 
 ```bash
-python -m src.clustering.cluster_records --normalized-path outputs/normalization/normalized_identifiers.csv.gz --scored-path outputs/scoring/scored_candidate_pairs.csv.gz --output-dir outputs/clustering
+python -m src.clustering.cluster_records --normalized-path outputs/normalization/normalized_identifiers.csv.gz --scored-path outputs/logistic/logistic_scored_candidate_pairs.csv.gz --output-dir outputs/clustering
 ```
 
 Then run the isolated truth-based evaluator:
@@ -25,3 +25,7 @@ python -m src.evaluation.evaluate_clusters --assignments outputs/clustering/clus
 The production clusterer reads no hidden labels. The assignment table is excluded from Git
 because it is a reproducible row-level intermediate. Components above 12 records receive no
 final cluster ID and are never partially merged.
+
+The standard artifacts use the logistic MCT selected on validation. The preceding heuristic
+baseline and the explicit promotion checks remain documented under
+`outputs/logistic-clustering/` and in Git history.

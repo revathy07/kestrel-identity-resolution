@@ -2,24 +2,24 @@
 
 ## Merge safety
 
-Accepted components imply **81,863** merged record pairs. **81,863** are true same-entity pairs and **0** are false merges.
-Pairwise cluster precision is **100.0000%**. Pairwise recall across all hidden same-entity record pairs is **57.2009%**; human-record recall is **51.5085%**.
+Accepted components imply **99,372** merged record pairs. **99,372** are true same-entity pairs and **0** are false merges.
+Pairwise cluster precision is **100.0000%**. Pairwise recall across all hidden same-entity record pairs is **69.4351%**; human-record recall is **65.3699%**.
 
 ## Cluster purity
 
-Accepted merged components: **48,814**; mixed-person accepted components: **0**; largest number of hidden entities in one accepted component: **1**.
+Accepted merged components: **57,403**; mixed-person accepted components: **0**; largest number of hidden entities in one accepted component: **1**.
 
 ## Canonical-link outcomes
 
 | Outcome | Links |
 |---|---|
 | total links | 99,000 |
-| accepted cluster links | 51,576 |
+| accepted cluster links | 64,499 |
 | quarantined together links | 0 |
-| not merged links | 47,424 |
-| recoverable accepted cluster links | 51,576 |
+| not merged links | 34,501 |
+| recoverable accepted cluster links | 64,499 |
 | recoverable quarantined together links | 0 |
-| recoverable not merged links | 36,579 |
+| recoverable not merged links | 23,656 |
 
 ## Hard-negative transitivity
 

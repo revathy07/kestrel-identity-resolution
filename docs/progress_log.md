@@ -252,5 +252,25 @@ labelled evaluation, and the required written deliverables.
 - A reproducible three-model comparison selects logistic over the heuristic because it
   preserves the zero-validation-false-merge result while improving recall. Fellegi-Sunter
   remains ineligible because of its one validation false merge.
-- All **80 automated tests** pass. The next controlled step is cluster-level validation of
-  the selected logistic edges before replacing the preserved heuristic cluster artifacts.
+- All **80 automated tests** passed at model selection. Cluster-level promotion followed as
+  a separate controlled step.
+
+## 15. Selected-logistic cluster promotion
+
+- Ran the 99,272 selected logistic auto-merge edges through the unchanged Rule 1 clusterer
+  in an isolated challenger directory before touching the heuristic baseline.
+- Added eight executable promotion gates covering population parity, precision, false merged
+  pairs, mixed-person components, transitive hard negatives, Rule 1 partial merges, accepted
+  component size and human recall.
+- All **8/8 gates passed**: **99,372 implied merged pairs at 100.0000% precision**, zero false
+  merged pairs, zero mixed-person components and 0/20,000 hard negatives co-clustered.
+- Rule 1 remained effective without intervention: zero components exceeded 12 records, zero
+  records were quarantined, no partial merge occurred and the largest component was six.
+- Human pairwise cluster recall improved from **51.5085% to 65.3699%**, a **13.8614
+  percentage-point** increase. Recoverable canonical links accepted in one cluster increased
+  from 51,576 to 64,499.
+- Promoted the verified result into the standard `outputs/clustering` handoff: **342,900
+  operational identities**, 57,403 merged components and 285,497 singletons.
+- The former heuristic artifacts remain recoverable in Git history, and the complete compact
+  comparison remains under `outputs/logistic-clustering`.
+- All **83 automated tests** pass after promotion.
