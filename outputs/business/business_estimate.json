@@ -1,0 +1,173 @@
+{
+  "phase": "business_customer_count_estimation",
+  "selected_operational_model": "logistic_regression_mct_l2_0.001_with_rule1",
+  "customer_count_estimate": {
+    "source_records": 420000,
+    "operational_identities": 342900,
+    "marketing_safe_upper": 333000,
+    "review_only_median": 319679,
+    "candidate_statistical_lower": 315001,
+    "recommended_candidate_resolvable_count": 315177,
+    "candidate_statistical_upper": 315357,
+    "zero_evidence_link_sensitivity": 10105,
+    "defensible_range_lower": 304896,
+    "defensible_range_upper": 333000,
+    "range_includes_unobservable_duplicate_sensitivity": true
+  },
+  "observable_traffic_exclusions": {
+    "automation_clusters": 8400,
+    "automation_records": 21000,
+    "internal_qa_clusters": 1500,
+    "internal_qa_records": 1500,
+    "mixed_policy_clusters_retained": 0,
+    "timestamp_windows": {
+      "app_users": {
+        "start_utc": "2026-04-03T11:51:00+00:00",
+        "end_utc": "2026-04-03T12:01:00+00:00",
+        "records_in_latest_qualifying_window": 6000,
+        "minimum_qualifying_records": 1200,
+        "parseable_timestamps": 120000
+      },
+      "store_customers": {
+        "start_utc": "2026-04-03T11:50:08+00:00",
+        "end_utc": "2026-04-03T12:00:08+00:00",
+        "records_in_latest_qualifying_window": 4000,
+        "minimum_qualifying_records": 800,
+        "parseable_timestamps": 80000
+      },
+      "ticketing": {
+        "start_utc": "2026-04-03T11:50:06+00:00",
+        "end_utc": "2026-04-03T12:00:06+00:00",
+        "records_in_latest_qualifying_window": 4000,
+        "minimum_qualifying_records": 800,
+        "parseable_timestamps": 80000
+      },
+      "subscriptions": {
+        "start_utc": "2026-04-03T11:50:06+00:00",
+        "end_utc": "2026-04-03T12:00:06+00:00",
+        "records_in_latest_qualifying_window": 2500,
+        "minimum_qualifying_records": 500,
+        "parseable_timestamps": 50000
+      },
+      "social_logins": {
+        "start_utc": "2026-04-03T11:50:07+00:00",
+        "end_utc": "2026-04-03T12:00:07+00:00",
+        "records_in_latest_qualifying_window": 4500,
+        "minimum_qualifying_records": 900,
+        "parseable_timestamps": 90000
+      }
+    },
+    "cluster_exclusion_requires_all_members": true
+  },
+  "unresolved_edge_context": {
+    "physical_unresolved_candidate_pairs": 105275,
+    "incident_to_excluded_traffic_cluster": 34408,
+    "already_same_operational_cluster": 100,
+    "unique_unresolved_cluster_pairs": 49098,
+    "unique_review_cluster_pairs": 15247,
+    "unique_separate_cluster_pairs": 33851
+  },
+  "review_only_scenario": {
+    "simulations": 500,
+    "identity_count_percentiles": {
+      "p05": 319571,
+      "p50": 319679,
+      "p95": 319791
+    },
+    "identity_reduction_percentiles": {
+      "p05": 13209,
+      "p50": 13321,
+      "p95": 13429
+    },
+    "minimum_identity_count": 319506,
+    "maximum_identity_count": 319922,
+    "simulations_with_oversized_components": 0,
+    "maximum_oversized_components": 0
+  },
+  "all_unresolved_candidate_scenario": {
+    "simulations": 500,
+    "identity_count_percentiles": {
+      "p05": 315001,
+      "p50": 315177,
+      "p95": 315357
+    },
+    "identity_reduction_percentiles": {
+      "p05": 17643,
+      "p50": 17823,
+      "p95": 17999
+    },
+    "minimum_identity_count": 314859,
+    "maximum_identity_count": 315591,
+    "simulations_with_oversized_components": 0,
+    "maximum_oversized_components": 0
+  },
+  "review_workload": {
+    "physical_review_pairs": 20560,
+    "unique_review_cluster_pairs": 15247,
+    "two_minute_hours": 685.3333333333334,
+    "two_minute_days": 85.66666666666667,
+    "five_minute_hours": 1713.3333333333333,
+    "five_minute_days": 214.16666666666666,
+    "handling_times_are_assumptions": true
+  },
+  "business_reference_comparison": {
+    "marketing_reported_users": 400000,
+    "finance_reported_people": 300000,
+    "marketing_minus_recommended": 84823,
+    "finance_minus_recommended": -15177,
+    "marketing_is_account_like_count": true,
+    "finance_is_directionally_closer_to_people": true
+  },
+  "false_merge_risk": {
+    "observed_false_merged_pairs_in_synthetic_evaluation": 0,
+    "maximum_accepted_source_records_under_rule1": 12,
+    "currency_cost_estimated": false,
+    "reason_no_currency_cost": "No incident, remediation, notification, legal, regulatory or customer-churn cost inputs were supplied.",
+    "consequences": [
+      "cross-customer order, ticket, subscription or address exposure",
+      "reportable privacy breach assessment",
+      "merge reversal and downstream data correction",
+      "incident investigation and possible customer notification"
+    ]
+  },
+  "inputs": {
+    "assignments": {
+      "path": "outputs/clustering/cluster_assignments.csv.gz",
+      "sha256": "293fea8753a50ada4a56c66ac019b78851a3781c6cb885063014870348233031"
+    },
+    "selected_scores": {
+      "path": "outputs/logistic/logistic_scored_candidate_pairs.csv.gz",
+      "sha256": "4ae3d67d5aa3502b507bf6b92264768882d2a02fa9b2062378a69d7eadd8c461"
+    },
+    "frozen_test_labels": {
+      "path": "outputs/logistic/labelled_test_set.csv.gz",
+      "sha256": "5c2093d0f05b6db6e05ff20e157a64580eec4f288cc4bf2d6388fe027fe8b770"
+    },
+    "phase12_summary": {
+      "path": "outputs/evaluation/evaluation_summary.json",
+      "sha256": "23fb5a5c8c2e461c4838318c9b795f4df260ef8a1398ceadddc76e3150fc8d32"
+    },
+    "configuration": {
+      "path": "config/business_estimation.yaml",
+      "sha256": "7e161cb2b669fd2847b776d483a3f5bf9c2f90170020d6f30f2ac3e3f4d86292"
+    },
+    "schema_mapping": {
+      "path": "config/schema_mapping.yaml",
+      "sha256": "aaa7df28b77c7eb0615c2b15ae86b94de69f68cc37fea9a741d23618446226fd"
+    }
+  },
+  "classification_output": {
+    "path": "outputs/business/observable_traffic_records.csv.gz",
+    "rows": 420000,
+    "sha256": "47526cb7ba4ba25c92d73062fa857833fb2fe35f8ef5e2cca1afbc21c3d2f06c",
+    "hidden_labels_included": false
+  },
+  "isolation": {
+    "person_map_read": false,
+    "entity_type_read": false,
+    "hidden_population_total_used": false,
+    "operational_clusters_modified": false,
+    "below_threshold_edges_operationally_merged": false,
+    "simulation_is_aggregate_only": true
+  }
+}

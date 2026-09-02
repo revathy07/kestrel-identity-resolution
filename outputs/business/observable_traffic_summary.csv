@@ -1,0 +1,6 @@
+source,records,observable_automation_records,observable_internal_qa_records,unflagged_records
+app_users,120000,6000,533,113467
+social_logins,90000,4500,0,85500
+store_customers,80000,4000,967,75033
+subscriptions,50000,2500,0,47500
+ticketing,80000,4000,0,76000
