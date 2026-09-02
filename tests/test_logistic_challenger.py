@@ -8,8 +8,11 @@ import tempfile
 import unittest
 from pathlib import Path
 
+import numpy as np
+
 from src.modeling.logistic_challenger import (
     LogisticChallengerError,
+    _binary_metrics,
     apply_model,
     encode_rows,
     feature_names,
@@ -80,6 +83,14 @@ def write_pair_features(path: Path) -> None:
 
 
 class LogisticChallengerTests(unittest.TestCase):
+    def test_evaluation_uses_the_same_six_decimal_boundary_as_scoring(self) -> None:
+        metrics = _binary_metrics(
+            np.asarray([1.0, 1.0]),
+            np.asarray([0.8799996, 0.6199996]),
+        )
+        self.assertEqual(metrics["auto_merge_pairs"], 1)
+        self.assertEqual(metrics["human_review_pairs"], 1)
+
     def test_encoding_contains_every_declared_pairwise_interaction(self) -> None:
         config = load_config(CONFIG_PATH)
         rows = [{"positive_evidence": "exact_email;exact_phone", "conflicts": "name_conflict"}]

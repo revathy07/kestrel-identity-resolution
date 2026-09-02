@@ -172,8 +172,11 @@ def _decision(score: float) -> str:
 
 
 def _binary_metrics(labels: np.ndarray, probabilities: np.ndarray) -> dict[str, Any]:
-    auto = probabilities >= 0.88
-    review = (probabilities >= 0.62) & ~auto
+    # Production persists six decimals before applying the bands. Evaluation must make the
+    # same decision, including for values that round exactly onto a boundary.
+    decision_probabilities = np.round(probabilities, 6)
+    auto = decision_probabilities >= 0.88
+    review = (decision_probabilities >= 0.62) & ~auto
     positive = labels == 1.0
     negative = ~positive
     true_matches = int(np.sum(positive))
