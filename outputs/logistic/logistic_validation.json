@@ -1,0 +1,643 @@
+{
+  "phase": "logistic_challenger_validation_selection",
+  "selection_partition": "validation",
+  "frozen_test_status": "not opened by logistic challenger",
+  "thresholds_tuned": false,
+  "posthoc_calibration_fitted": false,
+  "decision": "accept logistic candidate for frozen-test characterization",
+  "heuristic_validation_metrics": {
+    "candidate_pairs": 41057,
+    "true_match_pairs": 26636,
+    "true_non_match_pairs": 14421,
+    "auto_merge_pairs": 16108,
+    "auto_merge_true_positives": 16108,
+    "auto_merge_false_positives": 0,
+    "auto_merge_precision": 1.0,
+    "auto_merge_recall_within_candidates": 0.6047454572758673,
+    "human_review_pairs": 4499,
+    "human_review_true_matches": 3610,
+    "assisted_recall_within_candidates": 0.7402763177654302,
+    "leave_separate_pairs": 20450,
+    "log_loss": 0.31654271420306307,
+    "brier_score": 0.10842662870899142,
+    "expected_calibration_error_10_bins": 0.10789403059161648,
+    "calibration_bins": [
+      {
+        "lower_inclusive": 0.0,
+        "upper_inclusive": false,
+        "upper": 0.1,
+        "pairs": 3458,
+        "mean_score": 0.006136495083863504,
+        "observed_match_rate": 0.0
+      },
+      {
+        "lower_inclusive": 0.1,
+        "upper_inclusive": false,
+        "upper": 0.2,
+        "pairs": 985,
+        "mean_score": 0.13063959390862945,
+        "observed_match_rate": 0.0
+      },
+      {
+        "lower_inclusive": 0.2,
+        "upper_inclusive": false,
+        "upper": 0.3,
+        "pairs": 10222,
+        "mean_score": 0.2790950890236745,
+        "observed_match_rate": 0.2942672666797104
+      },
+      {
+        "lower_inclusive": 0.3,
+        "upper_inclusive": false,
+        "upper": 0.4,
+        "pairs": 1276,
+        "mean_score": 0.302057053291536,
+        "observed_match_rate": 0.0007836990595611285
+      },
+      {
+        "lower_inclusive": 0.4,
+        "upper_inclusive": false,
+        "upper": 0.5,
+        "pairs": 4252,
+        "mean_score": 0.4617147130761995,
+        "observed_match_rate": 0.8593603010348071
+      },
+      {
+        "lower_inclusive": 0.5,
+        "upper_inclusive": false,
+        "upper": 0.6,
+        "pairs": 82,
+        "mean_score": 0.5907681463414634,
+        "observed_match_rate": 0.975609756097561
+      },
+      {
+        "lower_inclusive": 0.6,
+        "upper_inclusive": false,
+        "upper": 0.7,
+        "pairs": 3753,
+        "mean_score": 0.6209618971489475,
+        "observed_match_rate": 0.9890754063415934
+      },
+      {
+        "lower_inclusive": 0.7,
+        "upper_inclusive": false,
+        "upper": 0.8,
+        "pairs": 911,
+        "mean_score": 0.7229166311745334,
+        "observed_match_rate": 0.06915477497255763
+      },
+      {
+        "lower_inclusive": 0.8,
+        "upper_inclusive": false,
+        "upper": 0.9,
+        "pairs": 10,
+        "mean_score": 0.8775999999999999,
+        "observed_match_rate": 1.0
+      },
+      {
+        "lower_inclusive": 0.9,
+        "upper_inclusive": true,
+        "upper": 1.0,
+        "pairs": 16108,
+        "mean_score": 0.9975345597839583,
+        "observed_match_rate": 1.0
+      }
+    ]
+  },
+  "candidate_validation_metrics": [
+    {
+      "candidate_id": "logistic_l2_0.0001",
+      "l2_strength": 0.0001,
+      "passes_zero_false_auto_merge_gate": true,
+      "metrics": {
+        "candidate_pairs": 41057,
+        "true_match_pairs": 26636,
+        "true_non_match_pairs": 14421,
+        "auto_merge_pairs": 19729,
+        "auto_merge_true_positives": 19729,
+        "auto_merge_false_positives": 0,
+        "auto_merge_precision": 1.0,
+        "auto_merge_recall_within_candidates": 0.7406892926865896,
+        "human_review_pairs": 4235,
+        "human_review_true_matches": 3731,
+        "assisted_recall_within_candidates": 0.8807628773089052,
+        "leave_separate_pairs": 17093,
+        "log_loss": 0.1931546469852766,
+        "brier_score": 0.06356237054038527,
+        "expected_calibration_error_10_bins": 0.008417713237403169,
+        "calibration_bins": [
+          {
+            "lower_inclusive": 0.0,
+            "upper_inclusive": false,
+            "upper": 0.1,
+            "pairs": 6710,
+            "mean_score": 0.006092703966454016,
+            "observed_match_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.1,
+            "upper_inclusive": false,
+            "upper": 0.2,
+            "pairs": 78,
+            "mean_score": 0.1401311373352107,
+            "observed_match_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.2,
+            "upper_inclusive": false,
+            "upper": 0.3,
+            "pairs": 10106,
+            "mean_score": 0.28499994332417705,
+            "observed_match_rate": 0.29764496338808627
+          },
+          {
+            "lower_inclusive": 0.3,
+            "upper_inclusive": false,
+            "upper": 0.4,
+            "pairs": 0,
+            "mean_score": null,
+            "observed_match_rate": null
+          },
+          {
+            "lower_inclusive": 0.4,
+            "upper_inclusive": false,
+            "upper": 0.5,
+            "pairs": 2,
+            "mean_score": 0.44814147440096647,
+            "observed_match_rate": 0.5
+          },
+          {
+            "lower_inclusive": 0.5,
+            "upper_inclusive": false,
+            "upper": 0.6,
+            "pairs": 0,
+            "mean_score": null,
+            "observed_match_rate": null
+          },
+          {
+            "lower_inclusive": 0.6,
+            "upper_inclusive": false,
+            "upper": 0.7,
+            "pairs": 457,
+            "mean_score": 0.6531037612491023,
+            "observed_match_rate": 0.87527352297593
+          },
+          {
+            "lower_inclusive": 0.7,
+            "upper_inclusive": false,
+            "upper": 0.8,
+            "pairs": 3,
+            "mean_score": 0.761222997725739,
+            "observed_match_rate": 0.6666666666666666
+          },
+          {
+            "lower_inclusive": 0.8,
+            "upper_inclusive": false,
+            "upper": 0.9,
+            "pairs": 3972,
+            "mean_score": 0.871830048978233,
+            "observed_match_rate": 0.8801611278952669
+          },
+          {
+            "lower_inclusive": 0.9,
+            "upper_inclusive": true,
+            "upper": 1.0,
+            "pairs": 19729,
+            "mean_score": 0.998429053946822,
+            "observed_match_rate": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "candidate_id": "logistic_l2_0.001",
+      "l2_strength": 0.001,
+      "passes_zero_false_auto_merge_gate": true,
+      "metrics": {
+        "candidate_pairs": 41057,
+        "true_match_pairs": 26636,
+        "true_non_match_pairs": 14421,
+        "auto_merge_pairs": 19738,
+        "auto_merge_true_positives": 19738,
+        "auto_merge_false_positives": 0,
+        "auto_merge_precision": 1.0,
+        "auto_merge_recall_within_candidates": 0.7410271812584472,
+        "human_review_pairs": 4226,
+        "human_review_true_matches": 3722,
+        "assisted_recall_within_candidates": 0.8807628773089052,
+        "leave_separate_pairs": 17093,
+        "log_loss": 0.19953633414590644,
+        "brier_score": 0.06428514930003862,
+        "expected_calibration_error_10_bins": 0.013113771020038786,
+        "calibration_bins": [
+          {
+            "lower_inclusive": 0.0,
+            "upper_inclusive": false,
+            "upper": 0.1,
+            "pairs": 6419,
+            "mean_score": 0.01473953971740769,
+            "observed_match_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.1,
+            "upper_inclusive": false,
+            "upper": 0.2,
+            "pairs": 109,
+            "mean_score": 0.11980260389381572,
+            "observed_match_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.2,
+            "upper_inclusive": false,
+            "upper": 0.3,
+            "pairs": 10298,
+            "mean_score": 0.2865843198740914,
+            "observed_match_rate": 0.2920955525344727
+          },
+          {
+            "lower_inclusive": 0.3,
+            "upper_inclusive": false,
+            "upper": 0.4,
+            "pairs": 20,
+            "mean_score": 0.3798894557798061,
+            "observed_match_rate": 0.05
+          },
+          {
+            "lower_inclusive": 0.4,
+            "upper_inclusive": false,
+            "upper": 0.5,
+            "pairs": 46,
+            "mean_score": 0.40848085717218807,
+            "observed_match_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.5,
+            "upper_inclusive": false,
+            "upper": 0.6,
+            "pairs": 201,
+            "mean_score": 0.5907130828372384,
+            "observed_match_rate": 0.8308457711442786
+          },
+          {
+            "lower_inclusive": 0.6,
+            "upper_inclusive": false,
+            "upper": 0.7,
+            "pairs": 260,
+            "mean_score": 0.6876910144802235,
+            "observed_match_rate": 0.8961538461538462
+          },
+          {
+            "lower_inclusive": 0.7,
+            "upper_inclusive": false,
+            "upper": 0.8,
+            "pairs": 18,
+            "mean_score": 0.7702369096619021,
+            "observed_match_rate": 0.9444444444444444
+          },
+          {
+            "lower_inclusive": 0.8,
+            "upper_inclusive": false,
+            "upper": 0.9,
+            "pairs": 3962,
+            "mean_score": 0.85258149396995,
+            "observed_match_rate": 0.8798586572438163
+          },
+          {
+            "lower_inclusive": 0.9,
+            "upper_inclusive": true,
+            "upper": 1.0,
+            "pairs": 19724,
+            "mean_score": 0.9931594472766608,
+            "observed_match_rate": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "candidate_id": "logistic_l2_0.01",
+      "l2_strength": 0.01,
+      "passes_zero_false_auto_merge_gate": true,
+      "metrics": {
+        "candidate_pairs": 41057,
+        "true_match_pairs": 26636,
+        "true_non_match_pairs": 14421,
+        "auto_merge_pairs": 19282,
+        "auto_merge_true_positives": 19282,
+        "auto_merge_false_positives": 0,
+        "auto_merge_precision": 1.0,
+        "auto_merge_recall_within_candidates": 0.7239074936176603,
+        "human_review_pairs": 4751,
+        "human_review_true_matches": 4178,
+        "assisted_recall_within_candidates": 0.8807628773089052,
+        "leave_separate_pairs": 17024,
+        "log_loss": 0.23145198377617168,
+        "brier_score": 0.06975874858431597,
+        "expected_calibration_error_10_bins": 0.042642935761321485,
+        "calibration_bins": [
+          {
+            "lower_inclusive": 0.0,
+            "upper_inclusive": false,
+            "upper": 0.1,
+            "pairs": 3926,
+            "mean_score": 0.029797080848039087,
+            "observed_match_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.1,
+            "upper_inclusive": false,
+            "upper": 0.2,
+            "pairs": 2357,
+            "mean_score": 0.16245610137413005,
+            "observed_match_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.2,
+            "upper_inclusive": false,
+            "upper": 0.3,
+            "pairs": 93,
+            "mean_score": 0.22600925246891435,
+            "observed_match_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.3,
+            "upper_inclusive": false,
+            "upper": 0.4,
+            "pairs": 10252,
+            "mean_score": 0.30667428079775805,
+            "observed_match_rate": 0.29340616465079983
+          },
+          {
+            "lower_inclusive": 0.4,
+            "upper_inclusive": false,
+            "upper": 0.5,
+            "pairs": 12,
+            "mean_score": 0.44241638646052767,
+            "observed_match_rate": 0.08333333333333333
+          },
+          {
+            "lower_inclusive": 0.5,
+            "upper_inclusive": false,
+            "upper": 0.6,
+            "pairs": 384,
+            "mean_score": 0.5335207686927839,
+            "observed_match_rate": 0.4348958333333333
+          },
+          {
+            "lower_inclusive": 0.6,
+            "upper_inclusive": false,
+            "upper": 0.7,
+            "pairs": 326,
+            "mean_score": 0.640492050019403,
+            "observed_match_rate": 0.7177914110429447
+          },
+          {
+            "lower_inclusive": 0.7,
+            "upper_inclusive": false,
+            "upper": 0.8,
+            "pairs": 3714,
+            "mean_score": 0.7827360665376655,
+            "observed_match_rate": 0.8815293484114163
+          },
+          {
+            "lower_inclusive": 0.8,
+            "upper_inclusive": false,
+            "upper": 0.9,
+            "pairs": 982,
+            "mean_score": 0.863941652229879,
+            "observed_match_rate": 0.9582484725050916
+          },
+          {
+            "lower_inclusive": 0.9,
+            "upper_inclusive": true,
+            "upper": 1.0,
+            "pairs": 19011,
+            "mean_score": 0.9701779524439784,
+            "observed_match_rate": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "candidate_id": "logistic_l2_0.1",
+      "l2_strength": 0.1,
+      "passes_zero_false_auto_merge_gate": true,
+      "metrics": {
+        "candidate_pairs": 41057,
+        "true_match_pairs": 26636,
+        "true_non_match_pairs": 14421,
+        "auto_merge_pairs": 12699,
+        "auto_merge_true_positives": 12699,
+        "auto_merge_false_positives": 0,
+        "auto_merge_precision": 1.0,
+        "auto_merge_recall_within_candidates": 0.4767607748911248,
+        "human_review_pairs": 11077,
+        "human_review_true_matches": 10528,
+        "assisted_recall_within_candidates": 0.8720153176152575,
+        "leave_separate_pairs": 17281,
+        "log_loss": 0.3419714125572758,
+        "brier_score": 0.10075851473136854,
+        "expected_calibration_error_10_bins": 0.14649331663912463,
+        "calibration_bins": [
+          {
+            "lower_inclusive": 0.0,
+            "upper_inclusive": false,
+            "upper": 0.1,
+            "pairs": 889,
+            "mean_score": 0.08670295738185849,
+            "observed_match_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.1,
+            "upper_inclusive": false,
+            "upper": 0.2,
+            "pairs": 668,
+            "mean_score": 0.15795262329810997,
+            "observed_match_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.2,
+            "upper_inclusive": false,
+            "upper": 0.3,
+            "pairs": 2215,
+            "mean_score": 0.2538634123419308,
+            "observed_match_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.3,
+            "upper_inclusive": false,
+            "upper": 0.4,
+            "pairs": 10394,
+            "mean_score": 0.3872851467788578,
+            "observed_match_rate": 0.2893977294593034
+          },
+          {
+            "lower_inclusive": 0.4,
+            "upper_inclusive": false,
+            "upper": 0.5,
+            "pairs": 2297,
+            "mean_score": 0.4541584107548197,
+            "observed_match_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.5,
+            "upper_inclusive": false,
+            "upper": 0.6,
+            "pairs": 707,
+            "mean_score": 0.5727448112093785,
+            "observed_match_rate": 0.5671852899575672
+          },
+          {
+            "lower_inclusive": 0.6,
+            "upper_inclusive": false,
+            "upper": 0.7,
+            "pairs": 3887,
+            "mean_score": 0.6778099974548262,
+            "observed_match_rate": 0.84178029328531
+          },
+          {
+            "lower_inclusive": 0.7,
+            "upper_inclusive": false,
+            "upper": 0.8,
+            "pairs": 4124,
+            "mean_score": 0.7277778597296564,
+            "observed_match_rate": 0.9890882638215325
+          },
+          {
+            "lower_inclusive": 0.8,
+            "upper_inclusive": false,
+            "upper": 0.9,
+            "pairs": 5861,
+            "mean_score": 0.8714807638181539,
+            "observed_match_rate": 1.0
+          },
+          {
+            "lower_inclusive": 0.9,
+            "upper_inclusive": true,
+            "upper": 1.0,
+            "pairs": 10015,
+            "mean_score": 0.9264248422205226,
+            "observed_match_rate": 1.0
+          }
+        ]
+      }
+    }
+  ],
+  "selected_candidate": {
+    "candidate_id": "logistic_l2_0.001",
+    "l2_strength": 0.001,
+    "passes_zero_false_auto_merge_gate": true,
+    "metrics": {
+      "candidate_pairs": 41057,
+      "true_match_pairs": 26636,
+      "true_non_match_pairs": 14421,
+      "auto_merge_pairs": 19738,
+      "auto_merge_true_positives": 19738,
+      "auto_merge_false_positives": 0,
+      "auto_merge_precision": 1.0,
+      "auto_merge_recall_within_candidates": 0.7410271812584472,
+      "human_review_pairs": 4226,
+      "human_review_true_matches": 3722,
+      "assisted_recall_within_candidates": 0.8807628773089052,
+      "leave_separate_pairs": 17093,
+      "log_loss": 0.19953633414590644,
+      "brier_score": 0.06428514930003862,
+      "expected_calibration_error_10_bins": 0.013113771020038786,
+      "calibration_bins": [
+        {
+          "lower_inclusive": 0.0,
+          "upper_inclusive": false,
+          "upper": 0.1,
+          "pairs": 6419,
+          "mean_score": 0.01473953971740769,
+          "observed_match_rate": 0.0
+        },
+        {
+          "lower_inclusive": 0.1,
+          "upper_inclusive": false,
+          "upper": 0.2,
+          "pairs": 109,
+          "mean_score": 0.11980260389381572,
+          "observed_match_rate": 0.0
+        },
+        {
+          "lower_inclusive": 0.2,
+          "upper_inclusive": false,
+          "upper": 0.3,
+          "pairs": 10298,
+          "mean_score": 0.2865843198740914,
+          "observed_match_rate": 0.2920955525344727
+        },
+        {
+          "lower_inclusive": 0.3,
+          "upper_inclusive": false,
+          "upper": 0.4,
+          "pairs": 20,
+          "mean_score": 0.3798894557798061,
+          "observed_match_rate": 0.05
+        },
+        {
+          "lower_inclusive": 0.4,
+          "upper_inclusive": false,
+          "upper": 0.5,
+          "pairs": 46,
+          "mean_score": 0.40848085717218807,
+          "observed_match_rate": 0.0
+        },
+        {
+          "lower_inclusive": 0.5,
+          "upper_inclusive": false,
+          "upper": 0.6,
+          "pairs": 201,
+          "mean_score": 0.5907130828372384,
+          "observed_match_rate": 0.8308457711442786
+        },
+        {
+          "lower_inclusive": 0.6,
+          "upper_inclusive": false,
+          "upper": 0.7,
+          "pairs": 260,
+          "mean_score": 0.6876910144802235,
+          "observed_match_rate": 0.8961538461538462
+        },
+        {
+          "lower_inclusive": 0.7,
+          "upper_inclusive": false,
+          "upper": 0.8,
+          "pairs": 18,
+          "mean_score": 0.7702369096619021,
+          "observed_match_rate": 0.9444444444444444
+        },
+        {
+          "lower_inclusive": 0.8,
+          "upper_inclusive": false,
+          "upper": 0.9,
+          "pairs": 3962,
+          "mean_score": 0.85258149396995,
+          "observed_match_rate": 0.8798586572438163
+        },
+        {
+          "lower_inclusive": 0.9,
+          "upper_inclusive": true,
+          "upper": 1.0,
+          "pairs": 19724,
+          "mean_score": 0.9931594472766608,
+          "observed_match_rate": 1.0
+        }
+      ]
+    }
+  },
+  "inputs": {
+    "validation": {
+      "path": "outputs/scoring/labelled_validation_set.csv.gz",
+      "sha256": "f71629d4ccd6c7f9762d5c270c4931f5e7937432061bfba1ab05e0926f8e9ded"
+    },
+    "candidates": {
+      "path": "outputs/logistic/logistic_candidates.json",
+      "sha256": "5aa25c67b4abc33f9633897d95eb946a49cd796739d86302be21df23d3a463d0"
+    },
+    "configuration": {
+      "path": "config/logistic_challenger.yaml",
+      "sha256": "2d5e43289af16c7ba30f554ad7a247a67bb25909b83820e8286e3072772212ca"
+    }
+  }
+}
