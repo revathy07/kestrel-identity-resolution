@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "description": "Frozen Phase 13 observable exclusions and aggregate customer-count scenario design.",
+  "reported_business_reference_counts": {
+    "marketing_users": 400000,
+    "finance_people": 300000
+  },
+  "internal_qa_policy": {
+    "email_domain_suffixes": ["staff.test"],
+    "name_tokens": ["load-test"],
+    "cluster_action": "exclude_only_when_every_record_in_cluster_is_observable_qa"
+  },
+  "automation_policy": {
+    "method": "latest_dense_timestamp_window_plus_source_corroboration",
+    "window_seconds": 600,
+    "minimum_source_fraction": 0.01,
+    "cluster_action": "exclude_only_when_every_record_in_cluster_is_observable_automation",
+    "sources": {
+      "app_users": {
+        "timestamp_field": "signup_ts",
+        "maximum_engagement": 6,
+        "required_missing_fields": ["phone", "dob"]
+      },
+      "store_customers": {
+        "timestamp_field": "updated_ts",
+        "required_missing_fields": ["app_account_ref", "contact_no", "dob"]
+      },
+      "ticketing": {
+        "timestamp_field": "created_ts",
+        "comparison_timestamp_field": "event_ts",
+        "maximum_absolute_delay_seconds": 1,
+        "required_missing_fields": ["account_id", "phone"]
+      },
+      "subscriptions": {
+        "timestamp_field": "start_date",
+        "required_missing_fields": []
+      },
+      "social_logins": {
+        "timestamp_field": "login_ts",
+        "maximum_engagement": 4,
+        "required_values": {"provider": ["google"]},
+        "required_missing_fields": []
+      }
+    }
+  },
+  "latent_match_scenario": {
+    "probability_source": "person_disjoint_frozen_test_observed_match_rate_by_score_bin",
+    "score_bin_boundaries": [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.62, 0.7, 0.8, 0.84, 0.86, 0.88],
+    "smoothing": {"method": "Jeffreys_beta", "alpha": 0.5, "beta": 0.5},
+    "simulations": 500,
+    "random_seed": 20260902,
+    "interval_percentiles": [5, 50, 95],
+    "rule1_maximum_source_records": 12,
+    "oversized_sampled_component_action": "no_additional_count_reduction"
+  },
+  "count_definitions": {
+    "operational_identity_count": "Selected auto-merge clusters before traffic exclusions or uncertain-link adjustment.",
+    "marketing_safe_upper": "Operational identities after high-confidence observable automation and QA cluster exclusions, with no uncertain links assumed resolved.",
+    "candidate_resolvable_estimate": "Monte Carlo count after statistically sampling unresolved candidate edges and respecting transitive overlap and Rule 1.",
+    "defensible_lower_sensitivity": "Fifth-percentile candidate-resolvable count minus at most one identity for each canonical link blocked as deliberately unrecoverable; this is a conservative sensitivity, not an automatic merge plan."
+  },
+  "principles": [
+    "Hidden entity_type and person_id never define a production exclusion or count adjustment.",
+    "Observable automation and QA rules are frozen before hidden-truth validation.",
+    "A cluster is excluded only when every physical member satisfies one observable policy.",
+    "Review and leave-separate edges remain operationally unmerged; simulations affect only the aggregate business estimate.",
+    "Sampled edges are combined transitively so overlapping review pairs are not subtracted independently.",
+    "Rule 1 is applied to every sampled transitive component; oversized components create no additional reduction.",
+    "Frozen-test labels estimate score-bin match probabilities; development labels and full hidden population totals do not set the estimate.",
+    "The known hidden human total is opened only after the estimate is frozen, to evaluate coverage on this synthetic fixture."
+  ]
+}
