@@ -1,0 +1,765 @@
+candidate_id,feature,coefficient
+logistic_l2_0.0001,(intercept),1.1893238960149433
+logistic_l2_0.0001,conflict:account_reference_conflict,-1.5470942921143205
+logistic_l2_0.0001,conflict:date_of_birth_conflict,-1.505319425802698
+logistic_l2_0.0001,conflict:email_conflict,-0.10068506488082699
+logistic_l2_0.0001,conflict:name_conflict,-0.5032433089738415
+logistic_l2_0.0001,conflict:phone_conflict,-2.3064680948958367
+logistic_l2_0.0001,conflict:shared_email_payment_household_risk,-0.819490506433723
+logistic_l2_0.0001,conflict:verified_email_conflict,-0.35536336934449037
+logistic_l2_0.0001,evidence:email_skeleton,0.6542784593289164
+logistic_l2_0.0001,evidence:exact_account_reference,0.6006747653463063
+logistic_l2_0.0001,evidence:exact_device_id,0.3325302436677272
+logistic_l2_0.0001,evidence:exact_email,0.14676040613542987
+logistic_l2_0.0001,evidence:exact_payment_token,-0.528022041776016
+logistic_l2_0.0001,evidence:exact_phone,0.9484346088448474
+logistic_l2_0.0001,evidence:exact_provider_id,0.5832485118348254
+logistic_l2_0.0001,evidence:exact_verified_email,1.118950257533506
+logistic_l2_0.0001,evidence:name_city,0.5215810915408351
+logistic_l2_0.0001,evidence:name_date_of_birth,0.25805529006806965
+logistic_l2_0.0001,evidence:phone_suffix_9,2.0245257105521604
+logistic_l2_0.0001,evidence:same_source_record_id,1.3440313225522236
+logistic_l2_0.0001,conflict:account_reference_conflict & conflict:date_of_birth_conflict,-0.36156272026121866
+logistic_l2_0.0001,conflict:account_reference_conflict & conflict:email_conflict,-0.8992185612853258
+logistic_l2_0.0001,conflict:account_reference_conflict & conflict:name_conflict,-0.4570329957838838
+logistic_l2_0.0001,conflict:account_reference_conflict & conflict:phone_conflict,-0.8273283571926446
+logistic_l2_0.0001,conflict:account_reference_conflict & conflict:shared_email_payment_household_risk,0.0
+logistic_l2_0.0001,conflict:account_reference_conflict & conflict:verified_email_conflict,0.0
+logistic_l2_0.0001,conflict:account_reference_conflict & evidence:email_skeleton,0.20637790599409236
+logistic_l2_0.0001,conflict:account_reference_conflict & evidence:exact_account_reference,0.0
+logistic_l2_0.0001,conflict:account_reference_conflict & evidence:exact_device_id,-0.2615889366211076
+logistic_l2_0.0001,conflict:account_reference_conflict & evidence:exact_email,0.4847722350186436
+logistic_l2_0.0001,conflict:account_reference_conflict & evidence:exact_payment_token,0.0
+logistic_l2_0.0001,conflict:account_reference_conflict & evidence:exact_phone,0.3578598743880128
+logistic_l2_0.0001,conflict:account_reference_conflict & evidence:exact_provider_id,0.0
+logistic_l2_0.0001,conflict:account_reference_conflict & evidence:exact_verified_email,0.0
+logistic_l2_0.0001,conflict:account_reference_conflict & evidence:name_city,-1.334932897536493
+logistic_l2_0.0001,conflict:account_reference_conflict & evidence:name_date_of_birth,-0.009593574488871125
+logistic_l2_0.0001,conflict:account_reference_conflict & evidence:phone_suffix_9,0.0
+logistic_l2_0.0001,conflict:account_reference_conflict & evidence:same_source_record_id,0.0
+logistic_l2_0.0001,conflict:date_of_birth_conflict & conflict:email_conflict,-1.3284644064610318
+logistic_l2_0.0001,conflict:date_of_birth_conflict & conflict:name_conflict,-0.26523352841105835
+logistic_l2_0.0001,conflict:date_of_birth_conflict & conflict:phone_conflict,-0.5712284960377346
+logistic_l2_0.0001,conflict:date_of_birth_conflict & conflict:shared_email_payment_household_risk,0.0
+logistic_l2_0.0001,conflict:date_of_birth_conflict & conflict:verified_email_conflict,0.0
+logistic_l2_0.0001,conflict:date_of_birth_conflict & evidence:email_skeleton,0.0
+logistic_l2_0.0001,conflict:date_of_birth_conflict & evidence:exact_account_reference,0.0
+logistic_l2_0.0001,conflict:date_of_birth_conflict & evidence:exact_device_id,-0.3182200718498579
+logistic_l2_0.0001,conflict:date_of_birth_conflict & evidence:exact_email,0.0
+logistic_l2_0.0001,conflict:date_of_birth_conflict & evidence:exact_payment_token,0.0
+logistic_l2_0.0001,conflict:date_of_birth_conflict & evidence:exact_phone,0.0
+logistic_l2_0.0001,conflict:date_of_birth_conflict & evidence:exact_provider_id,0.0
+logistic_l2_0.0001,conflict:date_of_birth_conflict & evidence:exact_verified_email,0.0
+logistic_l2_0.0001,conflict:date_of_birth_conflict & evidence:name_city,-1.9320800048516902
+logistic_l2_0.0001,conflict:date_of_birth_conflict & evidence:name_date_of_birth,0.0
+logistic_l2_0.0001,conflict:date_of_birth_conflict & evidence:phone_suffix_9,0.0
+logistic_l2_0.0001,conflict:date_of_birth_conflict & evidence:same_source_record_id,0.0
+logistic_l2_0.0001,conflict:email_conflict & conflict:name_conflict,-0.6200166960080761
+logistic_l2_0.0001,conflict:email_conflict & conflict:phone_conflict,-1.8754009845889086
+logistic_l2_0.0001,conflict:email_conflict & conflict:shared_email_payment_household_risk,0.0
+logistic_l2_0.0001,conflict:email_conflict & conflict:verified_email_conflict,0.0
+logistic_l2_0.0001,conflict:email_conflict & evidence:email_skeleton,0.0
+logistic_l2_0.0001,conflict:email_conflict & evidence:exact_account_reference,0.0
+logistic_l2_0.0001,conflict:email_conflict & evidence:exact_device_id,-0.6106544714330114
+logistic_l2_0.0001,conflict:email_conflict & evidence:exact_email,0.0
+logistic_l2_0.0001,conflict:email_conflict & evidence:exact_payment_token,0.0
+logistic_l2_0.0001,conflict:email_conflict & evidence:exact_phone,0.4768280604814635
+logistic_l2_0.0001,conflict:email_conflict & evidence:exact_provider_id,0.0
+logistic_l2_0.0001,conflict:email_conflict & evidence:exact_verified_email,0.0
+logistic_l2_0.0001,conflict:email_conflict & evidence:name_city,0.32307020877125436
+logistic_l2_0.0001,conflict:email_conflict & evidence:name_date_of_birth,0.0
+logistic_l2_0.0001,conflict:email_conflict & evidence:phone_suffix_9,1.8733525376537827
+logistic_l2_0.0001,conflict:email_conflict & evidence:same_source_record_id,0.0
+logistic_l2_0.0001,conflict:name_conflict & conflict:phone_conflict,-0.7316671789466336
+logistic_l2_0.0001,conflict:name_conflict & conflict:shared_email_payment_household_risk,-0.819490506433723
+logistic_l2_0.0001,conflict:name_conflict & conflict:verified_email_conflict,-0.23564780238868238
+logistic_l2_0.0001,conflict:name_conflict & evidence:email_skeleton,0.031066241820712853
+logistic_l2_0.0001,conflict:name_conflict & evidence:exact_account_reference,0.029536412110745792
+logistic_l2_0.0001,conflict:name_conflict & evidence:exact_device_id,-0.6069777875342653
+logistic_l2_0.0001,conflict:name_conflict & evidence:exact_email,-0.5808973067003266
+logistic_l2_0.0001,conflict:name_conflict & evidence:exact_payment_token,-0.819490506433723
+logistic_l2_0.0001,conflict:name_conflict & evidence:exact_phone,0.5641070806994338
+logistic_l2_0.0001,conflict:name_conflict & evidence:exact_provider_id,0.0
+logistic_l2_0.0001,conflict:name_conflict & evidence:exact_verified_email,0.02811411239376166
+logistic_l2_0.0001,conflict:name_conflict & evidence:name_city,0.0
+logistic_l2_0.0001,conflict:name_conflict & evidence:name_date_of_birth,0.0
+logistic_l2_0.0001,conflict:name_conflict & evidence:phone_suffix_9,1.8914503299832544
+logistic_l2_0.0001,conflict:name_conflict & evidence:same_source_record_id,0.0
+logistic_l2_0.0001,conflict:phone_conflict & conflict:shared_email_payment_household_risk,0.0
+logistic_l2_0.0001,conflict:phone_conflict & conflict:verified_email_conflict,-0.38266159724387294
+logistic_l2_0.0001,conflict:phone_conflict & evidence:email_skeleton,0.0
+logistic_l2_0.0001,conflict:phone_conflict & evidence:exact_account_reference,0.0
+logistic_l2_0.0001,conflict:phone_conflict & evidence:exact_device_id,-0.8012479861772941
+logistic_l2_0.0001,conflict:phone_conflict & evidence:exact_email,0.0
+logistic_l2_0.0001,conflict:phone_conflict & evidence:exact_payment_token,0.0
+logistic_l2_0.0001,conflict:phone_conflict & evidence:exact_phone,0.0
+logistic_l2_0.0001,conflict:phone_conflict & evidence:exact_provider_id,0.0
+logistic_l2_0.0001,conflict:phone_conflict & evidence:exact_verified_email,0.0
+logistic_l2_0.0001,conflict:phone_conflict & evidence:name_city,-2.2365139295619465
+logistic_l2_0.0001,conflict:phone_conflict & evidence:name_date_of_birth,-0.009593574488871125
+logistic_l2_0.0001,conflict:phone_conflict & evidence:phone_suffix_9,0.0
+logistic_l2_0.0001,conflict:phone_conflict & evidence:same_source_record_id,0.0
+logistic_l2_0.0001,conflict:shared_email_payment_household_risk & conflict:verified_email_conflict,0.0
+logistic_l2_0.0001,conflict:shared_email_payment_household_risk & evidence:email_skeleton,0.0
+logistic_l2_0.0001,conflict:shared_email_payment_household_risk & evidence:exact_account_reference,0.0
+logistic_l2_0.0001,conflict:shared_email_payment_household_risk & evidence:exact_device_id,0.0
+logistic_l2_0.0001,conflict:shared_email_payment_household_risk & evidence:exact_email,-0.819490506433723
+logistic_l2_0.0001,conflict:shared_email_payment_household_risk & evidence:exact_payment_token,-0.819490506433723
+logistic_l2_0.0001,conflict:shared_email_payment_household_risk & evidence:exact_phone,0.0
+logistic_l2_0.0001,conflict:shared_email_payment_household_risk & evidence:exact_provider_id,0.0
+logistic_l2_0.0001,conflict:shared_email_payment_household_risk & evidence:exact_verified_email,0.0
+logistic_l2_0.0001,conflict:shared_email_payment_household_risk & evidence:name_city,0.0
+logistic_l2_0.0001,conflict:shared_email_payment_household_risk & evidence:name_date_of_birth,0.0
+logistic_l2_0.0001,conflict:shared_email_payment_household_risk & evidence:phone_suffix_9,0.0
+logistic_l2_0.0001,conflict:shared_email_payment_household_risk & evidence:same_source_record_id,0.0
+logistic_l2_0.0001,conflict:verified_email_conflict & evidence:email_skeleton,0.018509161586914756
+logistic_l2_0.0001,conflict:verified_email_conflict & evidence:exact_account_reference,0.0
+logistic_l2_0.0001,conflict:verified_email_conflict & evidence:exact_device_id,-0.20662846510777755
+logistic_l2_0.0001,conflict:verified_email_conflict & evidence:exact_email,0.0
+logistic_l2_0.0001,conflict:verified_email_conflict & evidence:exact_payment_token,0.0
+logistic_l2_0.0001,conflict:verified_email_conflict & evidence:exact_phone,0.018509161586914756
+logistic_l2_0.0001,conflict:verified_email_conflict & evidence:exact_provider_id,0.0
+logistic_l2_0.0001,conflict:verified_email_conflict & evidence:exact_verified_email,0.0
+logistic_l2_0.0001,conflict:verified_email_conflict & evidence:name_city,-0.09628305605922671
+logistic_l2_0.0001,conflict:verified_email_conflict & evidence:name_date_of_birth,0.0
+logistic_l2_0.0001,conflict:verified_email_conflict & evidence:phone_suffix_9,0.0
+logistic_l2_0.0001,conflict:verified_email_conflict & evidence:same_source_record_id,0.0
+logistic_l2_0.0001,evidence:email_skeleton & evidence:exact_account_reference,0.2305251202957772
+logistic_l2_0.0001,evidence:email_skeleton & evidence:exact_device_id,0.6542784593289164
+logistic_l2_0.0001,evidence:email_skeleton & evidence:exact_email,0.0
+logistic_l2_0.0001,evidence:email_skeleton & evidence:exact_payment_token,0.0
+logistic_l2_0.0001,evidence:email_skeleton & evidence:exact_phone,0.5023294326915556
+logistic_l2_0.0001,evidence:email_skeleton & evidence:exact_provider_id,0.0
+logistic_l2_0.0001,evidence:email_skeleton & evidence:exact_verified_email,0.0
+logistic_l2_0.0001,evidence:email_skeleton & evidence:name_city,0.5048163600890616
+logistic_l2_0.0001,evidence:email_skeleton & evidence:name_date_of_birth,0.0
+logistic_l2_0.0001,evidence:email_skeleton & evidence:phone_suffix_9,0.0
+logistic_l2_0.0001,evidence:email_skeleton & evidence:same_source_record_id,0.0
+logistic_l2_0.0001,evidence:exact_account_reference & evidence:exact_device_id,0.6006747653463063
+logistic_l2_0.0001,evidence:exact_account_reference & evidence:exact_email,0.5113884545957146
+logistic_l2_0.0001,evidence:exact_account_reference & evidence:exact_payment_token,0.0
+logistic_l2_0.0001,evidence:exact_account_reference & evidence:exact_phone,0.4688232058849296
+logistic_l2_0.0001,evidence:exact_account_reference & evidence:exact_provider_id,0.0
+logistic_l2_0.0001,evidence:exact_account_reference & evidence:exact_verified_email,0.0
+logistic_l2_0.0001,evidence:exact_account_reference & evidence:name_city,0.41520981422628755
+logistic_l2_0.0001,evidence:exact_account_reference & evidence:name_date_of_birth,0.27535856643936213
+logistic_l2_0.0001,evidence:exact_account_reference & evidence:phone_suffix_9,0.0
+logistic_l2_0.0001,evidence:exact_account_reference & evidence:same_source_record_id,0.1553997820213455
+logistic_l2_0.0001,evidence:exact_device_id & evidence:exact_email,0.8510687034146192
+logistic_l2_0.0001,evidence:exact_device_id & evidence:exact_payment_token,0.0
+logistic_l2_0.0001,evidence:exact_device_id & evidence:exact_phone,0.8866196492435336
+logistic_l2_0.0001,evidence:exact_device_id & evidence:exact_provider_id,0.0
+logistic_l2_0.0001,evidence:exact_device_id & evidence:exact_verified_email,0.8400539243972307
+logistic_l2_0.0001,evidence:exact_device_id & evidence:name_city,0.9351093996465624
+logistic_l2_0.0001,evidence:exact_device_id & evidence:name_date_of_birth,0.27535856643936213
+logistic_l2_0.0001,evidence:exact_device_id & evidence:phone_suffix_9,0.0
+logistic_l2_0.0001,evidence:exact_device_id & evidence:same_source_record_id,0.34648027840255813
+logistic_l2_0.0001,evidence:exact_email & evidence:exact_payment_token,-0.528022041776016
+logistic_l2_0.0001,evidence:exact_email & evidence:exact_phone,0.5380134810146321
+logistic_l2_0.0001,evidence:exact_email & evidence:exact_provider_id,0.0
+logistic_l2_0.0001,evidence:exact_email & evidence:exact_verified_email,0.0
+logistic_l2_0.0001,evidence:exact_email & evidence:name_city,0.6623117690310881
+logistic_l2_0.0001,evidence:exact_email & evidence:name_date_of_birth,0.1944751020480236
+logistic_l2_0.0001,evidence:exact_email & evidence:phone_suffix_9,0.0
+logistic_l2_0.0001,evidence:exact_email & evidence:same_source_record_id,1.5224311530754229
+logistic_l2_0.0001,evidence:exact_payment_token & evidence:exact_phone,0.0
+logistic_l2_0.0001,evidence:exact_payment_token & evidence:exact_provider_id,0.0
+logistic_l2_0.0001,evidence:exact_payment_token & evidence:exact_verified_email,0.0
+logistic_l2_0.0001,evidence:exact_payment_token & evidence:name_city,0.0
+logistic_l2_0.0001,evidence:exact_payment_token & evidence:name_date_of_birth,0.0
+logistic_l2_0.0001,evidence:exact_payment_token & evidence:phone_suffix_9,0.0
+logistic_l2_0.0001,evidence:exact_payment_token & evidence:same_source_record_id,1.3905575238848082
+logistic_l2_0.0001,evidence:exact_phone & evidence:exact_provider_id,0.0
+logistic_l2_0.0001,evidence:exact_phone & evidence:exact_verified_email,0.6996754215816496
+logistic_l2_0.0001,evidence:exact_phone & evidence:name_city,0.7384688454246477
+logistic_l2_0.0001,evidence:exact_phone & evidence:name_date_of_birth,0.14711814722250424
+logistic_l2_0.0001,evidence:exact_phone & evidence:phone_suffix_9,0.0
+logistic_l2_0.0001,evidence:exact_phone & evidence:same_source_record_id,0.0
+logistic_l2_0.0001,evidence:exact_provider_id & evidence:exact_verified_email,0.5832485118348254
+logistic_l2_0.0001,evidence:exact_provider_id & evidence:name_city,0.0
+logistic_l2_0.0001,evidence:exact_provider_id & evidence:name_date_of_birth,0.0
+logistic_l2_0.0001,evidence:exact_provider_id & evidence:phone_suffix_9,0.0
+logistic_l2_0.0001,evidence:exact_provider_id & evidence:same_source_record_id,0.5832485118348254
+logistic_l2_0.0001,evidence:exact_verified_email & evidence:name_city,0.6738455817257106
+logistic_l2_0.0001,evidence:exact_verified_email & evidence:name_date_of_birth,0.0
+logistic_l2_0.0001,evidence:exact_verified_email & evidence:phone_suffix_9,0.0
+logistic_l2_0.0001,evidence:exact_verified_email & evidence:same_source_record_id,0.5832485118348254
+logistic_l2_0.0001,evidence:name_city & evidence:name_date_of_birth,0.0
+logistic_l2_0.0001,evidence:name_city & evidence:phone_suffix_9,0.0
+logistic_l2_0.0001,evidence:name_city & evidence:same_source_record_id,0.34648027840255813
+logistic_l2_0.0001,evidence:name_date_of_birth & evidence:phone_suffix_9,0.0
+logistic_l2_0.0001,evidence:name_date_of_birth & evidence:same_source_record_id,0.0
+logistic_l2_0.0001,evidence:phone_suffix_9 & evidence:same_source_record_id,0.0
+logistic_l2_0.001,(intercept),1.2664111702531453
+logistic_l2_0.001,conflict:account_reference_conflict,-1.1029493124836207
+logistic_l2_0.001,conflict:date_of_birth_conflict,-1.0995091910620793
+logistic_l2_0.001,conflict:email_conflict,-0.08574773718563426
+logistic_l2_0.001,conflict:name_conflict,-0.49136726048889445
+logistic_l2_0.001,conflict:phone_conflict,-2.007592276649183
+logistic_l2_0.001,conflict:shared_email_payment_household_risk,-0.6783621460405062
+logistic_l2_0.001,conflict:verified_email_conflict,-0.1427672020757001
+logistic_l2_0.001,evidence:email_skeleton,0.2650187034632961
+logistic_l2_0.001,evidence:exact_account_reference,0.4031769152068857
+logistic_l2_0.001,evidence:exact_device_id,0.27811565564951884
+logistic_l2_0.001,evidence:exact_email,0.24621462997236088
+logistic_l2_0.001,evidence:exact_payment_token,-0.24751731299302054
+logistic_l2_0.001,evidence:exact_phone,0.834348722896933
+logistic_l2_0.001,evidence:exact_provider_id,0.3383130494853421
+logistic_l2_0.001,evidence:exact_verified_email,0.7461786724516736
+logistic_l2_0.001,evidence:name_city,0.402210114414472
+logistic_l2_0.001,evidence:name_date_of_birth,0.10781494278580167
+logistic_l2_0.001,evidence:phone_suffix_9,1.4083004616792958
+logistic_l2_0.001,evidence:same_source_record_id,0.9877923222527308
+logistic_l2_0.001,conflict:account_reference_conflict & conflict:date_of_birth_conflict,-0.12895257688866105
+logistic_l2_0.001,conflict:account_reference_conflict & conflict:email_conflict,-0.557796745450584
+logistic_l2_0.001,conflict:account_reference_conflict & conflict:name_conflict,-0.16416667774516164
+logistic_l2_0.001,conflict:account_reference_conflict & conflict:phone_conflict,-0.390311924044719
+logistic_l2_0.001,conflict:account_reference_conflict & conflict:shared_email_payment_household_risk,0.0
+logistic_l2_0.001,conflict:account_reference_conflict & conflict:verified_email_conflict,0.0
+logistic_l2_0.001,conflict:account_reference_conflict & evidence:email_skeleton,0.03977452083645895
+logistic_l2_0.001,conflict:account_reference_conflict & evidence:exact_account_reference,0.0
+logistic_l2_0.001,conflict:account_reference_conflict & evidence:exact_device_id,-0.11765729190006877
+logistic_l2_0.001,conflict:account_reference_conflict & evidence:exact_email,0.06677383477749743
+logistic_l2_0.001,conflict:account_reference_conflict & evidence:exact_payment_token,0.0
+logistic_l2_0.001,conflict:account_reference_conflict & evidence:exact_phone,0.07190057630217404
+logistic_l2_0.001,conflict:account_reference_conflict & evidence:exact_provider_id,0.0
+logistic_l2_0.001,conflict:account_reference_conflict & evidence:exact_verified_email,0.0
+logistic_l2_0.001,conflict:account_reference_conflict & evidence:name_city,-0.46994698699221404
+logistic_l2_0.001,conflict:account_reference_conflict & evidence:name_date_of_birth,0.010184985856052818
+logistic_l2_0.001,conflict:account_reference_conflict & evidence:phone_suffix_9,0.0
+logistic_l2_0.001,conflict:account_reference_conflict & evidence:same_source_record_id,0.0
+logistic_l2_0.001,conflict:date_of_birth_conflict & conflict:email_conflict,-0.8708939230827136
+logistic_l2_0.001,conflict:date_of_birth_conflict & conflict:name_conflict,-0.04797562267640603
+logistic_l2_0.001,conflict:date_of_birth_conflict & conflict:phone_conflict,-0.14836772464674353
+logistic_l2_0.001,conflict:date_of_birth_conflict & conflict:shared_email_payment_household_risk,0.0
+logistic_l2_0.001,conflict:date_of_birth_conflict & conflict:verified_email_conflict,0.0
+logistic_l2_0.001,conflict:date_of_birth_conflict & evidence:email_skeleton,0.0
+logistic_l2_0.001,conflict:date_of_birth_conflict & evidence:exact_account_reference,0.0
+logistic_l2_0.001,conflict:date_of_birth_conflict & evidence:exact_device_id,-0.08931464693690694
+logistic_l2_0.001,conflict:date_of_birth_conflict & evidence:exact_email,0.0
+logistic_l2_0.001,conflict:date_of_birth_conflict & evidence:exact_payment_token,0.0
+logistic_l2_0.001,conflict:date_of_birth_conflict & evidence:exact_phone,0.0
+logistic_l2_0.001,conflict:date_of_birth_conflict & evidence:exact_provider_id,0.0
+logistic_l2_0.001,conflict:date_of_birth_conflict & evidence:exact_verified_email,0.0
+logistic_l2_0.001,conflict:date_of_birth_conflict & evidence:name_city,-1.0622680052917544
+logistic_l2_0.001,conflict:date_of_birth_conflict & evidence:name_date_of_birth,0.0
+logistic_l2_0.001,conflict:date_of_birth_conflict & evidence:phone_suffix_9,0.0
+logistic_l2_0.001,conflict:date_of_birth_conflict & evidence:same_source_record_id,0.0
+logistic_l2_0.001,conflict:email_conflict & conflict:name_conflict,-0.5224382915023725
+logistic_l2_0.001,conflict:email_conflict & conflict:phone_conflict,-1.3813061118529615
+logistic_l2_0.001,conflict:email_conflict & conflict:shared_email_payment_household_risk,0.0
+logistic_l2_0.001,conflict:email_conflict & conflict:verified_email_conflict,0.0
+logistic_l2_0.001,conflict:email_conflict & evidence:email_skeleton,0.0
+logistic_l2_0.001,conflict:email_conflict & evidence:exact_account_reference,0.0
+logistic_l2_0.001,conflict:email_conflict & evidence:exact_device_id,-0.6694324944750557
+logistic_l2_0.001,conflict:email_conflict & evidence:exact_email,0.0
+logistic_l2_0.001,conflict:email_conflict & evidence:exact_payment_token,0.0
+logistic_l2_0.001,conflict:email_conflict & evidence:exact_phone,0.08890048357849457
+logistic_l2_0.001,conflict:email_conflict & evidence:exact_provider_id,0.0
+logistic_l2_0.001,conflict:email_conflict & evidence:exact_verified_email,0.0
+logistic_l2_0.001,conflict:email_conflict & evidence:name_city,0.17757050329254506
+logistic_l2_0.001,conflict:email_conflict & evidence:name_date_of_birth,0.0
+logistic_l2_0.001,conflict:email_conflict & evidence:phone_suffix_9,1.2531842997846676
+logistic_l2_0.001,conflict:email_conflict & evidence:same_source_record_id,0.0
+logistic_l2_0.001,conflict:name_conflict & conflict:phone_conflict,-0.34822096377337974
+logistic_l2_0.001,conflict:name_conflict & conflict:shared_email_payment_household_risk,-0.6783621460405062
+logistic_l2_0.001,conflict:name_conflict & conflict:verified_email_conflict,-0.1131295517709477
+logistic_l2_0.001,conflict:name_conflict & evidence:email_skeleton,0.01258522161849161
+logistic_l2_0.001,conflict:name_conflict & evidence:exact_account_reference,0.014020942652804796
+logistic_l2_0.001,conflict:name_conflict & evidence:exact_device_id,-0.6815991739299094
+logistic_l2_0.001,conflict:name_conflict & evidence:exact_email,-0.6300648936391325
+logistic_l2_0.001,conflict:name_conflict & evidence:exact_payment_token,-0.6783621460405062
+logistic_l2_0.001,conflict:name_conflict & evidence:exact_phone,0.13105441519743447
+logistic_l2_0.001,conflict:name_conflict & evidence:exact_provider_id,0.0
+logistic_l2_0.001,conflict:name_conflict & evidence:exact_verified_email,0.01739760211638325
+logistic_l2_0.001,conflict:name_conflict & evidence:name_city,0.0
+logistic_l2_0.001,conflict:name_conflict & evidence:name_date_of_birth,0.0
+logistic_l2_0.001,conflict:name_conflict & evidence:phone_suffix_9,1.2641437580301444
+logistic_l2_0.001,conflict:name_conflict & evidence:same_source_record_id,0.0
+logistic_l2_0.001,conflict:phone_conflict & conflict:shared_email_payment_household_risk,0.0
+logistic_l2_0.001,conflict:phone_conflict & conflict:verified_email_conflict,-0.1536618805436106
+logistic_l2_0.001,conflict:phone_conflict & evidence:email_skeleton,0.0
+logistic_l2_0.001,conflict:phone_conflict & evidence:exact_account_reference,0.0
+logistic_l2_0.001,conflict:phone_conflict & evidence:exact_device_id,-0.427182271533251
+logistic_l2_0.001,conflict:phone_conflict & evidence:exact_email,0.0
+logistic_l2_0.001,conflict:phone_conflict & evidence:exact_payment_token,0.0
+logistic_l2_0.001,conflict:phone_conflict & evidence:exact_phone,0.0
+logistic_l2_0.001,conflict:phone_conflict & evidence:exact_provider_id,0.0
+logistic_l2_0.001,conflict:phone_conflict & evidence:exact_verified_email,0.0
+logistic_l2_0.001,conflict:phone_conflict & evidence:name_city,-1.6500790871580322
+logistic_l2_0.001,conflict:phone_conflict & evidence:name_date_of_birth,0.010184985856052818
+logistic_l2_0.001,conflict:phone_conflict & evidence:phone_suffix_9,0.0
+logistic_l2_0.001,conflict:phone_conflict & evidence:same_source_record_id,0.0
+logistic_l2_0.001,conflict:shared_email_payment_household_risk & conflict:verified_email_conflict,0.0
+logistic_l2_0.001,conflict:shared_email_payment_household_risk & evidence:email_skeleton,0.0
+logistic_l2_0.001,conflict:shared_email_payment_household_risk & evidence:exact_account_reference,0.0
+logistic_l2_0.001,conflict:shared_email_payment_household_risk & evidence:exact_device_id,0.0
+logistic_l2_0.001,conflict:shared_email_payment_household_risk & evidence:exact_email,-0.6783621460405062
+logistic_l2_0.001,conflict:shared_email_payment_household_risk & evidence:exact_payment_token,-0.6783621460405062
+logistic_l2_0.001,conflict:shared_email_payment_household_risk & evidence:exact_phone,0.0
+logistic_l2_0.001,conflict:shared_email_payment_household_risk & evidence:exact_provider_id,0.0
+logistic_l2_0.001,conflict:shared_email_payment_household_risk & evidence:exact_verified_email,0.0
+logistic_l2_0.001,conflict:shared_email_payment_household_risk & evidence:name_city,0.0
+logistic_l2_0.001,conflict:shared_email_payment_household_risk & evidence:name_date_of_birth,0.0
+logistic_l2_0.001,conflict:shared_email_payment_household_risk & evidence:phone_suffix_9,0.0
+logistic_l2_0.001,conflict:shared_email_payment_household_risk & evidence:same_source_record_id,0.0
+logistic_l2_0.001,conflict:verified_email_conflict & evidence:email_skeleton,0.0072424571309622696
+logistic_l2_0.001,conflict:verified_email_conflict & evidence:exact_account_reference,0.0
+logistic_l2_0.001,conflict:verified_email_conflict & evidence:exact_device_id,-0.1021519084487218
+logistic_l2_0.001,conflict:verified_email_conflict & evidence:exact_email,0.0
+logistic_l2_0.001,conflict:verified_email_conflict & evidence:exact_payment_token,0.0
+logistic_l2_0.001,conflict:verified_email_conflict & evidence:exact_phone,0.0072424571309622696
+logistic_l2_0.001,conflict:verified_email_conflict & evidence:exact_provider_id,0.0
+logistic_l2_0.001,conflict:verified_email_conflict & evidence:exact_verified_email,0.0
+logistic_l2_0.001,conflict:verified_email_conflict & evidence:name_city,-0.02592333219736242
+logistic_l2_0.001,conflict:verified_email_conflict & evidence:name_date_of_birth,0.0
+logistic_l2_0.001,conflict:verified_email_conflict & evidence:phone_suffix_9,0.0
+logistic_l2_0.001,conflict:verified_email_conflict & evidence:same_source_record_id,0.0
+logistic_l2_0.001,evidence:email_skeleton & evidence:exact_account_reference,0.07666833812609197
+logistic_l2_0.001,evidence:email_skeleton & evidence:exact_device_id,0.2650187034632961
+logistic_l2_0.001,evidence:email_skeleton & evidence:exact_email,0.0
+logistic_l2_0.001,evidence:email_skeleton & evidence:exact_payment_token,0.0
+logistic_l2_0.001,evidence:email_skeleton & evidence:exact_phone,0.19609753127368804
+logistic_l2_0.001,evidence:email_skeleton & evidence:exact_provider_id,0.0
+logistic_l2_0.001,evidence:email_skeleton & evidence:exact_verified_email,0.0
+logistic_l2_0.001,evidence:email_skeleton & evidence:name_city,0.18429264938264378
+logistic_l2_0.001,evidence:email_skeleton & evidence:name_date_of_birth,0.0
+logistic_l2_0.001,evidence:email_skeleton & evidence:phone_suffix_9,0.0
+logistic_l2_0.001,evidence:email_skeleton & evidence:same_source_record_id,0.0
+logistic_l2_0.001,evidence:exact_account_reference & evidence:exact_device_id,0.4031769152068857
+logistic_l2_0.001,evidence:exact_account_reference & evidence:exact_email,0.2563771951333701
+logistic_l2_0.001,evidence:exact_account_reference & evidence:exact_payment_token,0.0
+logistic_l2_0.001,evidence:exact_account_reference & evidence:exact_phone,0.21731252425182282
+logistic_l2_0.001,evidence:exact_account_reference & evidence:exact_provider_id,0.0
+logistic_l2_0.001,evidence:exact_account_reference & evidence:exact_verified_email,0.0
+logistic_l2_0.001,evidence:exact_account_reference & evidence:name_city,0.1643201250347634
+logistic_l2_0.001,evidence:exact_account_reference & evidence:name_date_of_birth,0.11080489906181491
+logistic_l2_0.001,evidence:exact_account_reference & evidence:phone_suffix_9,0.0
+logistic_l2_0.001,evidence:exact_account_reference & evidence:same_source_record_id,0.022071279792128137
+logistic_l2_0.001,evidence:exact_device_id & evidence:exact_email,0.5026003931001853
+logistic_l2_0.001,evidence:exact_device_id & evidence:exact_payment_token,0.0
+logistic_l2_0.001,evidence:exact_device_id & evidence:exact_phone,0.765025758525282
+logistic_l2_0.001,evidence:exact_device_id & evidence:exact_provider_id,0.0
+logistic_l2_0.001,evidence:exact_device_id & evidence:exact_verified_email,0.4092020336522371
+logistic_l2_0.001,evidence:exact_device_id & evidence:name_city,0.794115684919701
+logistic_l2_0.001,evidence:exact_device_id & evidence:name_date_of_birth,0.11080489906181491
+logistic_l2_0.001,evidence:exact_device_id & evidence:phone_suffix_9,0.0
+logistic_l2_0.001,evidence:exact_device_id & evidence:same_source_record_id,0.12892955788154906
+logistic_l2_0.001,evidence:exact_email & evidence:exact_payment_token,-0.24751731299302054
+logistic_l2_0.001,evidence:exact_email & evidence:exact_phone,0.1959256694465639
+logistic_l2_0.001,evidence:exact_email & evidence:exact_provider_id,0.0
+logistic_l2_0.001,evidence:exact_email & evidence:exact_verified_email,0.0
+logistic_l2_0.001,evidence:exact_email & evidence:name_city,0.28539145608299743
+logistic_l2_0.001,evidence:exact_email & evidence:name_date_of_birth,0.08658450785628978
+logistic_l2_0.001,evidence:exact_email & evidence:phone_suffix_9,0.0
+logistic_l2_0.001,evidence:exact_email & evidence:same_source_record_id,0.6565550199160176
+logistic_l2_0.001,evidence:exact_payment_token & evidence:exact_phone,0.0
+logistic_l2_0.001,evidence:exact_payment_token & evidence:exact_provider_id,0.0
+logistic_l2_0.001,evidence:exact_payment_token & evidence:exact_verified_email,0.0
+logistic_l2_0.001,evidence:exact_payment_token & evidence:name_city,0.0
+logistic_l2_0.001,evidence:exact_payment_token & evidence:name_date_of_birth,0.0
+logistic_l2_0.001,evidence:exact_payment_token & evidence:phone_suffix_9,0.0
+logistic_l2_0.001,evidence:exact_payment_token & evidence:same_source_record_id,0.5212813268133231
+logistic_l2_0.001,evidence:exact_phone & evidence:exact_provider_id,0.0
+logistic_l2_0.001,evidence:exact_phone & evidence:exact_verified_email,0.2974776400073387
+logistic_l2_0.001,evidence:exact_phone & evidence:name_city,0.49292828006855216
+logistic_l2_0.001,evidence:exact_phone & evidence:name_date_of_birth,0.06410132446532998
+logistic_l2_0.001,evidence:exact_phone & evidence:phone_suffix_9,0.0
+logistic_l2_0.001,evidence:exact_phone & evidence:same_source_record_id,0.0
+logistic_l2_0.001,evidence:exact_provider_id & evidence:exact_verified_email,0.3383130494853421
+logistic_l2_0.001,evidence:exact_provider_id & evidence:name_city,0.0
+logistic_l2_0.001,evidence:exact_provider_id & evidence:name_date_of_birth,0.0
+logistic_l2_0.001,evidence:exact_provider_id & evidence:phone_suffix_9,0.0
+logistic_l2_0.001,evidence:exact_provider_id & evidence:same_source_record_id,0.3383130494853421
+logistic_l2_0.001,evidence:exact_verified_email & evidence:name_city,0.2770197998329265
+logistic_l2_0.001,evidence:exact_verified_email & evidence:name_date_of_birth,0.0
+logistic_l2_0.001,evidence:exact_verified_email & evidence:phone_suffix_9,0.0
+logistic_l2_0.001,evidence:exact_verified_email & evidence:same_source_record_id,0.3383130494853421
+logistic_l2_0.001,evidence:name_city & evidence:name_date_of_birth,0.0
+logistic_l2_0.001,evidence:name_city & evidence:phone_suffix_9,0.0
+logistic_l2_0.001,evidence:name_city & evidence:same_source_record_id,0.12892955788154906
+logistic_l2_0.001,evidence:name_date_of_birth & evidence:phone_suffix_9,0.0
+logistic_l2_0.001,evidence:name_date_of_birth & evidence:same_source_record_id,0.0
+logistic_l2_0.001,evidence:phone_suffix_9 & evidence:same_source_record_id,0.0
+logistic_l2_0.01,(intercept),1.3760309481131414
+logistic_l2_0.01,conflict:account_reference_conflict,-0.4029908405497978
+logistic_l2_0.01,conflict:date_of_birth_conflict,-0.48464243558117354
+logistic_l2_0.01,conflict:email_conflict,-0.1613358776333947
+logistic_l2_0.01,conflict:name_conflict,-0.46558290784435014
+logistic_l2_0.01,conflict:phone_conflict,-1.1966349118875
+logistic_l2_0.01,conflict:shared_email_payment_household_risk,-0.37927826712789176
+logistic_l2_0.01,conflict:verified_email_conflict,-0.045601930533472244
+logistic_l2_0.01,evidence:email_skeleton,0.1259959210094963
+logistic_l2_0.01,evidence:exact_account_reference,0.2281257405074479
+logistic_l2_0.01,evidence:exact_device_id,0.04614656784489185
+logistic_l2_0.01,evidence:exact_email,0.06883338048167759
+logistic_l2_0.01,evidence:exact_payment_token,-0.21306214376446345
+logistic_l2_0.01,evidence:exact_phone,0.47846290781359924
+logistic_l2_0.01,evidence:exact_provider_id,0.15037924751688245
+logistic_l2_0.01,evidence:exact_verified_email,0.3807618778610435
+logistic_l2_0.01,evidence:name_city,0.17579322440567127
+logistic_l2_0.01,evidence:name_date_of_birth,0.053103897888635475
+logistic_l2_0.01,evidence:phone_suffix_9,0.6593741890376916
+logistic_l2_0.01,evidence:same_source_record_id,0.43194316783716646
+logistic_l2_0.01,conflict:account_reference_conflict & conflict:date_of_birth_conflict,-0.10687983288040741
+logistic_l2_0.01,conflict:account_reference_conflict & conflict:email_conflict,-0.20156877514319554
+logistic_l2_0.01,conflict:account_reference_conflict & conflict:name_conflict,-0.09287500776906808
+logistic_l2_0.01,conflict:account_reference_conflict & conflict:phone_conflict,-0.23062360777213958
+logistic_l2_0.01,conflict:account_reference_conflict & conflict:shared_email_payment_household_risk,0.0
+logistic_l2_0.01,conflict:account_reference_conflict & conflict:verified_email_conflict,0.0
+logistic_l2_0.01,conflict:account_reference_conflict & evidence:email_skeleton,-0.004592017676234747
+logistic_l2_0.01,conflict:account_reference_conflict & evidence:exact_account_reference,0.0
+logistic_l2_0.01,conflict:account_reference_conflict & evidence:exact_device_id,-0.11497149089210916
+logistic_l2_0.01,conflict:account_reference_conflict & evidence:exact_email,0.00826753446384792
+logistic_l2_0.01,conflict:account_reference_conflict & evidence:exact_payment_token,0.0
+logistic_l2_0.01,conflict:account_reference_conflict & evidence:exact_phone,0.01217833389886073
+logistic_l2_0.01,conflict:account_reference_conflict & evidence:exact_provider_id,0.0
+logistic_l2_0.01,conflict:account_reference_conflict & evidence:exact_verified_email,0.0
+logistic_l2_0.01,conflict:account_reference_conflict & evidence:name_city,-0.1317099450827101
+logistic_l2_0.01,conflict:account_reference_conflict & evidence:name_date_of_birth,0.0015967461302066623
+logistic_l2_0.01,conflict:account_reference_conflict & evidence:phone_suffix_9,0.0
+logistic_l2_0.01,conflict:account_reference_conflict & evidence:same_source_record_id,0.0
+logistic_l2_0.01,conflict:date_of_birth_conflict & conflict:email_conflict,-0.3710691882160421
+logistic_l2_0.01,conflict:date_of_birth_conflict & conflict:name_conflict,-0.039557839342723104
+logistic_l2_0.01,conflict:date_of_birth_conflict & conflict:phone_conflict,-0.2142609805122049
+logistic_l2_0.01,conflict:date_of_birth_conflict & conflict:shared_email_payment_household_risk,0.0
+logistic_l2_0.01,conflict:date_of_birth_conflict & conflict:verified_email_conflict,0.0
+logistic_l2_0.01,conflict:date_of_birth_conflict & evidence:email_skeleton,0.0
+logistic_l2_0.01,conflict:date_of_birth_conflict & evidence:exact_account_reference,0.0
+logistic_l2_0.01,conflict:date_of_birth_conflict & evidence:exact_device_id,-0.0678180518113001
+logistic_l2_0.01,conflict:date_of_birth_conflict & evidence:exact_email,0.0
+logistic_l2_0.01,conflict:date_of_birth_conflict & evidence:exact_payment_token,0.0
+logistic_l2_0.01,conflict:date_of_birth_conflict & evidence:exact_phone,0.0
+logistic_l2_0.01,conflict:date_of_birth_conflict & evidence:exact_provider_id,0.0
+logistic_l2_0.01,conflict:date_of_birth_conflict & evidence:exact_verified_email,0.0
+logistic_l2_0.01,conflict:date_of_birth_conflict & evidence:name_city,-0.41594759416003424
+logistic_l2_0.01,conflict:date_of_birth_conflict & evidence:name_date_of_birth,0.0
+logistic_l2_0.01,conflict:date_of_birth_conflict & evidence:phone_suffix_9,0.0
+logistic_l2_0.01,conflict:date_of_birth_conflict & evidence:same_source_record_id,0.0
+logistic_l2_0.01,conflict:email_conflict & conflict:name_conflict,-0.22205861413826652
+logistic_l2_0.01,conflict:email_conflict & conflict:phone_conflict,-0.792612767458171
+logistic_l2_0.01,conflict:email_conflict & conflict:shared_email_payment_household_risk,0.0
+logistic_l2_0.01,conflict:email_conflict & conflict:verified_email_conflict,0.0
+logistic_l2_0.01,conflict:email_conflict & evidence:email_skeleton,0.0
+logistic_l2_0.01,conflict:email_conflict & evidence:exact_account_reference,0.0
+logistic_l2_0.01,conflict:email_conflict & evidence:exact_device_id,-0.6841831727466362
+logistic_l2_0.01,conflict:email_conflict & evidence:exact_email,0.0
+logistic_l2_0.01,conflict:email_conflict & evidence:exact_payment_token,0.0
+logistic_l2_0.01,conflict:email_conflict & evidence:exact_phone,0.012673082565199528
+logistic_l2_0.01,conflict:email_conflict & evidence:exact_provider_id,0.0
+logistic_l2_0.01,conflict:email_conflict & evidence:exact_verified_email,0.0
+logistic_l2_0.01,conflict:email_conflict & evidence:name_city,-0.1073471200733719
+logistic_l2_0.01,conflict:email_conflict & evidence:name_date_of_birth,0.0
+logistic_l2_0.01,conflict:email_conflict & evidence:phone_suffix_9,0.6094217938050757
+logistic_l2_0.01,conflict:email_conflict & evidence:same_source_record_id,0.0
+logistic_l2_0.01,conflict:name_conflict & conflict:phone_conflict,-0.17457110514465454
+logistic_l2_0.01,conflict:name_conflict & conflict:shared_email_payment_household_risk,-0.37927826712789176
+logistic_l2_0.01,conflict:name_conflict & conflict:verified_email_conflict,-0.03585861042957434
+logistic_l2_0.01,conflict:name_conflict & evidence:email_skeleton,-1.4452133435858042e-05
+logistic_l2_0.01,conflict:name_conflict & evidence:exact_account_reference,-0.004585009189750891
+logistic_l2_0.01,conflict:name_conflict & evidence:exact_device_id,-0.7083147721396809
+logistic_l2_0.01,conflict:name_conflict & evidence:exact_email,-0.3739335008526584
+logistic_l2_0.01,conflict:name_conflict & evidence:exact_payment_token,-0.37927826712789176
+logistic_l2_0.01,conflict:name_conflict & evidence:exact_phone,0.029071996302816427
+logistic_l2_0.01,conflict:name_conflict & evidence:exact_provider_id,0.0
+logistic_l2_0.01,conflict:name_conflict & evidence:exact_verified_email,-0.0006730921548449582
+logistic_l2_0.01,conflict:name_conflict & evidence:name_city,0.0
+logistic_l2_0.01,conflict:name_conflict & evidence:name_date_of_birth,0.0
+logistic_l2_0.01,conflict:name_conflict & evidence:phone_suffix_9,0.6097022151751824
+logistic_l2_0.01,conflict:name_conflict & evidence:same_source_record_id,0.0
+logistic_l2_0.01,conflict:phone_conflict & conflict:shared_email_payment_household_risk,0.0
+logistic_l2_0.01,conflict:phone_conflict & conflict:verified_email_conflict,-0.0515154091855522
+logistic_l2_0.01,conflict:phone_conflict & evidence:email_skeleton,0.0
+logistic_l2_0.01,conflict:phone_conflict & evidence:exact_account_reference,0.0
+logistic_l2_0.01,conflict:phone_conflict & evidence:exact_device_id,-0.21989153609778228
+logistic_l2_0.01,conflict:phone_conflict & evidence:exact_email,0.0
+logistic_l2_0.01,conflict:phone_conflict & evidence:exact_payment_token,0.0
+logistic_l2_0.01,conflict:phone_conflict & evidence:exact_phone,0.0
+logistic_l2_0.01,conflict:phone_conflict & evidence:exact_provider_id,0.0
+logistic_l2_0.01,conflict:phone_conflict & evidence:exact_verified_email,0.0
+logistic_l2_0.01,conflict:phone_conflict & evidence:name_city,-0.8718666171882655
+logistic_l2_0.01,conflict:phone_conflict & evidence:name_date_of_birth,0.0015967461302066623
+logistic_l2_0.01,conflict:phone_conflict & evidence:phone_suffix_9,0.0
+logistic_l2_0.01,conflict:phone_conflict & evidence:same_source_record_id,0.0
+logistic_l2_0.01,conflict:shared_email_payment_household_risk & conflict:verified_email_conflict,0.0
+logistic_l2_0.01,conflict:shared_email_payment_household_risk & evidence:email_skeleton,0.0
+logistic_l2_0.01,conflict:shared_email_payment_household_risk & evidence:exact_account_reference,0.0
+logistic_l2_0.01,conflict:shared_email_payment_household_risk & evidence:exact_device_id,0.0
+logistic_l2_0.01,conflict:shared_email_payment_household_risk & evidence:exact_email,-0.37927826712789176
+logistic_l2_0.01,conflict:shared_email_payment_household_risk & evidence:exact_payment_token,-0.37927826712789176
+logistic_l2_0.01,conflict:shared_email_payment_household_risk & evidence:exact_phone,0.0
+logistic_l2_0.01,conflict:shared_email_payment_household_risk & evidence:exact_provider_id,0.0
+logistic_l2_0.01,conflict:shared_email_payment_household_risk & evidence:exact_verified_email,0.0
+logistic_l2_0.01,conflict:shared_email_payment_household_risk & evidence:name_city,0.0
+logistic_l2_0.01,conflict:shared_email_payment_household_risk & evidence:name_date_of_birth,0.0
+logistic_l2_0.01,conflict:shared_email_payment_household_risk & evidence:phone_suffix_9,0.0
+logistic_l2_0.01,conflict:shared_email_payment_household_risk & evidence:same_source_record_id,0.0
+logistic_l2_0.01,conflict:verified_email_conflict & evidence:email_skeleton,-0.001410170442656255
+logistic_l2_0.01,conflict:verified_email_conflict & evidence:exact_account_reference,0.0
+logistic_l2_0.01,conflict:verified_email_conflict & evidence:exact_device_id,-0.02988810590997769
+logistic_l2_0.01,conflict:verified_email_conflict & evidence:exact_email,0.0
+logistic_l2_0.01,conflict:verified_email_conflict & evidence:exact_payment_token,0.0
+logistic_l2_0.01,conflict:verified_email_conflict & evidence:exact_phone,-0.001410170442656255
+logistic_l2_0.01,conflict:verified_email_conflict & evidence:exact_provider_id,0.0
+logistic_l2_0.01,conflict:verified_email_conflict & evidence:exact_verified_email,0.0
+logistic_l2_0.01,conflict:verified_email_conflict & evidence:name_city,-0.002255491253146569
+logistic_l2_0.01,conflict:verified_email_conflict & evidence:name_date_of_birth,0.0
+logistic_l2_0.01,conflict:verified_email_conflict & evidence:phone_suffix_9,0.0
+logistic_l2_0.01,conflict:verified_email_conflict & evidence:same_source_record_id,0.0
+logistic_l2_0.01,evidence:email_skeleton & evidence:exact_account_reference,0.0473947558832728
+logistic_l2_0.01,evidence:email_skeleton & evidence:exact_device_id,0.1259959210094963
+logistic_l2_0.01,evidence:email_skeleton & evidence:exact_email,0.0
+logistic_l2_0.01,evidence:email_skeleton & evidence:exact_payment_token,0.0
+logistic_l2_0.01,evidence:email_skeleton & evidence:exact_phone,0.10949249389230978
+logistic_l2_0.01,evidence:email_skeleton & evidence:exact_provider_id,0.0
+logistic_l2_0.01,evidence:email_skeleton & evidence:exact_verified_email,0.0
+logistic_l2_0.01,evidence:email_skeleton & evidence:name_city,0.10196948891807253
+logistic_l2_0.01,evidence:email_skeleton & evidence:name_date_of_birth,0.0
+logistic_l2_0.01,evidence:email_skeleton & evidence:phone_suffix_9,0.0
+logistic_l2_0.01,evidence:email_skeleton & evidence:same_source_record_id,0.0
+logistic_l2_0.01,evidence:exact_account_reference & evidence:exact_device_id,0.2281257405074479
+logistic_l2_0.01,evidence:exact_account_reference & evidence:exact_email,0.1580523009275757
+logistic_l2_0.01,evidence:exact_account_reference & evidence:exact_payment_token,0.0
+logistic_l2_0.01,evidence:exact_account_reference & evidence:exact_phone,0.14811378995908675
+logistic_l2_0.01,evidence:exact_account_reference & evidence:exact_provider_id,0.0
+logistic_l2_0.01,evidence:exact_account_reference & evidence:exact_verified_email,0.0
+logistic_l2_0.01,evidence:exact_account_reference & evidence:name_city,0.12385084280788537
+logistic_l2_0.01,evidence:exact_account_reference & evidence:name_date_of_birth,0.05411150344026313
+logistic_l2_0.01,evidence:exact_account_reference & evidence:phone_suffix_9,0.0
+logistic_l2_0.01,evidence:exact_account_reference & evidence:same_source_record_id,0.02548383434373317
+logistic_l2_0.01,evidence:exact_device_id & evidence:exact_email,0.2828523319525978
+logistic_l2_0.01,evidence:exact_device_id & evidence:exact_payment_token,0.0
+logistic_l2_0.01,evidence:exact_device_id & evidence:exact_phone,0.4682542725432832
+logistic_l2_0.01,evidence:exact_device_id & evidence:exact_provider_id,0.0
+logistic_l2_0.01,evidence:exact_device_id & evidence:exact_verified_email,0.22851349707506172
+logistic_l2_0.01,evidence:exact_device_id & evidence:name_city,0.5172929320913825
+logistic_l2_0.01,evidence:exact_device_id & evidence:name_date_of_birth,0.05411150344026313
+logistic_l2_0.01,evidence:exact_device_id & evidence:phone_suffix_9,0.0
+logistic_l2_0.01,evidence:exact_device_id & evidence:same_source_record_id,0.1172859060428306
+logistic_l2_0.01,evidence:exact_email & evidence:exact_payment_token,-0.21306214376446345
+logistic_l2_0.01,evidence:exact_email & evidence:exact_phone,0.12059539815860565
+logistic_l2_0.01,evidence:exact_email & evidence:exact_provider_id,0.0
+logistic_l2_0.01,evidence:exact_email & evidence:exact_verified_email,0.0
+logistic_l2_0.01,evidence:exact_email & evidence:name_city,0.19529195012696512
+logistic_l2_0.01,evidence:exact_email & evidence:name_date_of_birth,0.04679337300070867
+logistic_l2_0.01,evidence:exact_email & evidence:phone_suffix_9,0.0
+logistic_l2_0.01,evidence:exact_email & evidence:same_source_record_id,0.2760142354373608
+logistic_l2_0.01,evidence:exact_payment_token & evidence:exact_phone,0.0
+logistic_l2_0.01,evidence:exact_payment_token & evidence:exact_provider_id,0.0
+logistic_l2_0.01,evidence:exact_payment_token & evidence:exact_verified_email,0.0
+logistic_l2_0.01,evidence:exact_payment_token & evidence:name_city,0.0
+logistic_l2_0.01,evidence:exact_payment_token & evidence:name_date_of_birth,0.0
+logistic_l2_0.01,evidence:exact_payment_token & evidence:phone_suffix_9,0.0
+logistic_l2_0.01,evidence:exact_payment_token & evidence:same_source_record_id,0.16125899066907096
+logistic_l2_0.01,evidence:exact_phone & evidence:exact_provider_id,0.0
+logistic_l2_0.01,evidence:exact_phone & evidence:exact_verified_email,0.1961549113825433
+logistic_l2_0.01,evidence:exact_phone & evidence:name_city,0.3295209087901557
+logistic_l2_0.01,evidence:exact_phone & evidence:name_date_of_birth,0.04070970962458375
+logistic_l2_0.01,evidence:exact_phone & evidence:phone_suffix_9,0.0
+logistic_l2_0.01,evidence:exact_phone & evidence:same_source_record_id,0.0
+logistic_l2_0.01,evidence:exact_provider_id & evidence:exact_verified_email,0.15037924751688245
+logistic_l2_0.01,evidence:exact_provider_id & evidence:name_city,0.0
+logistic_l2_0.01,evidence:exact_provider_id & evidence:name_date_of_birth,0.0
+logistic_l2_0.01,evidence:exact_provider_id & evidence:phone_suffix_9,0.0
+logistic_l2_0.01,evidence:exact_provider_id & evidence:same_source_record_id,0.15037924751688245
+logistic_l2_0.01,evidence:exact_verified_email & evidence:name_city,0.1851854935187433
+logistic_l2_0.01,evidence:exact_verified_email & evidence:name_date_of_birth,0.0
+logistic_l2_0.01,evidence:exact_verified_email & evidence:phone_suffix_9,0.0
+logistic_l2_0.01,evidence:exact_verified_email & evidence:same_source_record_id,0.15037924751688245
+logistic_l2_0.01,evidence:name_city & evidence:name_date_of_birth,0.0
+logistic_l2_0.01,evidence:name_city & evidence:phone_suffix_9,0.0
+logistic_l2_0.01,evidence:name_city & evidence:same_source_record_id,0.1172859060428306
+logistic_l2_0.01,evidence:name_date_of_birth & evidence:phone_suffix_9,0.0
+logistic_l2_0.01,evidence:name_date_of_birth & evidence:same_source_record_id,0.0
+logistic_l2_0.01,evidence:phone_suffix_9 & evidence:same_source_record_id,0.0
+logistic_l2_0.1,(intercept),0.9629917722294989
+logistic_l2_0.1,conflict:account_reference_conflict,-0.1193296801050976
+logistic_l2_0.1,conflict:date_of_birth_conflict,-0.17961194465735067
+logistic_l2_0.1,conflict:email_conflict,-0.2370028919674888
+logistic_l2_0.1,conflict:name_conflict,-0.27122725969751604
+logistic_l2_0.1,conflict:phone_conflict,-0.40485773832146416
+logistic_l2_0.1,conflict:shared_email_payment_household_risk,-0.11320167173532056
+logistic_l2_0.1,conflict:verified_email_conflict,-0.0024476047337110996
+logistic_l2_0.1,evidence:email_skeleton,0.05351069955615079
+logistic_l2_0.1,evidence:exact_account_reference,0.11497951838658417
+logistic_l2_0.1,evidence:exact_device_id,-0.035035526436908854
+logistic_l2_0.1,evidence:exact_email,0.05536585539425015
+logistic_l2_0.1,evidence:exact_payment_token,-0.08168512950155232
+logistic_l2_0.1,evidence:exact_phone,0.24031120211365103
+logistic_l2_0.1,evidence:exact_provider_id,0.044977116322512584
+logistic_l2_0.1,evidence:exact_verified_email,0.16353563265895293
+logistic_l2_0.1,evidence:name_city,0.13021451593317268
+logistic_l2_0.1,evidence:name_date_of_birth,0.0187147024267685
+logistic_l2_0.1,evidence:phone_suffix_9,0.21941810136959455
+logistic_l2_0.1,evidence:same_source_record_id,0.13594516906273593
+logistic_l2_0.1,conflict:account_reference_conflict & conflict:date_of_birth_conflict,-0.051333624433194155
+logistic_l2_0.1,conflict:account_reference_conflict & conflict:email_conflict,-0.08377231647079504
+logistic_l2_0.1,conflict:account_reference_conflict & conflict:name_conflict,-0.04956785481900149
+logistic_l2_0.1,conflict:account_reference_conflict & conflict:phone_conflict,-0.09670023058931579
+logistic_l2_0.1,conflict:account_reference_conflict & conflict:shared_email_payment_household_risk,0.0
+logistic_l2_0.1,conflict:account_reference_conflict & conflict:verified_email_conflict,0.0
+logistic_l2_0.1,conflict:account_reference_conflict & evidence:email_skeleton,-0.004035196935469952
+logistic_l2_0.1,conflict:account_reference_conflict & evidence:exact_account_reference,0.0
+logistic_l2_0.1,conflict:account_reference_conflict & evidence:exact_device_id,-0.06010523661780368
+logistic_l2_0.1,conflict:account_reference_conflict & evidence:exact_email,-0.0029102966551742097
+logistic_l2_0.1,conflict:account_reference_conflict & evidence:exact_payment_token,0.0
+logistic_l2_0.1,conflict:account_reference_conflict & evidence:exact_phone,-0.0014345910426744404
+logistic_l2_0.1,conflict:account_reference_conflict & evidence:exact_provider_id,0.0
+logistic_l2_0.1,conflict:account_reference_conflict & evidence:exact_verified_email,0.0
+logistic_l2_0.1,conflict:account_reference_conflict & evidence:name_city,-0.025263182658089828
+logistic_l2_0.1,conflict:account_reference_conflict & evidence:name_date_of_birth,-0.0010270600443832553
+logistic_l2_0.1,conflict:account_reference_conflict & evidence:phone_suffix_9,0.0
+logistic_l2_0.1,conflict:account_reference_conflict & evidence:same_source_record_id,0.0
+logistic_l2_0.1,conflict:date_of_birth_conflict & conflict:email_conflict,-0.15045400870028225
+logistic_l2_0.1,conflict:date_of_birth_conflict & conflict:name_conflict,-0.020266564915270804
+logistic_l2_0.1,conflict:date_of_birth_conflict & conflict:phone_conflict,-0.14298999195521275
+logistic_l2_0.1,conflict:date_of_birth_conflict & conflict:shared_email_payment_household_risk,0.0
+logistic_l2_0.1,conflict:date_of_birth_conflict & conflict:verified_email_conflict,0.0
+logistic_l2_0.1,conflict:date_of_birth_conflict & evidence:email_skeleton,0.0
+logistic_l2_0.1,conflict:date_of_birth_conflict & evidence:exact_account_reference,0.0
+logistic_l2_0.1,conflict:date_of_birth_conflict & evidence:exact_device_id,-0.03251376165989522
+logistic_l2_0.1,conflict:date_of_birth_conflict & evidence:exact_email,0.0
+logistic_l2_0.1,conflict:date_of_birth_conflict & evidence:exact_payment_token,0.0
+logistic_l2_0.1,conflict:date_of_birth_conflict & evidence:exact_phone,0.0
+logistic_l2_0.1,conflict:date_of_birth_conflict & evidence:exact_provider_id,0.0
+logistic_l2_0.1,conflict:date_of_birth_conflict & evidence:exact_verified_email,0.0
+logistic_l2_0.1,conflict:date_of_birth_conflict & evidence:name_city,-0.13864003655325535
+logistic_l2_0.1,conflict:date_of_birth_conflict & evidence:name_date_of_birth,0.0
+logistic_l2_0.1,conflict:date_of_birth_conflict & evidence:phone_suffix_9,0.0
+logistic_l2_0.1,conflict:date_of_birth_conflict & evidence:same_source_record_id,0.0
+logistic_l2_0.1,conflict:email_conflict & conflict:name_conflict,-0.15847170175586678
+logistic_l2_0.1,conflict:email_conflict & conflict:phone_conflict,-0.3205662804929814
+logistic_l2_0.1,conflict:email_conflict & conflict:shared_email_payment_household_risk,0.0
+logistic_l2_0.1,conflict:email_conflict & conflict:verified_email_conflict,0.0
+logistic_l2_0.1,conflict:email_conflict & evidence:email_skeleton,0.0
+logistic_l2_0.1,conflict:email_conflict & evidence:exact_account_reference,0.0
+logistic_l2_0.1,conflict:email_conflict & evidence:exact_device_id,-0.35467592541145665
+logistic_l2_0.1,conflict:email_conflict & evidence:exact_email,0.0
+logistic_l2_0.1,conflict:email_conflict & evidence:exact_payment_token,0.0
+logistic_l2_0.1,conflict:email_conflict & evidence:exact_phone,0.007594836690659918
+logistic_l2_0.1,conflict:email_conflict & evidence:exact_provider_id,0.0
+logistic_l2_0.1,conflict:email_conflict & evidence:exact_verified_email,0.0
+logistic_l2_0.1,conflict:email_conflict & evidence:name_city,-0.09840033880231618
+logistic_l2_0.1,conflict:email_conflict & evidence:name_date_of_birth,0.0
+logistic_l2_0.1,conflict:email_conflict & evidence:phone_suffix_9,0.20752629846947707
+logistic_l2_0.1,conflict:email_conflict & evidence:same_source_record_id,0.0
+logistic_l2_0.1,conflict:name_conflict & conflict:phone_conflict,-0.08440930004894573
+logistic_l2_0.1,conflict:name_conflict & conflict:shared_email_payment_household_risk,-0.11320167173532056
+logistic_l2_0.1,conflict:name_conflict & conflict:verified_email_conflict,-0.002445636024133553
+logistic_l2_0.1,conflict:name_conflict & evidence:email_skeleton,0.0008080005244257651
+logistic_l2_0.1,conflict:name_conflict & evidence:exact_account_reference,-0.003879667681823878
+logistic_l2_0.1,conflict:name_conflict & evidence:exact_device_id,-0.3616090535470463
+logistic_l2_0.1,conflict:name_conflict & evidence:exact_email,-0.11230954602745372
+logistic_l2_0.1,conflict:name_conflict & evidence:exact_payment_token,-0.11320167173532056
+logistic_l2_0.1,conflict:name_conflict & evidence:exact_phone,0.007364091417531266
+logistic_l2_0.1,conflict:name_conflict & evidence:exact_provider_id,0.0
+logistic_l2_0.1,conflict:name_conflict & evidence:exact_verified_email,0.0011929505158928193
+logistic_l2_0.1,conflict:name_conflict & evidence:name_city,0.0
+logistic_l2_0.1,conflict:name_conflict & evidence:name_date_of_birth,0.0
+logistic_l2_0.1,conflict:name_conflict & evidence:phone_suffix_9,0.20455471250619398
+logistic_l2_0.1,conflict:name_conflict & evidence:same_source_record_id,0.0
+logistic_l2_0.1,conflict:phone_conflict & conflict:shared_email_payment_household_risk,0.0
+logistic_l2_0.1,conflict:phone_conflict & conflict:verified_email_conflict,-0.005295896437930342
+logistic_l2_0.1,conflict:phone_conflict & evidence:email_skeleton,0.0
+logistic_l2_0.1,conflict:phone_conflict & evidence:exact_account_reference,0.0
+logistic_l2_0.1,conflict:phone_conflict & evidence:exact_device_id,-0.10306406146933625
+logistic_l2_0.1,conflict:phone_conflict & evidence:exact_email,0.0
+logistic_l2_0.1,conflict:phone_conflict & evidence:exact_payment_token,0.0
+logistic_l2_0.1,conflict:phone_conflict & evidence:exact_phone,0.0
+logistic_l2_0.1,conflict:phone_conflict & evidence:exact_provider_id,0.0
+logistic_l2_0.1,conflict:phone_conflict & evidence:exact_verified_email,0.0
+logistic_l2_0.1,conflict:phone_conflict & evidence:name_city,-0.27763740910236623
+logistic_l2_0.1,conflict:phone_conflict & evidence:name_date_of_birth,-0.0010270600443832553
+logistic_l2_0.1,conflict:phone_conflict & evidence:phone_suffix_9,0.0
+logistic_l2_0.1,conflict:phone_conflict & evidence:same_source_record_id,0.0
+logistic_l2_0.1,conflict:shared_email_payment_household_risk & conflict:verified_email_conflict,0.0
+logistic_l2_0.1,conflict:shared_email_payment_household_risk & evidence:email_skeleton,0.0
+logistic_l2_0.1,conflict:shared_email_payment_household_risk & evidence:exact_account_reference,0.0
+logistic_l2_0.1,conflict:shared_email_payment_household_risk & evidence:exact_device_id,0.0
+logistic_l2_0.1,conflict:shared_email_payment_household_risk & evidence:exact_email,-0.11320167173532056
+logistic_l2_0.1,conflict:shared_email_payment_household_risk & evidence:exact_payment_token,-0.11320167173532056
+logistic_l2_0.1,conflict:shared_email_payment_household_risk & evidence:exact_phone,0.0
+logistic_l2_0.1,conflict:shared_email_payment_household_risk & evidence:exact_provider_id,0.0
+logistic_l2_0.1,conflict:shared_email_payment_household_risk & evidence:exact_verified_email,0.0
+logistic_l2_0.1,conflict:shared_email_payment_household_risk & evidence:name_city,0.0
+logistic_l2_0.1,conflict:shared_email_payment_household_risk & evidence:name_date_of_birth,0.0
+logistic_l2_0.1,conflict:shared_email_payment_household_risk & evidence:phone_suffix_9,0.0
+logistic_l2_0.1,conflict:shared_email_payment_household_risk & evidence:same_source_record_id,0.0
+logistic_l2_0.1,conflict:verified_email_conflict & evidence:email_skeleton,-0.0005887047673353313
+logistic_l2_0.1,conflict:verified_email_conflict & evidence:exact_account_reference,0.0
+logistic_l2_0.1,conflict:verified_email_conflict & evidence:exact_device_id,0.0004264853572079185
+logistic_l2_0.1,conflict:verified_email_conflict & evidence:exact_email,0.0
+logistic_l2_0.1,conflict:verified_email_conflict & evidence:exact_payment_token,0.0
+logistic_l2_0.1,conflict:verified_email_conflict & evidence:exact_phone,-0.0005887047673353313
+logistic_l2_0.1,conflict:verified_email_conflict & evidence:exact_provider_id,0.0
+logistic_l2_0.1,conflict:verified_email_conflict & evidence:exact_verified_email,0.0
+logistic_l2_0.1,conflict:verified_email_conflict & evidence:name_city,-9.442232452253868e-05
+logistic_l2_0.1,conflict:verified_email_conflict & evidence:name_date_of_birth,0.0
+logistic_l2_0.1,conflict:verified_email_conflict & evidence:phone_suffix_9,0.0
+logistic_l2_0.1,conflict:verified_email_conflict & evidence:same_source_record_id,0.0
+logistic_l2_0.1,evidence:email_skeleton & evidence:exact_account_reference,0.02138131629508189
+logistic_l2_0.1,evidence:email_skeleton & evidence:exact_device_id,0.05351069955615079
+logistic_l2_0.1,evidence:email_skeleton & evidence:exact_email,0.0
+logistic_l2_0.1,evidence:email_skeleton & evidence:exact_payment_token,0.0
+logistic_l2_0.1,evidence:email_skeleton & evidence:exact_phone,0.04960907728917581
+logistic_l2_0.1,evidence:email_skeleton & evidence:exact_provider_id,0.0
+logistic_l2_0.1,evidence:email_skeleton & evidence:exact_verified_email,0.0
+logistic_l2_0.1,evidence:email_skeleton & evidence:name_city,0.04677430905605722
+logistic_l2_0.1,evidence:email_skeleton & evidence:name_date_of_birth,0.0
+logistic_l2_0.1,evidence:email_skeleton & evidence:phone_suffix_9,0.0
+logistic_l2_0.1,evidence:email_skeleton & evidence:same_source_record_id,0.0
+logistic_l2_0.1,evidence:exact_account_reference & evidence:exact_device_id,0.11497951838658417
+logistic_l2_0.1,evidence:exact_account_reference & evidence:exact_email,0.08075580135115477
+logistic_l2_0.1,evidence:exact_account_reference & evidence:exact_payment_token,0.0
+logistic_l2_0.1,evidence:exact_account_reference & evidence:exact_phone,0.08200035201860748
+logistic_l2_0.1,evidence:exact_account_reference & evidence:exact_provider_id,0.0
+logistic_l2_0.1,evidence:exact_account_reference & evidence:exact_verified_email,0.0
+logistic_l2_0.1,evidence:exact_account_reference & evidence:name_city,0.07350555385767492
+logistic_l2_0.1,evidence:exact_account_reference & evidence:name_date_of_birth,0.018840604546233996
+logistic_l2_0.1,evidence:exact_account_reference & evidence:phone_suffix_9,0.0
+logistic_l2_0.1,evidence:exact_account_reference & evidence:same_source_record_id,0.0059978173321162155
+logistic_l2_0.1,evidence:exact_device_id & evidence:exact_email,0.14000337768339682
+logistic_l2_0.1,evidence:exact_device_id & evidence:exact_payment_token,0.0
+logistic_l2_0.1,evidence:exact_device_id & evidence:exact_phone,0.23886175357745712
+logistic_l2_0.1,evidence:exact_device_id & evidence:exact_provider_id,0.0
+logistic_l2_0.1,evidence:exact_device_id & evidence:exact_verified_email,0.11101368661358764
+logistic_l2_0.1,evidence:exact_device_id & evidence:name_city,0.2699677766363244
+logistic_l2_0.1,evidence:exact_device_id & evidence:name_date_of_birth,0.018840604546233996
+logistic_l2_0.1,evidence:exact_device_id & evidence:phone_suffix_9,0.0
+logistic_l2_0.1,evidence:exact_device_id & evidence:same_source_record_id,0.06362646792253876
+logistic_l2_0.1,evidence:exact_email & evidence:exact_payment_token,-0.08168512950155232
+logistic_l2_0.1,evidence:exact_email & evidence:exact_phone,0.0633426817312722
+logistic_l2_0.1,evidence:exact_email & evidence:exact_provider_id,0.0
+logistic_l2_0.1,evidence:exact_email & evidence:exact_verified_email,0.0
+logistic_l2_0.1,evidence:exact_email & evidence:name_city,0.10788700632690691
+logistic_l2_0.1,evidence:exact_email & evidence:name_date_of_birth,0.016517938456517944
+logistic_l2_0.1,evidence:exact_email & evidence:phone_suffix_9,0.0
+logistic_l2_0.1,evidence:exact_email & evidence:same_source_record_id,0.08727380669361143
+logistic_l2_0.1,evidence:exact_payment_token & evidence:exact_phone,0.0
+logistic_l2_0.1,evidence:exact_payment_token & evidence:exact_provider_id,0.0
+logistic_l2_0.1,evidence:exact_payment_token & evidence:exact_verified_email,0.0
+logistic_l2_0.1,evidence:exact_payment_token & evidence:name_city,0.0
+logistic_l2_0.1,evidence:exact_payment_token & evidence:name_date_of_birth,0.0
+logistic_l2_0.1,evidence:exact_payment_token & evidence:phone_suffix_9,0.0
+logistic_l2_0.1,evidence:exact_payment_token & evidence:same_source_record_id,0.02501287550600955
+logistic_l2_0.1,evidence:exact_phone & evidence:exact_provider_id,0.0
+logistic_l2_0.1,evidence:exact_phone & evidence:exact_verified_email,0.10203006626425565
+logistic_l2_0.1,evidence:exact_phone & evidence:name_city,0.18612180899434233
+logistic_l2_0.1,evidence:exact_phone & evidence:name_date_of_birth,0.0148928939672516
+logistic_l2_0.1,evidence:exact_phone & evidence:phone_suffix_9,0.0
+logistic_l2_0.1,evidence:exact_phone & evidence:same_source_record_id,0.0
+logistic_l2_0.1,evidence:exact_provider_id & evidence:exact_verified_email,0.044977116322512584
+logistic_l2_0.1,evidence:exact_provider_id & evidence:name_city,0.0
+logistic_l2_0.1,evidence:exact_provider_id & evidence:name_date_of_birth,0.0
+logistic_l2_0.1,evidence:exact_provider_id & evidence:phone_suffix_9,0.0
+logistic_l2_0.1,evidence:exact_provider_id & evidence:same_source_record_id,0.044977116322512584
+logistic_l2_0.1,evidence:exact_verified_email & evidence:name_city,0.09748892000581866
+logistic_l2_0.1,evidence:exact_verified_email & evidence:name_date_of_birth,0.0
+logistic_l2_0.1,evidence:exact_verified_email & evidence:phone_suffix_9,0.0
+logistic_l2_0.1,evidence:exact_verified_email & evidence:same_source_record_id,0.044977116322512584
+logistic_l2_0.1,evidence:name_city & evidence:name_date_of_birth,0.0
+logistic_l2_0.1,evidence:name_city & evidence:phone_suffix_9,0.0
+logistic_l2_0.1,evidence:name_city & evidence:same_source_record_id,0.06362646792253876
+logistic_l2_0.1,evidence:name_date_of_birth & evidence:phone_suffix_9,0.0
+logistic_l2_0.1,evidence:name_date_of_birth & evidence:same_source_record_id,0.0
+logistic_l2_0.1,evidence:phone_suffix_9 & evidence:same_source_record_id,0.0
