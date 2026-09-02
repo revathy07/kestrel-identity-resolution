@@ -1,0 +1,63 @@
+{
+  "phase": "business_customer_count_hidden_truth_evaluation",
+  "evaluation_opened_after_estimate_freeze": true,
+  "count_coverage": {
+    "true_human_entities": 300000,
+    "true_automated_entities": 8400,
+    "recommended_estimate": 315177,
+    "signed_error": 15177,
+    "absolute_error": 15177,
+    "absolute_percentage_error": 0.05059,
+    "defensible_range_lower": 304896,
+    "defensible_range_upper": 333000,
+    "defensible_range_contains_true_human_count": false
+  },
+  "automation_detection": {
+    "classified_records": 420000,
+    "truth_record_counts": {
+      "human": 399000,
+      "bot": 21000
+    },
+    "automation_record_metrics": {
+      "true_positive_bot_records": 21000,
+      "false_positive_human_records": 0,
+      "false_negative_bot_records": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "automation_cluster_metrics": {
+      "excluded_clusters": 8400,
+      "pure_bot_clusters": 8400,
+      "pure_human_clusters": 0,
+      "mixed_truth_clusters": 0,
+      "distinct_bot_entities_excluded": 8400,
+      "distinct_human_entities_excluded": 0,
+      "entity_recall": 1.0
+    },
+    "internal_qa_policy_audit": {
+      "excluded_clusters": 1500,
+      "pure_human_clusters": 1500,
+      "pure_bot_clusters": 0,
+      "mixed_truth_clusters": 0,
+      "distinct_human_entities_excluded": 1500,
+      "distinct_bot_entities_excluded": 0,
+      "note": "QA is an observable business policy; the supplied truth has no independent QA label."
+    },
+    "mixed_policy_clusters_retained": 0
+  },
+  "inputs": {
+    "estimate": {
+      "path": "outputs/business/business_estimate.json",
+      "sha256": "dd6973bc8d93b2a589b250556dd0a9a3d6450362fa9fe5534ba08357ddfdf674"
+    },
+    "classification": {
+      "path": "outputs/business/observable_traffic_records.csv.gz",
+      "sha256": "47526cb7ba4ba25c92d73062fa857833fb2fe35f8ef5e2cca1afbc21c3d2f06c"
+    },
+    "hidden_truth": {
+      "path": "data/generated/person_map.csv",
+      "sha256": "3842182473ad9a6d02cdc90452ae3957d4538a29eaf92ed87315de0d6bff0aba"
+    }
+  },
+  "hidden_identifiers_emitted": false
+}
