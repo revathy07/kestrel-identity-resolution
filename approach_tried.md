@@ -167,3 +167,18 @@ way, but the two code paths did not express one identical contract.
 **What replaced it.** Evaluation now rounds to the same six decimals before band assignment,
 with a regression test for both boundaries. The four candidates were regenerated and the
 same L2=0.001 validation winner remained unchanged.
+
+## 11. Requiring a one-second ticket delay in the automation policy
+
+**What I tried.** The first truth-free business-count run required ticket `created_ts` and
+`event_ts` to differ by at most one second before the recent dense burst counted as
+automation.
+
+**Why I dropped it.** It left 800 clusters with a mixture of flagged and unflagged records.
+The earlier data audit had already proven that near-duplicate exports change exactly one
+timestamp by 2–8 seconds. The one-second corroboration rule therefore treated two physical
+versions of the same observable record inconsistently.
+
+**What replaced it.** The delay bound is eight seconds, matching the documented export
+artifact. Cluster exclusion still requires every member to satisfy the observable policy,
+and the correction was committed before hidden `entity_type` validation.

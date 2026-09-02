@@ -27,6 +27,12 @@ Internal QA is a separate business policy based on an explicit test email domain
 `load-test` name token. A resolved cluster is excluded only when every physical member
 satisfies one policy. Mixed clusters remain in the count and are reported for review.
 
+The initial truth-free run used a one-second maximum ticket delay and produced 800 mixed
+flag/unflag clusters. Existing profiling had already established that near-duplicate exports
+shift exactly one timestamp by 2–8 seconds. The corroboration bound was therefore corrected
+to eight seconds before hidden truth was opened; the all-members cluster rule itself was not
+relaxed.
+
 The exact frozen rules are in
 [`config/business_estimation.yaml`](../config/business_estimation.yaml). Hidden truth is
 opened only afterward to measure automated-traffic detection precision and recall on the
