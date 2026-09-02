@@ -180,5 +180,7 @@ timestamp by 2–8 seconds. The one-second corroboration rule therefore treated 
 versions of the same observable record inconsistently.
 
 **What replaced it.** The delay bound is eight seconds, matching the documented export
-artifact. Cluster exclusion still requires every member to satisfy the observable policy,
-and the correction was committed before hidden `entity_type` validation.
+artifact, and the same tolerance is applied at the detected burst's two boundaries after a
+second truth-free run exposed 139 edge cases. Cluster exclusion still requires every member
+to satisfy the observable policy, and both corrections were made before hidden `entity_type`
+validation.

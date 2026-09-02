@@ -33,6 +33,11 @@ shift exactly one timestamp by 2–8 seconds. The corroboration bound was theref
 to eight seconds before hidden truth was opened; the all-members cluster rule itself was not
 relaxed.
 
+That correction initially left 139 mixed clusters because shifted records at the exact edge
+fell outside the detected timestamp window. The same documented eight-second tolerance is
+now applied to both window boundaries. This resolves an internal transformation inconsistency
+without moving the detected burst or referencing hidden labels.
+
 The exact frozen rules are in
 [`config/business_estimation.yaml`](../config/business_estimation.yaml). Hidden truth is
 opened only afterward to measure automated-traffic detection precision and recall on the

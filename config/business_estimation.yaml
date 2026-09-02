@@ -13,6 +13,7 @@
   "automation_policy": {
     "method": "latest_dense_timestamp_window_plus_source_corroboration",
     "window_seconds": 600,
+    "window_boundary_tolerance_seconds": 8,
     "minimum_source_fraction": 0.01,
     "cluster_action": "exclude_only_when_every_record_in_cluster_is_observable_automation",
     "sources": {
