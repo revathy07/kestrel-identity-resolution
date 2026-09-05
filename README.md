@@ -283,7 +283,7 @@ resolver.
 - The generator accepts `--seed`, `--scale`, and `--output-dir` arguments.
 - Validators are read-only and return a nonzero exit status when a mandatory check fails.
 - Temporary fixtures, caches, and large reproducible frequency tables are excluded from Git.
-- The automated suite contains 102 tests, including profiling/normalization/blocking/scoring/clustering/business/dashboard isolation,
+- The automated suite contains 103 tests, including profiling/normalization/blocking/scoring/clustering/business/dashboard isolation,
   deterministic output and byte-level input immutability.
 
 ## AI usage

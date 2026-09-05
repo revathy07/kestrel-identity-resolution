@@ -338,5 +338,5 @@ labelled evaluation, and the required written deliverables.
   coefficients, 171 interactions and six-decimal 0.62/0.88 decision contract. It is
   explicitly read-only and warns when arbitrary feature combinations may be unsupported.
 - Pinned Streamlit 1.63.0 and documented the local launch command and data boundary.
-- Added four data-contract tests and a four-view Streamlit smoke test. All **102 automated
-  tests** pass.
+- Added five data/visual-contract tests and a four-view Streamlit smoke test. All **103
+  automated tests** pass.

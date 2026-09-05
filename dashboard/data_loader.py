@@ -224,9 +224,9 @@ def load_dashboard_data(root: Path = PROJECT_ROOT) -> dict[str, Any]:
         "decisions": decisions,
         "count_bridge": [
             {"stage": "Source records", "count": int(counts["source_records"]), "order": 1},
-            {"stage": "Operational identities", "count": int(counts["operational_identities"]), "order": 2},
-            {"stage": "Traffic-excluded upper", "count": int(counts["marketing_safe_upper"]), "order": 3},
-            {"stage": "Recommended estimate", "count": int(counts["recommended_candidate_resolvable_count"]), "order": 4},
+            {"stage": "Resolved identities", "count": int(counts["operational_identities"]), "order": 2},
+            {"stage": "Upper bound", "count": int(counts["marketing_safe_upper"]), "order": 3},
+            {"stage": "Customer estimate", "count": int(counts["recommended_candidate_resolvable_count"]), "order": 4},
         ],
         "models": _model_rows(comparison),
         "model_comparison": comparison,

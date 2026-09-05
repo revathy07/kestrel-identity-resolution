@@ -9,6 +9,7 @@ from dashboard.data_loader import (
     load_dashboard_data,
     score_selected_model,
 )
+from dashboard import charts
 
 
 class DashboardDataTests(unittest.TestCase):
@@ -46,6 +47,22 @@ class DashboardDataTests(unittest.TestCase):
     def test_decision_lab_rejects_unknown_features(self) -> None:
         with self.assertRaises(DashboardDataError):
             score_selected_model(self.snapshot["selected_model"], ["person_id"])
+
+    def test_chart_specs_force_a_readable_light_background(self) -> None:
+        for factory in (
+            charts.source_volume,
+            charts.count_bridge,
+            charts.decision_donut,
+            charts.model_comparison,
+            charts.candidate_reduction,
+            charts.business_range,
+            charts.source_pair_recall,
+            charts.cluster_distribution,
+            charts.contribution_chart,
+        ):
+            spec = factory()
+            self.assertEqual(spec["background"], "#FFFFFF", factory.__name__)
+            self.assertEqual(spec["config"]["axis"]["titleColor"], charts.NAVY)
 
 
 class DashboardSmokeTests(unittest.TestCase):

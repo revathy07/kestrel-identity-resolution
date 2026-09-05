@@ -17,10 +17,18 @@ PURPLE = "#8067DC"
 def _base(height: int = 300) -> dict[str, Any]:
     return {
         "height": height,
+        "background": "#FFFFFF",
         "config": {
             "view": {"stroke": None},
-            "axis": {"labelColor": "#44546A", "titleColor": NAVY, "gridColor": "#E8EDF3"},
+            "axis": {
+                "labelColor": "#44546A",
+                "titleColor": NAVY,
+                "gridColor": "#E8EDF3",
+                "domainColor": "#AAB7C6",
+                "tickColor": "#AAB7C6",
+            },
             "legend": {"labelColor": "#44546A", "titleColor": NAVY},
+            "title": {"color": NAVY},
         },
     }
 
@@ -31,7 +39,13 @@ def source_volume() -> dict[str, Any]:
         {
             "mark": {"type": "bar", "cornerRadiusEnd": 5, "color": BLUE},
             "encoding": {
-                "x": {"field": "source", "type": "nominal", "sort": "-y", "title": None},
+                "x": {
+                    "field": "source",
+                    "type": "nominal",
+                    "sort": "-y",
+                    "title": None,
+                    "axis": {"labelAngle": -20, "labelLimit": 130},
+                },
                 "y": {"field": "records", "type": "quantitative", "title": "Physical records"},
                 "tooltip": [
                     {"field": "source", "type": "nominal", "title": "Source"},
@@ -51,7 +65,13 @@ def count_bridge() -> dict[str, Any]:
                 {
                     "mark": {"type": "bar", "cornerRadiusEnd": 6},
                     "encoding": {
-                        "y": {"field": "stage", "type": "nominal", "sort": {"field": "order"}, "title": None},
+                        "y": {
+                            "field": "stage",
+                            "type": "nominal",
+                            "sort": {"field": "order"},
+                            "title": None,
+                            "axis": {"labelLimit": 155},
+                        },
                         "x": {"field": "count", "type": "quantitative", "title": "Records / identities", "scale": {"domain": [0, 440000]}},
                         "color": {"field": "stage", "type": "nominal", "legend": None, "scale": {"range": [NAVY, BLUE, TEAL, PURPLE]}},
                         "tooltip": [

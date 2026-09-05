@@ -23,22 +23,25 @@ st.markdown(
     """
     <style>
     :root { --navy:#102238; --blue:#2E73FF; --teal:#20B8A6; --amber:#F4A340; --paper:#F6F8FB; }
-    .stApp { background: linear-gradient(180deg, #F7F9FC 0%, #FFFFFF 45%); }
+    .stApp { background: linear-gradient(180deg, #F7F9FC 0%, #FFFFFF 45%); color:#102238; }
     [data-testid="stSidebar"] { background: #102238; }
     [data-testid="stSidebar"] * { color: #F3F7FB !important; }
+    [data-testid="stMain"] h1, [data-testid="stMain"] h2, [data-testid="stMain"] h3,
+    [data-testid="stMain"] p, [data-testid="stMain"] label { color:#102238 !important; }
     [data-testid="stMetric"] { background:white; border:1px solid #E1E8F0; border-radius:14px; padding:18px; box-shadow:0 5px 18px rgba(16,34,56,.06); }
-    [data-testid="stMetricLabel"] { color:#66758A; }
-    [data-testid="stMetricValue"] { color:#102238; }
+    [data-testid="stMetricLabel"], [data-testid="stMetricLabel"] * { color:#66758A !important; }
+    [data-testid="stMetricValue"], [data-testid="stMetricValue"] * { color:#102238 !important; }
     .hero { background:linear-gradient(120deg,#102238,#173C66); color:white; padding:28px 32px; border-radius:18px; margin-bottom:22px; box-shadow:0 14px 32px rgba(16,34,56,.16); }
-    .hero h1 { color:white; margin:0 0 7px 0; font-size:2.15rem; }
-    .hero p { color:#DCE8F4; margin:0; max-width:900px; }
+    .hero h1 { color:white !important; margin:0 0 7px 0; font-size:2.15rem; }
+    .hero p { color:#DCE8F4 !important; margin:0; max-width:900px; }
     .badge { display:inline-block; background:#DDF7F2; color:#087B6E; font-weight:700; font-size:.72rem; letter-spacing:.08em; padding:5px 9px; border-radius:99px; margin-bottom:12px; }
     .callout { background:white; border-left:5px solid #2E73FF; padding:16px 18px; border-radius:8px; margin:10px 0 18px 0; box-shadow:0 4px 14px rgba(16,34,56,.05); }
+    .callout, .callout * { color:#102238 !important; }
     .warning { background:#FFF8E8; border-left-color:#F4A340; }
     .success { background:#EAF9F5; border-left-color:#20B8A6; }
     .verdict { text-align:center; padding:22px; border-radius:14px; color:white; font-weight:800; font-size:1.25rem; margin:8px 0; }
     .smallprint { color:#6B7A8F; font-size:.82rem; }
-    h2, h3 { color:#102238; }
+    [data-testid="stVegaLiteChart"] { background:#FFFFFF; border:1px solid #E1E8F0; border-radius:14px; padding:10px; box-shadow:0 4px 14px rgba(16,34,56,.04); }
     </style>
     """,
     unsafe_allow_html=True,
@@ -51,7 +54,7 @@ def snapshot(root: str) -> dict:
 
 
 def chart(data: list[dict], spec: dict, key: str) -> None:
-    st.vega_lite_chart(data=data, spec=spec, width="stretch", key=key)
+    st.vega_lite_chart(data=data, spec=spec, width="stretch", theme=None, key=key)
 
 
 def hero(title: str, subtitle: str) -> None:
@@ -100,6 +103,10 @@ if page == "Executive brief":
             ("Source records", f"{executive['source_records']:,}", "Physical rows across five source systems"),
             ("Operational identities", f"{executive['operational_identities']:,}", "Rule 1-safe selected clusters before traffic exclusions"),
             ("Recommended customers", f"{executive['recommended_customers']:,}", "Median candidate-resolvable aggregate scenario"),
+        ]
+    )
+    metric_row(
+        [
             ("Defensible range", f"{executive['range_lower']:,}–{executive['range_upper']:,}", "Sensitivity range, not a confidence interval"),
             ("Review pairs", f"{executive['review_pairs']:,}", "Physical candidate pairs requiring human review"),
             ("Observed false auto-merges", f"{executive['false_auto_merges']:,}", "Frozen synthetic test; not a production guarantee"),
