@@ -191,7 +191,9 @@ refactor are detailed in `approach_tried.md`.
 
 ## Next controlled step
 
-Assemble Phase 14 deliverables: a concise executive memo, presentation and one-command
-reproducible run guide using only the already frozen technical and business results.
+Use the read-only Phase 14A dashboard as the common visual source for the remaining
+deliverables. Next produce the two-page executive memo to Ravi, followed by the 12–18-slide
+presentation and one-command reproducibility guide. The dashboard does not reopen model
+selection or alter any operational result.
 
 Detailed failed approaches and fixes are retained in [`approach_tried.md`](approach_tried.md).

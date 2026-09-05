@@ -323,3 +323,20 @@ labelled evaluation, and the required written deliverables.
 - Quantified the **20,560 physical-pair** review queue as 685.3 hours at two minutes per pair
   or 1,713.3 hours at five minutes, explicitly marked as planning assumptions.
 - All **97 automated tests** pass.
+
+## 18. Phase 14A read-only stakeholder dashboard
+
+- Added a locally runnable Streamlit control room with executive, technical-audit, MCT
+  decision-lab and methods/limitations views.
+- Restricted the data loader to a fixed allow-list of compact aggregate artifacts. It reads
+  no raw source row, candidate-pair table, row-level truth, `person_map.csv` or identifier.
+- Added executable reconciliation across source totals, candidate decisions, clustering
+  edges, business ranges and the hidden-identifier publication flag.
+- Presented the 420,000-to-315,177 count journey, 299,239–333,000 range, model comparison,
+  Rule 2 blocking reduction, Rule 1 cluster safety, subgroup recall and review workload.
+- Built an educational decision lab around the exact frozen logistic intercept,
+  coefficients, 171 interactions and six-decimal 0.62/0.88 decision contract. It is
+  explicitly read-only and warns when arbitrary feature combinations may be unsupported.
+- Pinned Streamlit 1.63.0 and documented the local launch command and data boundary.
+- Added four data-contract tests and a four-view Streamlit smoke test. All **102 automated
+  tests** pass.

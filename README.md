@@ -15,6 +15,7 @@ building a defensible identity-matching layer across five disconnected customer 
 | MCT scoring and labelled pair evaluation | Complete |
 | Rule 1 capped clustering and evaluation | Complete |
 | Business customer-count estimate and risk summary | Complete |
+| Stakeholder dashboard | Complete |
 | Final memo and presentation | Next |
 
 The repository currently completes the resolver, capped clustering, consolidated evaluation
@@ -38,6 +39,7 @@ src/scoring/                    explainable pair features and MCT decisions
 src/clustering/                 transitive components and Rule 1 quarantine
 src/business/                   traffic policy and aggregate count scenarios
 src/evaluation/                 post-generation synthetic-label measurement
+dashboard/                      read-only stakeholder control room
 src/validate_generated_data.py independent compliance validator
 tests/                          focused generator and validator tests
 requirements.txt                pinned runtime dependency
@@ -243,6 +245,22 @@ minutes. See the [business summary](outputs/business/business_estimate.md),
 [design/refactor record](docs/phase_13_business_estimation_design.md) and
 [hidden-truth evaluation](outputs/business/business_estimate_evaluation.md).
 
+## Phase 14A: stakeholder dashboard
+
+Launch the read-only dashboard from the repository root:
+
+```bash
+python -m pip install -r requirements.txt
+python -m streamlit run dashboard/app.py
+```
+
+The dashboard provides separate executive, technical-audit, MCT decision-lab and
+methods/limitations views. It reads a fixed allow-list of committed aggregate reports,
+performs cross-artifact reconciliation and never loads raw customer records or hidden person
+identifiers. The decision lab uses the actual selected logistic coefficients but cannot
+write a match or modify the assessment's thresholds. See
+[the dashboard guide](dashboard/README.md).
+
 ## Verified dataset
 
 The committed full-scale fixture contains 300,000 invented people and 420,000 physical
@@ -265,7 +283,7 @@ resolver.
 - The generator accepts `--seed`, `--scale`, and `--output-dir` arguments.
 - Validators are read-only and return a nonzero exit status when a mandatory check fails.
 - Temporary fixtures, caches, and large reproducible frequency tables are excluded from Git.
-- The automated suite contains 97 tests, including profiling/normalization/blocking/scoring/clustering/business isolation,
+- The automated suite contains 102 tests, including profiling/normalization/blocking/scoring/clustering/business/dashboard isolation,
   deterministic output and byte-level input immutability.
 
 ## AI usage
