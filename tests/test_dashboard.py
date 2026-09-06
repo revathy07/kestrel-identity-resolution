@@ -63,6 +63,15 @@ class DashboardDataTests(unittest.TestCase):
             spec = factory()
             self.assertEqual(spec["background"], "#FFFFFF", factory.__name__)
             self.assertEqual(spec["config"]["axis"]["titleColor"], charts.NAVY)
+        self.assertEqual(
+            charts.candidate_reduction()["encoding"]["x"]["scale"]["type"], "symlog"
+        )
+        self.assertEqual(
+            charts.cluster_distribution()["encoding"]["y"]["scale"]["type"], "symlog"
+        )
+        self.assertEqual(
+            charts.model_comparison()["encoding"]["y"]["scale"]["domain"], [0, 1]
+        )
 
 
 class DashboardSmokeTests(unittest.TestCase):

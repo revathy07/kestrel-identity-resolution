@@ -129,7 +129,13 @@ def model_comparison() -> dict[str, Any]:
             "encoding": {
                 "x": {"field": "model", "type": "nominal", "title": None},
                 "xOffset": {"field": "metric_label"},
-                "y": {"field": "value", "type": "quantitative", "title": "Validation recall", "axis": {"format": ".0%"}, "scale": {"domain": [0.5, 0.92]}},
+                "y": {
+                    "field": "value",
+                    "type": "quantitative",
+                    "title": "Validation recall",
+                    "axis": {"format": ".0%"},
+                    "scale": {"domain": [0, 1]},
+                },
                 "color": {"field": "metric_label", "type": "nominal", "scale": {"range": [BLUE, TEAL]}, "legend": {"title": None, "orient": "bottom"}},
                 "opacity": {"condition": {"test": "datum.false_auto_merges === 0", "value": 1}, "value": 0.45},
                 "tooltip": [
@@ -152,7 +158,12 @@ def candidate_reduction() -> dict[str, Any]:
             "mark": {"type": "bar", "cornerRadiusEnd": 5},
             "encoding": {
                 "y": {"field": "stage", "type": "nominal", "sort": ["All possible pairs", "Blocked candidates"], "title": None},
-                "x": {"field": "pairs", "type": "quantitative", "scale": {"type": "log"}, "title": "Pair count (log scale)"},
+                "x": {
+                    "field": "pairs",
+                    "type": "quantitative",
+                    "scale": {"type": "symlog", "constant": 1000},
+                    "title": "Pair count (symmetric log scale)",
+                },
                 "color": {"field": "stage", "type": "nominal", "legend": None, "scale": {"range": [GREY, BLUE]}},
                 "tooltip": [
                     {"field": "stage", "type": "nominal", "title": "Stage"},
@@ -224,7 +235,12 @@ def cluster_distribution() -> dict[str, Any]:
             "mark": {"type": "bar", "cornerRadiusEnd": 4, "color": TEAL},
             "encoding": {
                 "x": {"field": "component_size", "type": "ordinal", "title": "Records in component"},
-                "y": {"field": "components", "type": "quantitative", "title": "Components", "scale": {"type": "log"}},
+                "y": {
+                    "field": "components",
+                    "type": "quantitative",
+                    "title": "Components (symmetric log scale)",
+                    "scale": {"type": "symlog", "constant": 1},
+                },
                 "tooltip": [
                     {"field": "component_size", "type": "ordinal", "title": "Component size"},
                     {"field": "components", "type": "quantitative", "format": ",", "title": "Components"},

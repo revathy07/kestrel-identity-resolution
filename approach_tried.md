@@ -202,3 +202,19 @@ allows at most one reduction for every unresolved canonical link: 23,656 recover
 not merged plus 10,105 blocked links. This general ceiling deliberately ignores overlap, so
 it is conservative. It changes neither the central estimate nor any operational merge, and
 it was not solved backward from the known human total.
+
+## 13. Log-scaled dashboard bars with an implicit zero baseline
+
+**What I tried.** The first technical dashboard used ordinary Vega-Lite bars with logarithmic
+axes for the 88-billion-to-204-thousand candidate reduction and the highly skewed component
+counts. The model chart also restricted its recall axis to 50%–92% to emphasize differences.
+
+**Why I dropped it.** Browser review showed blank plots. A bar implicitly starts at zero,
+which a logarithmic axis cannot represent; the model bars were similarly clipped because
+their zero baseline was outside the explicit domain. Five-card technical KPI rows also
+truncated long values such as 88,199,790,000.
+
+**What replaced it.** Count charts now use zero-safe symmetric-log scales, the recall chart
+uses its honest full 0%–100% domain, and technical KPIs render in rows of at most three.
+The chart contract is covered by a regression test and the corrected app is checked in a
+real browser as well as Streamlit's four-view test harness.

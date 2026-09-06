@@ -163,6 +163,10 @@ elif page == "Technical audit":
             ("All possible pairs", f"{blocking['all_possible_pairs']:,}", None),
             ("Candidates scored", f"{blocking['candidate_pairs']:,}", None),
             ("Reduction", f"{blocking['candidate_reduction_percentage']:.6f}%", None),
+        ]
+    )
+    metric_row(
+        [
             ("Normalized Rule 2 values", f"{blocking['rule2_values']:,}", "Values occurring on more than 40 rows"),
             ("Recoverable blocking recall", f"{blocking['recoverable_blocking_recall']:.4%}", "Measured after candidate generation"),
         ]
@@ -193,6 +197,10 @@ elif page == "Technical audit":
             ("Implied merged pairs", f"{clustering['implied_merged_pairs']:,}", None),
             ("False merged pairs", f"{clustering['false_merged_pairs']:,}", "Observed in synthetic evaluation"),
             ("Mixed-person components", f"{clustering['mixed_person_components']:,}", None),
+        ]
+    )
+    metric_row(
+        [
             ("Largest component", f"{clustering['largest_component']}", "Rule 1 maximum is 12"),
             ("Quarantined components", f"{clustering['quarantined_components']:,}", None),
         ]
