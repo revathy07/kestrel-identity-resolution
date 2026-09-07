@@ -252,3 +252,18 @@ and the orchestration stopped even though no pipeline result had failed.
 permission locks are retried eight times with bounded backoff and a regression test. A
 persistent lock still fails explicitly and recommends `--run-dir` outside the synchronized
 folder; the runner never ignores an unwritten audit trail.
+
+## 16. Mocking the process library globally in orchestration tests
+
+**What I tried.** The runner failure-path test replaced `subprocess.run` on the imported
+standard-library module so the first pipeline stage would return a controlled failure.
+
+**Why I changed it.** The test passed on Windows but failed in GitHub's Ubuntu runner.
+Linux environment discovery inside `platform.platform()` also calls the process library,
+so the broad mock leaked into unrelated standard-library behavior before the pipeline
+stage began.
+
+**What replaced it.** Stage execution now goes through a small `_run_step` boundary. The
+test replaces only that boundary, leaving platform discovery and other standard-library
+subprocess calls untouched. This keeps the production behavior identical while making the
+failure-path test operating-system independent.

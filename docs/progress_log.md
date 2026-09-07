@@ -384,5 +384,8 @@ labelled evaluation, and the required written deliverables.
 - Verified a separate non-synchronized clone with a newly created virtual environment:
   pinned dependency installation succeeded, all 113 tests passed and the complete
   existing-data 28-stage plan resolved in dry-run mode.
+- Used the live Ubuntu CI failure annotation to locate a Windows-only test-double
+  assumption: mocking the shared `subprocess.run` also intercepted Linux platform
+  discovery. Replaced it with a narrow `_run_step` seam without changing runtime behavior.
 - Kept the memo and presentation explicitly deferred rather than describing them as part
   of the completed technical release.

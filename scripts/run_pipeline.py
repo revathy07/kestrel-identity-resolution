@@ -608,6 +608,12 @@ def _prepare_run_directory(run_dir: Path) -> None:
     run_dir.mkdir(parents=True, exist_ok=True)
 
 
+def _run_step(command: Sequence[str]) -> subprocess.CompletedProcess[Any]:
+    """Execute one stage through a narrow seam that tests can replace safely."""
+
+    return subprocess.run(command, cwd=PROJECT_ROOT, check=False)
+
+
 def execute_pipeline(args: argparse.Namespace) -> Path:
     mode = args.mode
     generate = mode != "existing"
@@ -699,7 +705,7 @@ def execute_pipeline(args: argparse.Namespace) -> Path:
             manifest["steps"].append(record)
             _write_manifest(manifest_path, manifest)
             step_start = time.monotonic()
-            completed = subprocess.run(step.command, cwd=PROJECT_ROOT, check=False)
+            completed = _run_step(step.command)
             record["return_code"] = completed.returncode
             record["duration_seconds"] = round(time.monotonic() - step_start, 3)
             record["finished_at_utc"] = _utc_now()

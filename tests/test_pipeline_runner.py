@@ -152,7 +152,7 @@ class PipelineSafetyTests(unittest.TestCase):
                 dry_run=False,
             )
             with patch(
-                "scripts.run_pipeline.subprocess.run",
+                "scripts.run_pipeline._run_step",
                 return_value=subprocess.CompletedProcess([], 7),
             ) as mocked:
                 with redirect_stdout(io.StringIO()):
