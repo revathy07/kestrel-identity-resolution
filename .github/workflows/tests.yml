@@ -51,7 +51,9 @@ jobs:
           Path("test-output.log").write_text(completed.stdout, encoding="utf-8")
           print(completed.stdout, end="")
           if completed.returncode:
-              message = completed.stdout[-8000:]
+              # GitHub truncates long workflow-command annotations from the end. Keep the
+              # final traceback and unittest summary within the annotation limit.
+              message = completed.stdout[-3500:]
               message = message.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
               print(f"::error title=Repository tests failed::{message}")
           raise SystemExit(completed.returncode)
