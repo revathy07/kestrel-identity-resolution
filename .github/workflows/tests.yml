@@ -23,10 +23,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.12"
           cache: pip
@@ -35,7 +35,35 @@ jobs:
         run: python -m pip install -r requirements.txt
 
       - name: Run tests
-        run: python -m unittest discover -s tests -v
+        shell: bash
+        run: |
+          python - <<'PY'
+          import subprocess
+          import sys
+          from pathlib import Path
+
+          completed = subprocess.run(
+              [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-v"],
+              stdout=subprocess.PIPE,
+              stderr=subprocess.STDOUT,
+              text=True,
+          )
+          Path("test-output.log").write_text(completed.stdout, encoding="utf-8")
+          print(completed.stdout, end="")
+          if completed.returncode:
+              message = completed.stdout[-8000:]
+              message = message.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+              print(f"::error title=Repository tests failed::{message}")
+          raise SystemExit(completed.returncode)
+          PY
+
+      - name: Preserve failed test output
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: failed-test-output-${{ github.run_id }}
+          retention-days: 7
+          path: test-output.log
 
   smoke-pipeline:
     name: 10% end-to-end smoke pipeline
@@ -44,10 +72,10 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.12"
           cache: pip
@@ -65,7 +93,7 @@ jobs:
 
       - name: Preserve compact smoke evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: smoke-evidence-${{ github.run_id }}
           if-no-files-found: warn
@@ -83,10 +111,10 @@ jobs:
     timeout-minutes: 120
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.12"
           cache: pip
@@ -104,7 +132,7 @@ jobs:
 
       - name: Preserve compact release evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: full-release-evidence-${{ github.run_id }}
           if-no-files-found: warn
