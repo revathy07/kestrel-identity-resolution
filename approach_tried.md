@@ -218,3 +218,23 @@ truncated long values such as 88,199,790,000.
 uses its honest full 0%–100% domain, and technical KPIs render in rows of at most three.
 The chart contract is covered by a regression test and the corrected app is checked in a
 real browser as well as Streamlit's four-view test harness.
+
+## 14. Treating a 1% fixture as a miniature full statistical release
+
+**What I tried.** The first one-command runner used a 1% fixture for every full-data step,
+including the strict absolute dataset audit and logistic cluster-promotion gate.
+
+**Why I dropped it.** The strict audit correctly rejected nine absolute-size requirements
+such as 420,000 rows and the specified poison-cluster sizes. More importantly, the 1,033-pair
+development partition was too small for a stable challenger: logistic passed its small
+validation partition but produced three false merged pairs after transitivity. At 10%, both
+cluster evaluations were clean, but the smaller validation sample selected Fellegi–Sunter
+rather than the full-data logistic model. These are scale effects, not reasons to weaken an
+audit or safety gate.
+
+**What replaced it.** The runner now declares two different contracts. Its default 10% mode
+is an engineering and modelling smoke test through all three scorers and Rule 1 cluster
+paths; it does not republish the full business result. Full mode, or existing mode with the
+scale-1 dataset, additionally requires the strict audit, the declared logistic winner,
+cluster promotion gates, consolidated evaluation and business estimate. Every attempt uses
+a fresh run directory and retains a failure manifest for diagnosis.

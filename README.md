@@ -16,6 +16,7 @@ building a defensible identity-matching layer across five disconnected customer 
 | Rule 1 capped clustering and evaluation | Complete |
 | Business customer-count estimate and risk summary | Complete |
 | Stakeholder dashboard | Complete |
+| One-command reproducibility runner | Complete |
 | Final memo and presentation | Next |
 
 The repository currently completes the resolver, capped clustering, consolidated evaluation
@@ -31,6 +32,7 @@ docs/                           audit evidence and development log
 outputs/                        compact reports; large intermediates ignored
 scripts/generate_synthetic_dataset.py
 scripts/verify_synthetic_dataset.py
+scripts/run_pipeline.py             isolated one-command smoke/full runner
 src/ingestion/                  isolated normal-source readers
 src/profiling/                  identifier profiler and Rule 2 registry
 src/normalization/              derived, traceable identifier normalization
@@ -67,12 +69,25 @@ python -m pip install -r requirements.txt
 python -m unittest discover -s tests -v
 ```
 
+Run the default 10% engineering and modelling smoke test from generation through both Rule
+1 cluster paths:
+
+```bash
+python scripts/run_pipeline.py
+```
+
+See [the pipeline-runner briefing](docs/pipeline_runner_briefing.md) before using full mode;
+it explains why a small smoke test is not a replacement for the full statistical release.
+
 Generate and audit the proportional development fixture:
 
 ```bash
 python scripts/generate_synthetic_dataset.py --scale 0.01 --output-dir data/generated-small
-python src/validate_generated_data.py --data-dir data/generated-small --output-dir outputs-small
+python scripts/verify_synthetic_dataset.py --data-dir data/generated-small
 ```
+
+The strict `src.validate_generated_data` audit contains absolute full-scale requirements and
+is therefore reserved for the scale-1 dataset.
 
 Regenerate and audit the full dataset only when necessary:
 
@@ -261,6 +276,34 @@ identifiers. The decision lab uses the actual selected logistic coefficients but
 write a match or modify the assessment's thresholds. See
 [the dashboard guide](dashboard/README.md).
 
+## Phase 14B: one-command reproducibility
+
+Run a fresh 10% smoke test with no manual phase orchestration:
+
+```bash
+python scripts/run_pipeline.py
+```
+
+Regenerate and execute the complete full-scale release:
+
+```bash
+python scripts/run_pipeline.py --mode full
+```
+
+Or reuse the committed full dataset while recalculating every downstream artifact:
+
+```bash
+python scripts/run_pipeline.py --mode existing --data-dir data/generated
+```
+
+Every execution writes to a fresh timestamped `runs/` directory, fails on the first nonzero
+command or missing artifact, and records commands, durations, statuses and SHA-256 hashes in
+`pipeline_run_manifest.json`. Small mode intentionally stops before republishing cluster
+promotion and the customer estimate because model selection and business calibration are
+not scale-invariant. Full-scale modes add the strict dataset audit, declared-model check,
+cluster safety gates, consolidated evaluation and business estimate. See
+[the complete runner briefing](docs/pipeline_runner_briefing.md).
+
 ## Verified dataset
 
 The committed full-scale fixture contains 300,000 invented people and 420,000 physical
@@ -283,7 +326,7 @@ resolver.
 - The generator accepts `--seed`, `--scale`, and `--output-dir` arguments.
 - Validators are read-only and return a nonzero exit status when a mandatory check fails.
 - Temporary fixtures, caches, and large reproducible frequency tables are excluded from Git.
-- The automated suite contains 103 tests, including profiling/normalization/blocking/scoring/clustering/business/dashboard isolation,
+- The automated suite contains 112 tests, including pipeline orchestration and profiling/normalization/blocking/scoring/clustering/business/dashboard isolation,
   deterministic output and byte-level input immutability.
 
 ## AI usage

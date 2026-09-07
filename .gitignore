@@ -126,6 +126,7 @@ outputs/clustering/*
 !outputs/clustering/cluster_evaluation.json
 !outputs/clustering/cluster_evaluation.md
 outputs-small/
+runs/
 
 # Environment / OS
 .env

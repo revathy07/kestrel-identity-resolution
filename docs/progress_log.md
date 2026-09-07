@@ -340,3 +340,23 @@ labelled evaluation, and the required written deliverables.
 - Pinned Streamlit 1.63.0 and documented the local launch command and data boundary.
 - Added five data/visual-contract tests and a four-view Streamlit smoke test. All **103
   automated tests** pass.
+
+## 19. Phase 14B one-command reproducibility runner
+
+- Added one fail-fast command that invokes the existing phase CLIs with explicit isolated
+  input/output paths instead of duplicating their implementation.
+- Added fresh timestamped run directories and an atomic JSON manifest containing each
+  command, status, duration, return code and SHA-256 artifact evidence.
+- Preserved label boundaries in orchestration: truth-free scoring precedes development
+  release, development alone trains weights, validation selects models and frozen test is
+  released afterward.
+- Rejected the first 1% design after the absolute full-data audit correctly flagged nine
+  scale conditions and logistic transitivity exposed three false merged pairs.
+- Verified the final 10% smoke contract on 42,000 records through all three MCT methods and
+  both Rule 1 cluster paths in 64.7 seconds. Both cluster evaluations had zero false merged
+  pairs; all 105 then-existing tests passed inside the run.
+- Kept smoke evidence distinct from release evidence: smaller validation selected
+  Fellegi–Sunter, so small mode cannot republish the full logistic selection or business
+  estimate. Full-scale modes retain all strict audit, model and promotion gates.
+- Added seven orchestration/order/safety tests, bringing the repository suite to **112
+  automated tests**.

@@ -191,9 +191,12 @@ refactor are detailed in `approach_tried.md`.
 
 ## Next controlled step
 
-Use the read-only Phase 14A dashboard as the common visual source for the remaining
-deliverables. Next produce the two-page executive memo to Ravi, followed by the 12–18-slide
-presentation and one-command reproducibility guide. The dashboard does not reopen model
-selection or alter any operational result.
+The one-command Phase 14B runner now reproduces the dependency order in isolated run
+directories and records artifact hashes in a run manifest. Its default 10% mode is explicitly
+an engineering smoke test; full-scale modes add the absolute dataset audit, selected-model
+contract, cluster promotion, consolidated evaluation and business estimate. The remaining
+controlled engineering step is a clean-clone/full-data rehearsal and final repository audit.
+The dashboard and runner do not reopen model selection or alter any committed operational
+result.
 
 Detailed failed approaches and fixes are retained in [`approach_tried.md`](approach_tried.md).
