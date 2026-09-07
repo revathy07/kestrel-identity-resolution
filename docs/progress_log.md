@@ -368,3 +368,18 @@ labelled evaluation, and the required written deliverables.
   eight cluster promotion gates and all 113 repository tests. The run reproduced the
   selected logistic model, 342,900 operational identities, zero observed false merged
   pairs and the 315,177 planning estimate within the 299,239-333,000 planning range.
+
+## 20. Continuous integration and technical release hand-off
+
+- Extended the existing GitHub Actions workflow instead of introducing a competing CI
+  definition.
+- Run all 113 tests and the isolated 10% end-to-end smoke pipeline on every push and pull
+  request, retaining compact manifest/report evidence for seven days.
+- Added a manually gated scale-1 existing-data release job with a 120-minute timeout and
+  fourteen-day compact evidence retention; the 50-minute release is not charged to every
+  commit.
+- Added concurrency cancellation so superseded branch runs do not waste CI time.
+- Documented clean-environment setup, all three reproduction modes, expected acceptance
+  values, synchronized-folder precautions and a reviewer checklist.
+- Kept the memo and presentation explicitly deferred rather than describing them as part
+  of the completed technical release.

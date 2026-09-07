@@ -1,5 +1,7 @@
 # Kestrel Identity Resolution
 
+[![Continuous integration](https://github.com/revathy07/kestrel-identity-resolution/actions/workflows/tests.yml/badge.svg)](https://github.com/revathy07/kestrel-identity-resolution/actions/workflows/tests.yml)
+
 Submission workspace for Tailwyndz Propel Lateral Drive 2026, Assessment No. 6:
 building a defensible identity-matching layer across five disconnected customer systems.
 
@@ -17,11 +19,13 @@ building a defensible identity-matching layer across five disconnected customer 
 | Business customer-count estimate and risk summary | Complete |
 | Stakeholder dashboard | Complete |
 | One-command reproducibility runner | Complete |
-| Final memo and presentation | Next |
+| Continuous integration and technical hand-off | Complete |
+| Final memo and presentation | Deferred from current scope |
 
 The repository currently completes the resolver, capped clustering, consolidated evaluation
-and a truth-isolated business customer-count estimate. The final assessment memo and
-presentation remain to be produced.
+and a truth-isolated business customer-count estimate. The technical implementation and
+reproducible hand-off are complete; the final assessment memo and presentation remain
+intentionally deferred.
 
 ## Repository layout
 
@@ -80,6 +84,8 @@ See [the pipeline-runner briefing](docs/pipeline_runner_briefing.md) before usin
 it explains why a small smoke test is not a replacement for the full statistical release.
 The [full pipeline verification](docs/full_pipeline_verification.md) records the successful
 28-stage scale-1 run and reconciles its principal release gates.
+The [technical release hand-off](docs/release_handoff.md) provides clean-machine setup,
+CI operation, rerun choices and the reviewer acceptance checklist.
 
 Generate and audit the proportional development fixture:
 

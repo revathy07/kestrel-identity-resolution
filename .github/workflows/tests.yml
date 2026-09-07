@@ -1,12 +1,22 @@
-name: Tests
+name: Continuous integration
 
 on:
   push:
-    branches: [main]
   pull_request:
+  workflow_dispatch:
+    inputs:
+      full_release:
+        description: Run the 28-stage release against the committed scale-1 dataset
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   unit-tests:
@@ -26,3 +36,80 @@ jobs:
 
       - name: Run tests
         run: python -m unittest discover -s tests -v
+
+  smoke-pipeline:
+    name: 10% end-to-end smoke pipeline
+    needs: unit-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Run isolated smoke pipeline
+        id: pipeline
+        shell: bash
+        run: |
+          run_dir="${RUNNER_TEMP}/kestrel-small-${GITHUB_RUN_ID}"
+          echo "run_dir=$run_dir" >> "$GITHUB_OUTPUT"
+          python scripts/run_pipeline.py --mode small --run-dir "$run_dir" --skip-tests
+
+      - name: Preserve compact smoke evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-evidence-${{ github.run_id }}
+          if-no-files-found: warn
+          retention-days: 7
+          path: |
+            ${{ steps.pipeline.outputs.run_dir }}/pipeline_run_manifest.json
+            ${{ steps.pipeline.outputs.run_dir }}/outputs/**/*.json
+            ${{ steps.pipeline.outputs.run_dir }}/outputs/**/*.md
+
+  full-release:
+    name: Manual scale-1 release verification
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.full_release }}
+    needs: smoke-pipeline
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Run isolated full existing-data release
+        id: pipeline
+        shell: bash
+        run: |
+          run_dir="${RUNNER_TEMP}/kestrel-full-${GITHUB_RUN_ID}"
+          echo "run_dir=$run_dir" >> "$GITHUB_OUTPUT"
+          python scripts/run_pipeline.py --mode existing --data-dir data/generated --run-dir "$run_dir"
+
+      - name: Preserve compact release evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: full-release-evidence-${{ github.run_id }}
+          if-no-files-found: warn
+          retention-days: 14
+          path: |
+            ${{ steps.pipeline.outputs.run_dir }}/pipeline_run_manifest.json
+            ${{ steps.pipeline.outputs.run_dir }}/outputs/**/*.json
+            ${{ steps.pipeline.outputs.run_dir }}/outputs/**/*.md
