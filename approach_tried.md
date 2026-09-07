@@ -238,3 +238,17 @@ paths; it does not republish the full business result. Full mode, or existing mo
 scale-1 dataset, additionally requires the strict audit, the declared logistic winner,
 cluster promotion gates, consolidated evaluation and business estimate. Every attempt uses
 a fresh run directory and retains a failure manifest for diagnosis.
+
+## 15. Assuming atomic manifest replacement is never externally locked
+
+**What I tried.** The first full existing-data run wrote the audit manifest with one atomic
+temporary-file replacement after every stage.
+
+**Why I changed it.** The dataset passed all 66 independent checks, but OneDrive briefly
+locked the manifest target before the strict audit started. Windows returned `WinError 5`,
+and the orchestration stopped even though no pipeline result had failed.
+
+**What replaced it.** Atomic replacement remains the integrity mechanism, but transient
+permission locks are retried eight times with bounded backoff and a regression test. A
+persistent lock still fails explicitly and recommends `--run-dir` outside the synchronized
+folder; the runner never ignores an unwritten audit trail.

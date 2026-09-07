@@ -78,6 +78,8 @@ python scripts/run_pipeline.py
 
 See [the pipeline-runner briefing](docs/pipeline_runner_briefing.md) before using full mode;
 it explains why a small smoke test is not a replacement for the full statistical release.
+The [full pipeline verification](docs/full_pipeline_verification.md) records the successful
+28-stage scale-1 run and reconciles its principal release gates.
 
 Generate and audit the proportional development fixture:
 
@@ -326,7 +328,7 @@ resolver.
 - The generator accepts `--seed`, `--scale`, and `--output-dir` arguments.
 - Validators are read-only and return a nonzero exit status when a mandatory check fails.
 - Temporary fixtures, caches, and large reproducible frequency tables are excluded from Git.
-- The automated suite contains 112 tests, including pipeline orchestration and profiling/normalization/blocking/scoring/clustering/business/dashboard isolation,
+- The automated suite contains 113 tests, including pipeline orchestration and profiling/normalization/blocking/scoring/clustering/business/dashboard isolation,
   deterministic output and byte-level input immutability.
 
 ## AI usage

@@ -141,11 +141,31 @@ The final seed-42 10% run produced:
 The generated smoke artifacts remain local under `runs/phase14b-smoke-final/`. Only the
 runner, its tests and this briefing are committed.
 
+## Verified full existing-data result
+
+The scale-1 existing-data command completed all 28 release stages on 7 September 2026 in
+3,007.412 seconds. It passed 66 independent dataset checks, all 90 strict audit checks,
+all eight cluster-promotion gates and all 113 repository tests. It reproduced 204,547
+candidates, the selected logistic model, 342,900 operational identities, zero observed
+false merged pairs after transitivity, and the 315,177 planning estimate with its
+299,239-333,000 planning range.
+
+See [full pipeline verification](full_pipeline_verification.md) for the reconciled gates,
+interpretation and local manifest location.
+
 ## Failure behaviour and known limitation
 
 The runner is intentionally fail-fast. It does not automatically resume or delete a failed
 run. The failed manifest and already-created artifacts remain available for diagnosis; the
 next attempt should use a new run directory.
+
+Manifest updates use atomic replacement and retry transient Windows file locks eight times
+with bounded backoff. If OneDrive, antivirus or another sync process keeps the manifest
+locked, place the run outside the synchronized repository:
+
+```powershell
+python scripts/run_pipeline.py --mode existing --data-dir data/generated --run-dir "$env:LOCALAPPDATA\KestrelRuns\full-existing"
+```
 
 An initial 1% experiment was rejected as the default smoke scale. The strict full-scale
 auditor correctly flagged nine absolute-size conditions, and the small logistic sample

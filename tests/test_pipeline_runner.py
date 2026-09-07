@@ -14,6 +14,7 @@ from scripts.run_pipeline import (
     PipelineError,
     _check_sources,
     _prepare_run_directory,
+    _write_manifest,
     build_steps,
     execute_pipeline,
 )
@@ -86,6 +87,26 @@ class PipelinePlanTests(unittest.TestCase):
 
 
 class PipelineSafetyTests(unittest.TestCase):
+    def test_manifest_write_retries_a_transient_windows_lock(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / "pipeline_run_manifest.json"
+            original_replace = Path.replace
+            calls = 0
+
+            def replace_after_one_lock(source: Path, target: Path) -> Path:
+                nonlocal calls
+                calls += 1
+                if calls == 1:
+                    raise PermissionError(5, "simulated sync lock")
+                return original_replace(source, target)
+
+            with patch.object(Path, "replace", new=replace_after_one_lock):
+                with patch("scripts.run_pipeline.time.sleep") as sleeper:
+                    _write_manifest(path, {"status": "running"})
+            self.assertEqual(calls, 2)
+            sleeper.assert_called_once()
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8"))["status"], "running")
+
     def test_nonempty_run_directory_is_rejected_without_deleting_contents(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             run_dir = Path(temporary) / "run"

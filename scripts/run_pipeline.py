@@ -16,6 +16,7 @@ from typing import Any, Sequence
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+MANIFEST_WRITE_ATTEMPTS = 8
 REQUIRED_SOURCE_FILES = (
     "app_users.csv",
     "store_customers.csv",
@@ -575,8 +576,22 @@ def build_steps(
 
 def _write_manifest(path: Path, manifest: dict[str, Any]) -> None:
     temporary = path.with_suffix(".json.tmp")
-    temporary.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
-    temporary.replace(path)
+    payload = json.dumps(manifest, indent=2) + "\n"
+    last_error: PermissionError | None = None
+    for attempt in range(MANIFEST_WRITE_ATTEMPTS):
+        try:
+            temporary.write_text(payload, encoding="utf-8")
+            temporary.replace(path)
+            return
+        except PermissionError as exc:
+            last_error = exc
+            if attempt + 1 < MANIFEST_WRITE_ATTEMPTS:
+                time.sleep(min(0.05 * (2**attempt), 0.8))
+    raise PipelineError(
+        f"Unable to update run manifest after {MANIFEST_WRITE_ATTEMPTS} attempts: "
+        f"{last_error}. A sync or antivirus process may be locking {path}; use --run-dir "
+        "outside the synchronized folder."
+    ) from last_error
 
 
 def _check_sources(data_dir: Path) -> None:

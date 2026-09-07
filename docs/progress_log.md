@@ -358,5 +358,13 @@ labelled evaluation, and the required written deliverables.
 - Kept smoke evidence distinct from release evidence: smaller validation selected
   Fellegi–Sunter, so small mode cannot republish the full logistic selection or business
   estimate. Full-scale modes retain all strict audit, model and promotion gates.
-- Added seven orchestration/order/safety tests, bringing the repository suite to **112
+- Added eight orchestration/order/safety tests, bringing the repository suite to **113
   automated tests**.
+- Reproducing the existing full dataset exposed a transient OneDrive lock during atomic
+  manifest replacement. Manifest writes now retry bounded Windows locks and report an
+  actionable outside-sync `--run-dir` fallback without weakening fail-fast behavior.
+- Re-ran the scale-1 existing-data release outside OneDrive after the lock fix. All 28
+  stages passed in 3,007.412 seconds: 66 independent checks, 90 strict audit checks, all
+  eight cluster promotion gates and all 113 repository tests. The run reproduced the
+  selected logistic model, 342,900 operational identities, zero observed false merged
+  pairs and the 315,177 planning estimate within the 299,239-333,000 planning range.
