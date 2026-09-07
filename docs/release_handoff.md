@@ -84,6 +84,14 @@ minutes. A maintainer can open **Actions -> Continuous integration -> Run workfl
 **Run the 28-stage release**, and start the manually gated full verification. Compact
 release evidence is retained for fourteen days.
 
+## Clean-clone verification
+
+The hand-off procedure was independently exercised on 7 September 2026 from committed
+revision `f63b5e1` in a new checkout outside the OneDrive workspace. A new virtual
+environment installed only `requirements.txt`, all 113 tests passed, and the existing-data
+`--dry-run` resolved the expected 28-stage release plan. No uncommitted source file,
+pre-existing virtual environment or repository `runs/` artifact was needed.
+
 ## Reviewer checklist
 
 - Confirm the checkout is at the intended release tag or commit.

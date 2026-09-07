@@ -381,5 +381,8 @@ labelled evaluation, and the required written deliverables.
 - Added concurrency cancellation so superseded branch runs do not waste CI time.
 - Documented clean-environment setup, all three reproduction modes, expected acceptance
   values, synchronized-folder precautions and a reviewer checklist.
+- Verified a separate non-synchronized clone with a newly created virtual environment:
+  pinned dependency installation succeeded, all 113 tests passed and the complete
+  existing-data 28-stage plan resolved in dry-run mode.
 - Kept the memo and presentation explicitly deferred rather than describing them as part
   of the completed technical release.
