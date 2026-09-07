@@ -124,6 +124,10 @@ def model_comparison() -> dict[str, Any]:
             "transform": [
                 {"fold": ["auto_recall", "assisted_recall"], "as": ["metric", "value"]},
                 {"calculate": "datum.metric === 'auto_recall' ? 'Auto recall' : 'Assisted recall'", "as": "metric_label"},
+                {
+                    "calculate": "datum.metric === 'auto_recall' ? 'True matches auto-merged / all true matches' : 'True matches auto-merged or reviewed / all true matches'",
+                    "as": "metric_definition",
+                },
             ],
             "mark": {"type": "bar", "cornerRadiusEnd": 4},
             "encoding": {
@@ -141,6 +145,7 @@ def model_comparison() -> dict[str, Any]:
                 "tooltip": [
                     {"field": "model", "type": "nominal", "title": "Model"},
                     {"field": "metric_label", "type": "nominal", "title": "Metric"},
+                    {"field": "metric_definition", "type": "nominal", "title": "Definition"},
                     {"field": "value", "type": "quantitative", "format": ".4%", "title": "Value"},
                     {"field": "precision", "type": "quantitative", "format": ".4%", "title": "Auto precision"},
                     {"field": "false_auto_merges", "type": "quantitative", "title": "False auto-merges"},
@@ -209,6 +214,10 @@ def source_pair_recall() -> dict[str, Any]:
             "transform": [
                 {"fold": ["auto_recall", "assisted_recall"], "as": ["metric", "value"]},
                 {"calculate": "datum.metric === 'auto_recall' ? 'Auto recall' : 'Assisted recall'", "as": "metric_label"},
+                {
+                    "calculate": "datum.metric === 'auto_recall' ? 'True matches auto-merged / all true matches' : 'True matches auto-merged or reviewed / all true matches'",
+                    "as": "metric_definition",
+                },
             ],
             "mark": {"type": "bar", "cornerRadiusEnd": 3},
             "encoding": {
@@ -219,6 +228,7 @@ def source_pair_recall() -> dict[str, Any]:
                 "tooltip": [
                     {"field": "source_pair", "type": "nominal", "title": "Source pair"},
                     {"field": "metric_label", "type": "nominal", "title": "Metric"},
+                    {"field": "metric_definition", "type": "nominal", "title": "Definition"},
                     {"field": "value", "type": "quantitative", "format": ".4%", "title": "Recall"},
                     {"field": "true_matches", "type": "quantitative", "format": ",", "title": "True matches"},
                 ],

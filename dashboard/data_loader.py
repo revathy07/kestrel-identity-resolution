@@ -127,6 +127,11 @@ def _validate(snapshot: Mapping[str, Any]) -> None:
         raise DashboardDataError("Dashboard refuses evaluations that expose hidden identifiers")
     if snapshot["model_comparison"]["selected_model"] != "logistic_regression_mct":
         raise DashboardDataError("Published selected model is not the expected promoted model")
+    clustering = snapshot["clustering"]
+    if clustering["rule1_maximum"] != 12 or not clustering["rule1_applied"]:
+        raise DashboardDataError("Dashboard requires evidence that Rule 1 was applied with a cap of 12")
+    if clustering["partial_merges_from_quarantine"] != 0:
+        raise DashboardDataError("Rule 1 quarantine contains partial merges")
 
 
 def load_dashboard_data(root: Path = PROJECT_ROOT) -> dict[str, Any]:
@@ -248,7 +253,17 @@ def load_dashboard_data(root: Path = PROJECT_ROOT) -> dict[str, Any]:
             "accepted_merged_components": int(clustering["accepted_merged_component_count"]),
             "accepted_singletons": int(clustering["accepted_singleton_count"]),
             "largest_component": int(clustering["largest_accepted_component_size"]),
+            "largest_proposed_component": int(
+                clustering["largest_proposed_component"]["source_record_count"]
+            ),
+            "proposed_components": int(clustering["proposed_component_count"]),
             "quarantined_components": int(clustering["quarantined_component_count"]),
+            "rule1_maximum": int(clustering["rule1_maximum_source_records"]),
+            "rule1_applied": clustering["phase_boundaries"]["rule1_cluster_size_cap_applied"]
+            is True,
+            "partial_merges_from_quarantine": int(
+                clustering["partial_merges_from_quarantined_components"]
+            ),
             "auto_merge_edges": int(clustering["auto_merge_edges"]),
             "implied_merged_pairs": int(
                 cluster_evaluation["pairwise_cluster_metrics"]["predicted_merged_pairs"]

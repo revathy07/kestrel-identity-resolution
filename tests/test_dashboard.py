@@ -33,6 +33,14 @@ class DashboardDataTests(unittest.TestCase):
         self.assertLessEqual(executive["range_lower"], executive["recommended_customers"])
         self.assertLessEqual(executive["recommended_customers"], executive["range_upper"])
 
+    def test_rule1_application_is_exposed_and_reconciled(self) -> None:
+        clustering = self.snapshot["clustering"]
+        self.assertTrue(clustering["rule1_applied"])
+        self.assertEqual(clustering["rule1_maximum"], 12)
+        self.assertEqual(clustering["largest_proposed_component"], 6)
+        self.assertEqual(clustering["quarantined_components"], 0)
+        self.assertEqual(clustering["partial_merges_from_quarantine"], 0)
+
     def test_selected_model_score_is_deterministic_and_uses_fixed_bands(self) -> None:
         model = self.snapshot["selected_model"]
         events = ["evidence:exact_email", "evidence:exact_phone"]
@@ -72,6 +80,22 @@ class DashboardDataTests(unittest.TestCase):
         self.assertEqual(
             charts.model_comparison()["encoding"]["y"]["scale"]["domain"], [0, 1]
         )
+        for factory in (charts.model_comparison, charts.source_pair_recall):
+            tooltips = factory()["encoding"]["tooltip"]
+            self.assertIn("metric_definition", {item["field"] for item in tooltips})
+
+    def test_dashboard_copy_contains_requested_kpi_explanations(self) -> None:
+        source = (PROJECT_ROOT / "dashboard" / "app.py").read_text(encoding="utf-8")
+        for requested_copy in (
+            "How to read these numbers",
+            "Formula / definition",
+            "Planning range—not a confidence interval",
+            "Comparison workload reduction",
+            "Frozen-test false auto-merges",
+            "Why the upper endpoint is 333,000",
+            "Rule 1 was applied",
+        ):
+            self.assertIn(requested_copy, source)
 
 
 class DashboardSmokeTests(unittest.TestCase):
