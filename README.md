@@ -20,6 +20,7 @@ building a defensible identity-matching layer across five disconnected customer 
 | Stakeholder dashboard | Complete |
 | One-command reproducibility runner | Complete |
 | Continuous integration and technical hand-off | Complete |
+| Development/validation recall-gap analysis | Complete |
 | Final memo and presentation | Deferred from current scope |
 
 The repository currently completes the resolver, capped clustering, consolidated evaluation
@@ -86,6 +87,18 @@ The [full pipeline verification](docs/full_pipeline_verification.md) records the
 28-stage scale-1 run and reconciles its principal release gates.
 The [technical release hand-off](docs/release_handoff.md) provides clean-machine setup,
 CI operation, rerun choices and the reviewer acceptance checklist.
+
+Diagnose recall opportunities without opening the frozen-test labels:
+
+```bash
+python -m src.evaluation.analyze_recall_gaps
+```
+
+The diagnostic examines only person-disjoint development and validation pairs. It finds
+that app-users/ticketing contributes 72.4705% of the current recall gap and
+social-logins/ticketing contributes another 26.0623%. It changes no score, threshold,
+candidate or cluster. See [the recall-improvement briefing](docs/recall_improvement_plan.md)
+and [the generated analysis](outputs/recall-analysis/recall_gap_analysis.md).
 
 Generate and audit the proportional development fixture:
 

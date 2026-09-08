@@ -389,3 +389,24 @@ labelled evaluation, and the required written deliverables.
   discovery. Replaced it with a narrow `_run_step` seam without changing runtime behavior.
 - Kept the memo and presentation explicitly deferred rather than describing them as part
   of the completed technical release.
+
+## 21. Development/validation recall-gap analysis
+
+- Added an aggregate-only analyzer that reads the person-disjoint development and validation
+  labelled sets and deliberately never opens the frozen-test artifact.
+- Measured 93,799 true candidate matches across those partitions: 70,148 auto-merge, 12,642
+  enter review and 11,009 remain separate. Automatic recall is 74.7854% and assisted recall
+  is 88.2632%.
+- Attributed 72.4705% of the unresolved gap to app-users/ticketing and 26.0623% to
+  social-logins/ticketing. This makes ticketing-specific interactions and corroboration the
+  first evidence-backed experiment instead of a broad threshold change.
+- Published source-pair, evidence/conflict-pattern and score-proximity CSVs without source
+  record IDs, physical ordinals or hidden person IDs.
+- Added four isolation/metric/boundary tests and integrated the analyzer as a required
+  one-command pipeline stage. All 117 repository tests pass.
+- Verified the updated 25-stage seed-42 10% pipeline in 133.0 seconds. It passed 66
+  scale-aware dataset checks, generated fresh modelling artifacts, ran the new diagnostic,
+  preserved zero false merged pairs in both cluster paths and passed all 117 tests.
+- Preserved `v1.0.0` as the operational baseline. Any feature challenger must use a newly
+  generated untouched seed for final confirmation because the current validation and frozen
+  partitions have already been examined.

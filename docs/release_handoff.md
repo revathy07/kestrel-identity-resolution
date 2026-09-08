@@ -65,7 +65,7 @@ A successful exact release ends with `PIPELINE PASSED` and should reproduce:
 - 8/8 cluster promotion gates passed;
 - 342,900 operational identities and zero observed false merged pairs;
 - recommended planning estimate 315,177 and planning range 299,239-333,000; and
-- 113 repository tests passed.
+- 117 repository tests pass in the current worktree; the `v1.0.0` full release recorded 113 before the recall-gap tests were added.
 
 The run-level `pipeline_run_manifest.json` is the authoritative orchestration receipt. It
 records command order, status, duration, return code and SHA-256 hashes for required
@@ -96,7 +96,7 @@ pre-existing virtual environment or repository `runs/` artifact was needed.
 
 - Confirm the checkout is at the intended release tag or commit.
 - Confirm dependency installation succeeds in a new virtual environment.
-- Confirm all 113 tests pass.
+- Confirm all 117 tests pass.
 - Use `--dry-run` if command order needs review before execution.
 - Use a fresh, non-synchronized `--run-dir`.
 - Treat 100% observed synthetic precision as test evidence, not as a production guarantee.

@@ -191,12 +191,17 @@ refactor are detailed in `approach_tried.md`.
 
 ## Next controlled step
 
-The one-command Phase 14B runner now reproduces the dependency order in isolated run
-directories and records artifact hashes in a run manifest. Its default 10% mode is explicitly
-an engineering smoke test; full-scale modes add the absolute dataset audit, selected-model
-contract, cluster promotion, consolidated evaluation and business estimate. The remaining
-controlled engineering step is a clean-clone/full-data rehearsal and final repository audit.
-The dashboard and runner do not reopen model selection or alter any committed operational
-result.
+The released `v1.0.0` result remains the frozen baseline. A separate recall-gap diagnostic
+now reads only person-disjoint development and validation labels; it never reads the frozen
+test or changes a model output. Across 93,799 true candidate pairs in those two partitions,
+automatic recall is 74.7854%, assisted recall is 88.2632%, and 11,009 true pairs remain below
+review. App-users/ticketing contributes 72.4705% of the unresolved gap and
+social-logins/ticketing contributes 26.0623%, so the next modelling experiment should target
+ticketing-specific corroboration and interactions rather than broad threshold relaxation.
+
+Any future challenger must keep Rule 1, Rule 2 and the 0.88/0.62 bands fixed, pass the current
+validation safety gates, and then be confirmed on a newly generated untouched seed. The
+current frozen test has already been characterized and must not become an iterative feature-
+selection set.
 
 Detailed failed approaches and fixes are retained in [`approach_tried.md`](approach_tried.md).

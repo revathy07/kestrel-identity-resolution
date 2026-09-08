@@ -28,9 +28,10 @@ python scripts/run_pipeline.py
 
 This generates 42,000 records and exercises dataset verification, ingestion, profiling,
 normalization, Rule 2, blocking, heuristic MCT, Fellegi–Sunter, logistic regression,
-person-disjoint evaluation, transitive clustering, Rule 1 and the repository tests. On the
-development machine, the frozen seed-42 smoke run completed 24 stages in 64.7 seconds. That
-timing is evidence from one machine, not a performance guarantee.
+person-disjoint evaluation, development/validation recall-gap diagnosis, transitive
+clustering, Rule 1 and the repository tests. On the development machine, the seed-42 smoke
+run with the recall diagnostic completed 25 stages in 133.0 seconds. That timing is evidence
+from one machine, not a performance guarantee.
 
 Regenerate and execute the complete full-scale release in a new isolated directory:
 
@@ -92,10 +93,11 @@ if validation no longer selects the project’s declared logistic model.
 | 7 | Release validation labels | Validation selects models; it does not train them |
 | 8 | Train, validate and score logistic candidates | Frozen test remains unreleased until selection |
 | 9 | Release frozen test and compare MCT methods | Precision and recall are reported separately |
-| 10 | Form transitive components | Only auto-merge edges enter clustering |
-| 11 | Apply and evaluate Rule 1 | Components above 12 records are rejected in full |
-| 12 | Full-scale release only: consolidate and estimate | Uncertain pairs affect aggregate sensitivity, not operational merges |
-| 13 | Run repository tests | Code contracts and isolation rules are checked again |
+| 10 | Diagnose logistic recall gaps | Only development and validation rows are read by the analyzer |
+| 11 | Form transitive components | Only auto-merge edges enter clustering |
+| 12 | Apply and evaluate Rule 1 | Components above 12 records are rejected in full |
+| 13 | Full-scale release only: consolidate and estimate | Uncertain pairs affect aggregate sensitivity, not operational merges |
+| 14 | Run repository tests | Code contracts and isolation rules are checked again |
 
 Each subprocess receives explicit input and output paths. This prevents a stage from
 silently reading a stale artifact from the repository’s normal `outputs/` directory.
@@ -134,21 +136,26 @@ The final seed-42 10% run produced:
 - 382,000 normalized identifier observations;
 - 19,980 candidate pairs;
 - all three MCT implementations trained, scored and evaluated;
+- development/validation recall gaps analyzed without reading the frozen test;
 - heuristic and logistic transitive components checked under Rule 1;
 - zero false merged pairs in both 10% cluster evaluations; and
-- 105 pre-existing repository tests passed during the run.
+- all 117 repository tests passed during the run.
 
-The generated smoke artifacts remain local under `runs/phase14b-smoke-final/`. Only the
+The generated smoke artifacts remain local under `runs/recall-gap-smoke/`. Only the
 runner, its tests and this briefing are committed.
 
 ## Verified full existing-data result
 
-The scale-1 existing-data command completed all 28 release stages on 7 September 2026 in
+The `v1.0.0` scale-1 existing-data command completed its then-current 28 release stages on 7 September 2026 in
 3,007.412 seconds. It passed 66 independent dataset checks, all 90 strict audit checks,
 all eight cluster-promotion gates and all 113 repository tests. It reproduced 204,547
 candidates, the selected logistic model, 342,900 operational identities, zero observed
 false merged pairs after transitivity, and the 315,177 planning estimate with its
 299,239-333,000 planning range.
+
+The current runner adds the aggregate recall-gap stage, so its plans now contain 25 small,
+29 existing-data and 30 full-regeneration stages. The new stage has passed the 10% smoke
+run; it does not change any `v1.0.0` score, cluster or business result.
 
 See [full pipeline verification](full_pipeline_verification.md) for the reconciled gates,
 interpretation and local manifest location.

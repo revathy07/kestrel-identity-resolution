@@ -34,9 +34,10 @@ class PipelinePlanTests(unittest.TestCase):
             include_tests=True,
         )
         names = [step.name for step in steps]
-        self.assertEqual(len(names), 24)
+        self.assertEqual(len(names), 25)
         self.assertIn("generate_dataset", names)
         self.assertIn("compare_mct_models", names)
+        self.assertIn("analyze_development_validation_recall_gaps", names)
         self.assertIn("cluster_logistic_challenger", names)
         self.assertIn("evaluate_logistic_clusters", names)
         self.assertIn("repository_tests", names)
@@ -57,12 +58,13 @@ class PipelinePlanTests(unittest.TestCase):
             include_tests=True,
         )
         names = [step.name for step in steps]
-        self.assertEqual(len(names), 29)
+        self.assertEqual(len(names), 30)
         self.assertIn("dataset_compliance_audit", names)
         self.assertIn("compare_cluster_models", names)
         self.assertIn("consolidate_evaluation", names)
         self.assertIn("estimate_business_count", names)
         self.assertIn("evaluate_business_count", names)
+        self.assertIn("analyze_development_validation_recall_gaps", names)
 
     def test_truth_release_and_training_order_is_explicit(self) -> None:
         root = Path("C:/isolated-run")
@@ -83,6 +85,14 @@ class PipelinePlanTests(unittest.TestCase):
         self.assertLess(names.index("release_development_labels"), names.index("train_fellegi_sunter"))
         self.assertLess(names.index("release_validation_labels"), names.index("select_logistic_on_validation"))
         self.assertLess(names.index("select_logistic_on_validation"), names.index("evaluate_logistic_frozen_test"))
+        self.assertLess(
+            names.index("evaluate_logistic_frozen_test"),
+            names.index("analyze_development_validation_recall_gaps"),
+        )
+        self.assertLess(
+            names.index("analyze_development_validation_recall_gaps"),
+            names.index("cluster_logistic_challenger"),
+        )
         self.assertLess(names.index("compare_mct_models"), names.index("cluster_logistic_challenger"))
 
 

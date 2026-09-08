@@ -101,6 +101,7 @@ def build_steps(
     scoring = output_dir / "scoring"
     fs = output_dir / "fellegi_sunter"
     logistic = output_dir / "logistic"
+    recall_analysis = output_dir / "recall-analysis"
     heuristic_clusters = output_dir / "heuristic-clustering"
     clusters = output_dir / "clustering"
     evaluation = output_dir / "evaluation"
@@ -413,6 +414,21 @@ def build_steps(
                     logistic,
                 ),
                 (logistic / "logistic_comparison.json",),
+            ),
+            PipelineStep(
+                "analyze_development_validation_recall_gaps",
+                "Diagnose logistic MCT misses without reading frozen-test labels.",
+                _module(
+                    "src.evaluation.analyze_recall_gaps",
+                    "--labelled-dir",
+                    logistic,
+                    "--output-dir",
+                    recall_analysis,
+                ),
+                (
+                    recall_analysis / "recall_gap_analysis.json",
+                    recall_analysis / "recall_gap_analysis.md",
+                ),
             ),
             PipelineStep(
                 "cluster_heuristic_baseline",

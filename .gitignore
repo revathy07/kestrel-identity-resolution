@@ -106,6 +106,14 @@ outputs/evaluation/*
 !outputs/evaluation/unresolved_match_patterns.csv
 !outputs/evaluation/hard_negative_performance.csv
 !outputs/evaluation/pipeline_loss_attribution.csv
+!outputs/recall-analysis/
+outputs/recall-analysis/*
+!outputs/recall-analysis/README.md
+!outputs/recall-analysis/recall_gap_analysis.json
+!outputs/recall-analysis/recall_gap_analysis.md
+!outputs/recall-analysis/recall_gap_by_source_pair.csv
+!outputs/recall-analysis/unresolved_patterns.csv
+!outputs/recall-analysis/score_proximity.csv
 !outputs/business/
 outputs/business/*
 !outputs/business/README.md
