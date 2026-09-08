@@ -99,3 +99,28 @@ also remains a `v1.0.0` characterization set rather than becoming a repeatedly t
 
 The analysis does not implement or promote new matching features. That separation prevents
 an exploratory finding from silently changing the verified production-style result.
+
+## Experiment 1 result: ticketing source context
+
+The first v1.1 experiment added three declared source-pair contexts and all 57 context-by-
+base-event interactions to the existing 190-term logistic design. The resulting 250-term
+challenger used development labels only for fitting and the current validation partition for
+the predeclared comparison against `v1.0`.
+
+| Validation model | False auto-merges | Auto recall | Assisted recall | Decision |
+|---|---:|---:|---:|---|
+| v1.0 logistic baseline | 0 | 74.1027% | 88.0763% | Retain |
+| Context L2=0.0001 | 225 | 91.2299% | 91.8531% | Reject: unsafe |
+| Context L2=0.001 | 131 | 86.8561% | 91.8531% | Reject: unsafe |
+| Context L2=0.01 | 5 | 72.7249% | 91.8006% | Reject: unsafe and lower auto recall |
+| Context L2=0.1 | 0 | 43.9330% | 87.8886% | Reject: worse recall |
+
+Source context made the synthetic ticketing patterns easier to recognize but was not an
+independent identity signal. The validation gate behaved as intended: no candidate combined
+zero false auto-merges with improved automatic and assisted recall. No challenger model was
+published, no cluster was built and no frozen-test or new-seed confirmation was opened.
+
+The next justified experiment is not a larger source-context model. It is conservative
+ticketing corroboration from attributes with a defensible identity meaning. Device-only
+pairs with conflicting email and name remain unresolved unless an additional identifier can
+distinguish a returning person from two people sharing a device.

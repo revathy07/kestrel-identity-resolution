@@ -410,3 +410,24 @@ labelled evaluation, and the required written deliverables.
 - Preserved `v1.0.0` as the operational baseline. Any feature challenger must use a newly
   generated untouched seed for final confirmation because the current validation and frozen
   partitions have already been examined.
+
+## 22. Ticketing-aware v1.1 challenger
+
+- Froze a 250-term logistic experiment: the existing 190 terms, three ticketing source-pair
+  contexts and every one of their 57 context-by-base-event interactions.
+- Reused the existing deterministic NumPy trainer without allowing baseline MCT score,
+  decision, record identity, hidden person identity, blocking rule or hard-negative scenario
+  into the model matrix.
+- Added an explicit improvement gate: zero validation false auto-merges is necessary but no
+  longer sufficient; both automatic and assisted recall must also exceed `v1.0`.
+- Measured large unsafe recall increases at low regularization: 91.2299% auto recall with
+  225 false auto-merges and 86.8561% with 131. The L2=0.01 candidate still had five false
+  merges, while the only zero-false model reduced both recall measures.
+- Rejected the complete challenger family before model publication, frozen-test release,
+  clustering or new-seed confirmation. The `v1.0` logistic baseline remains unchanged.
+- Added source-context encoding and promotion-gate regression tests. The next experiment
+  must add defensible corroborating evidence rather than treating source membership or a
+  shared device as identity proof.
+- All 119 repository tests pass. Rejected validation also removes any stale selected-model
+  artifact from the exact experiment output directory, so a previous candidate cannot be
+  mistaken for the current decision.

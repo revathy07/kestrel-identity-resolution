@@ -1,0 +1,70 @@
+{
+  "version": 2,
+  "description": "Exploratory v1.1 logistic challenger with predeclared ticketing source contexts.",
+  "input_score_baseline_label": "v1.0 logistic baseline",
+  "thresholds": {
+    "auto_merge_minimum": 0.88,
+    "human_review_minimum": 0.62
+  },
+  "base_events": [
+    "conflict:account_reference_conflict",
+    "conflict:date_of_birth_conflict",
+    "conflict:email_conflict",
+    "conflict:name_conflict",
+    "conflict:phone_conflict",
+    "conflict:shared_email_payment_household_risk",
+    "conflict:verified_email_conflict",
+    "evidence:email_skeleton",
+    "evidence:exact_account_reference",
+    "evidence:exact_device_id",
+    "evidence:exact_email",
+    "evidence:exact_payment_token",
+    "evidence:exact_phone",
+    "evidence:exact_provider_id",
+    "evidence:exact_verified_email",
+    "evidence:name_city",
+    "evidence:name_date_of_birth",
+    "evidence:phone_suffix_9",
+    "evidence:same_source_record_id"
+  ],
+  "source_context_events": [
+    "context:source_pair=app_users+ticketing",
+    "context:source_pair=social_logins+ticketing",
+    "context:source_pair=ticketing+ticketing"
+  ],
+  "interaction_policy": "all_base_pairs_plus_declared_source_context_by_base_event",
+  "regularization": {
+    "type": "l2_except_intercept",
+    "candidate_strengths": [0.0001, 0.001, 0.01, 0.1]
+  },
+  "optimizer": {
+    "type": "deterministic_minibatch_adam",
+    "epochs": 40,
+    "batch_size": 8192,
+    "learning_rate": 0.03,
+    "beta1": 0.9,
+    "beta2": 0.999,
+    "epsilon": 1e-08,
+    "shuffle": false,
+    "initialization": "zero_coefficients_and_development_prior_intercept"
+  },
+  "selection_gate": {
+    "partition": "validation",
+    "required_auto_merge_false_positives": 0,
+    "require_improvement_over_input_baseline": true,
+    "ranking": [
+      "highest_auto_merge_recall",
+      "highest_assisted_recall",
+      "fewest_human_review_pairs",
+      "strongest_l2_regularization"
+    ]
+  },
+  "principles": [
+    "The released v1.0 logistic scores are the comparison baseline and are never training features.",
+    "Only development labels estimate coefficients; validation applies the predeclared safety and improvement gates.",
+    "Source context changes the interpretation of existing evidence but is not a customer identifier.",
+    "All three ticketing contexts and every context-by-base-event interaction are declared before validation.",
+    "The frozen v1.0 test is not used for feature design or candidate selection.",
+    "Rule 1, Rule 2 and the mandatory 0.88 and 0.62 MCT boundaries remain unchanged."
+  ]
+}

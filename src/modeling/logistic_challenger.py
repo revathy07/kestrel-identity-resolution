@@ -68,8 +68,28 @@ def load_config(path: Path = DEFAULT_CONFIG) -> dict[str, Any]:
         raise LogisticChallengerError("base_events must be a nonempty unique list")
     if events != sorted(events):
         raise LogisticChallengerError("base_events must be sorted for deterministic features")
-    if config.get("interaction_policy") != "all_unordered_pairs_of_distinct_base_events":
-        raise LogisticChallengerError("Only the frozen all-pairwise interaction policy is supported")
+    policy = config.get("interaction_policy")
+    supported_policies = {
+        "all_unordered_pairs_of_distinct_base_events",
+        "all_base_pairs_plus_declared_source_context_by_base_event",
+    }
+    if policy not in supported_policies:
+        raise LogisticChallengerError(f"Unsupported interaction policy {policy!r}")
+    contexts = config.get("source_context_events", [])
+    if not isinstance(contexts, list) or len(contexts) != len(set(contexts)):
+        raise LogisticChallengerError("source_context_events must be a unique list")
+    if contexts != sorted(contexts):
+        raise LogisticChallengerError(
+            "source_context_events must be sorted for deterministic features"
+        )
+    if any(not item.startswith("context:source_pair=") for item in contexts):
+        raise LogisticChallengerError(
+            "Every source context event must start with 'context:source_pair='"
+        )
+    if policy == "all_unordered_pairs_of_distinct_base_events" and contexts:
+        raise LogisticChallengerError("The baseline interaction policy cannot declare contexts")
+    if policy != "all_unordered_pairs_of_distinct_base_events" and not contexts:
+        raise LogisticChallengerError("The source-context policy requires declared contexts")
     thresholds = config.get("thresholds", {})
     if thresholds != {"auto_merge_minimum": 0.88, "human_review_minimum": 0.62}:
         raise LogisticChallengerError("The assessment MCT thresholds must remain exactly 0.88 and 0.62")
@@ -81,7 +101,12 @@ def load_config(path: Path = DEFAULT_CONFIG) -> dict[str, Any]:
 
 def feature_names(config: Mapping[str, Any]) -> list[str]:
     base = list(config["base_events"])
-    return [*base, *(f"{left} & {right}" for left, right in combinations(base, 2))]
+    names = [*base, *(f"{left} & {right}" for left, right in combinations(base, 2))]
+    contexts = list(config.get("source_context_events", []))
+    if contexts:
+        names.extend(contexts)
+        names.extend(f"{context} & {event}" for context in contexts for event in base)
+    return names
 
 
 def _row_events(row: Mapping[str, str]) -> set[str]:
@@ -116,6 +141,25 @@ def encode_rows(rows: Sequence[Mapping[str, str]], config: Mapping[str, Any]) ->
         (base[:, left] * base[:, right]).reshape(-1, 1)
         for left, right in combinations(range(len(base_names)), 2)
     )
+    contexts = list(config.get("source_context_events", []))
+    if contexts:
+        context_lookup = {name: index for index, name in enumerate(contexts)}
+        context_matrix = np.zeros((len(rows), len(contexts)), dtype=np.float64)
+        for row_index, row in enumerate(rows):
+            if not row.get("left_source") or not row.get("right_source"):
+                raise LogisticChallengerError(
+                    "Source-context features require left_source and right_source"
+                )
+            source_pair = "+".join(sorted((row["left_source"], row["right_source"])))
+            context = f"context:source_pair={source_pair}"
+            if context in context_lookup:
+                context_matrix[row_index, context_lookup[context]] = 1.0
+        columns.append(context_matrix)
+        columns.extend(
+            (context_matrix[:, context] * base[:, event]).reshape(-1, 1)
+            for context in range(len(contexts))
+            for event in range(len(base_names))
+        )
     return np.concatenate(columns, axis=1)
 
 
@@ -313,12 +357,22 @@ def train_candidates(
         "feature_count": len(names),
         "base_feature_count": len(config["base_events"]),
         "interaction_feature_count": len(names) - len(config["base_events"]),
+        "source_context_feature_count": len(config.get("source_context_events", [])),
         "feature_names": names,
         "candidates": candidates,
         "input": {"path": _portable_path(development_path), "sha256": _sha256(development_path)},
         "configuration": {"path": _portable_path(config_path), "sha256": _sha256(config_path)},
         "feature_contract": {
-            "included": ["positive_evidence", "conflicts", "all_pairwise_event_interactions"],
+            "included": [
+                "positive_evidence",
+                "conflicts",
+                "all_pairwise_event_interactions",
+                *(
+                    ["declared_source_pair_contexts", "source_context_by_base_event_interactions"]
+                    if config.get("source_context_events")
+                    else []
+                ),
+            ],
             "heuristic_mct_score_used": False,
             "heuristic_decision_used": False,
             "blocking_rule_used": False,
@@ -366,7 +420,7 @@ def _validation_report(result: Mapping[str, Any]) -> str:
     baseline = result.get("heuristic_validation_metrics")
     if baseline:
         lines.append(
-            f"| Heuristic baseline | n/a | {baseline['auto_merge_false_positives']:,} | "
+            f"| {result['input_score_baseline_label']} | n/a | {baseline['auto_merge_false_positives']:,} | "
             f"{baseline['auto_merge_precision']:.4%} | {baseline['auto_merge_recall_within_candidates']:.4%} | "
             f"{baseline['human_review_pairs']:,} | {baseline['assisted_recall_within_candidates']:.4%} | "
             f"{baseline['brier_score']:.6f} |"
@@ -386,7 +440,9 @@ def _validation_report(result: Mapping[str, Any]) -> str:
             "under the predeclared validation ordering. Its coefficients are frozen before the test is opened."
         )
     else:
-        lines.append("No candidate passes the zero-false-auto-merge validation gate; the challenger is rejected.")
+        lines.append(
+            "No candidate passes every configured validation promotion gate; the challenger is rejected."
+        )
     lines.extend(
         [
             "",
@@ -432,7 +488,31 @@ def select_on_validation(
                 "metrics": metrics,
             }
         )
-    eligible = [item for item in evaluated if item["passes_zero_false_auto_merge_gate"]]
+    baseline_metrics = _heuristic_metrics(rows, labels)
+    require_improvement = bool(
+        config.get("selection_gate", {}).get("require_improvement_over_input_baseline", False)
+    )
+    if require_improvement:
+        if baseline_metrics is None:
+            raise LogisticChallengerError(
+                "The configured improvement gate requires baseline mct_score values"
+            )
+    for item in evaluated:
+        metrics = item["metrics"]
+        item["passes_input_baseline_improvement_gate"] = (
+            not require_improvement
+            or (
+                metrics["auto_merge_recall_within_candidates"]
+                > baseline_metrics["auto_merge_recall_within_candidates"]
+                and metrics["assisted_recall_within_candidates"]
+                > baseline_metrics["assisted_recall_within_candidates"]
+            )
+        )
+        item["eligible_for_selection"] = (
+            item["passes_zero_false_auto_merge_gate"]
+            and item["passes_input_baseline_improvement_gate"]
+        )
+    eligible = [item for item in evaluated if item["eligible_for_selection"]]
     selected_summary = None
     selected_model = None
     if eligible:
@@ -456,7 +536,11 @@ def select_on_validation(
         "thresholds_tuned": False,
         "posthoc_calibration_fitted": False,
         "decision": "accept logistic candidate for frozen-test characterization" if selected_model else "reject logistic challenger",
-        "heuristic_validation_metrics": _heuristic_metrics(rows, labels),
+        "input_score_baseline_label": config.get(
+            "input_score_baseline_label", "Heuristic baseline"
+        ),
+        "heuristic_validation_metrics": baseline_metrics,
+        "improvement_over_input_baseline_required": require_improvement,
         "candidate_validation_metrics": evaluated,
         "selected_candidate": selected_summary,
         "inputs": {
@@ -467,6 +551,7 @@ def select_on_validation(
     }
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
+    selected_model_path = output_dir / "logistic_model.json"
     (output_dir / "logistic_validation.json").write_text(
         json.dumps(result, indent=2) + "\n", encoding="utf-8"
     )
@@ -487,9 +572,11 @@ def select_on_validation(
             "frozen_test_labels_used": False,
             "feature_contract": bundle["feature_contract"],
         }
-        (output_dir / "logistic_model.json").write_text(
+        selected_model_path.write_text(
             json.dumps(frozen_model, indent=2) + "\n", encoding="utf-8"
         )
+    elif selected_model_path.exists():
+        selected_model_path.unlink()
     if show_progress:
         print(
             f"[logistic-validation] {result['decision']}; "

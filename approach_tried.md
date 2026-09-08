@@ -267,3 +267,23 @@ stage began.
 test replaces only that boundary, leaving platform discovery and other standard-library
 subprocess calls untouched. This keeps the production behavior identical while making the
 failure-path test operating-system independent.
+
+## 17. Treating ticketing source context as additional matching evidence
+
+**What I tried.** The recall-gap audit attributed 98.5328% of unresolved
+development/validation true candidates to app-users/ticketing and
+social-logins/ticketing. I therefore declared three ticketing source-pair contexts and all
+57 context-by-event interactions before fitting a 250-term logistic challenger. The input
+scores came from the selected `v1.0` logistic baseline, but those scores were comparison
+values and never training features.
+
+**Why I dropped it.** Weak regularization raised validation auto recall to 91.2299% but
+created 225 false auto-merges. L2=0.001 still produced 131 false auto-merges; L2=0.01
+produced five. The only zero-false candidate, L2=0.1, reduced auto recall from 74.1027% to
+43.9330% and assisted recall from 88.0763% to 87.8886%. Source membership explained a
+synthetic pattern but did not provide independent identity evidence.
+
+**What replaced it.** The predeclared gate rejected every candidate and emitted no model.
+The released `v1.0` logistic resolver remains selected. Further recall work must obtain
+defensible ticketing corroboration or additional identifiers; it must not raise shared-device
+weight, lower the 0.88 threshold or use the current frozen test for iterative selection.

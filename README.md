@@ -21,6 +21,7 @@ building a defensible identity-matching layer across five disconnected customer 
 | One-command reproducibility runner | Complete |
 | Continuous integration and technical hand-off | Complete |
 | Development/validation recall-gap analysis | Complete |
+| Ticketing-aware recall challenger | Tested and rejected by safety gate |
 | Final memo and presentation | Deferred from current scope |
 
 The repository currently completes the resolver, capped clustering, consolidated evaluation
@@ -99,6 +100,12 @@ that app-users/ticketing contributes 72.4705% of the current recall gap and
 social-logins/ticketing contributes another 26.0623%. It changes no score, threshold,
 candidate or cluster. See [the recall-improvement briefing](docs/recall_improvement_plan.md)
 and [the generated analysis](outputs/recall-analysis/recall_gap_analysis.md).
+
+The first recall experiment added predeclared ticketing source contexts and interactions.
+It was not promoted: higher-recall candidates created 5-225 validation false auto-merges,
+while the only zero-false candidate performed worse than the `v1.0` baseline. The rejected
+design and measurements remain reproducible in
+[the ticketing challenger report](outputs/ticketing-challenger/logistic_validation.md).
 
 Generate and audit the proportional development fixture:
 

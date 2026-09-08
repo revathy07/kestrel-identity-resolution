@@ -30,6 +30,7 @@ LABEL_COLUMNS = [
 ]
 PAIR_COLUMNS = LABEL_COLUMNS[:9] + ["mct_score", "decision"]
 CONFIG_PATH = Path("config/logistic_challenger.yaml")
+TICKETING_CONFIG_PATH = Path("config/ticketing_challenger.yaml")
 
 
 def sha256(path: Path) -> str:
@@ -83,6 +84,33 @@ def write_pair_features(path: Path) -> None:
 
 
 class LogisticChallengerTests(unittest.TestCase):
+    def test_ticketing_context_contract_is_predeclared_and_deterministic(self) -> None:
+        config = load_config(TICKETING_CONFIG_PATH)
+        names = feature_names(config)
+        rows = [
+            {
+                "left_source": "ticketing",
+                "right_source": "app_users",
+                "positive_evidence": "exact_device_id",
+                "conflicts": "email_conflict;name_conflict",
+            },
+            {
+                "left_source": "store_customers",
+                "right_source": "app_users",
+                "positive_evidence": "exact_device_id",
+                "conflicts": "email_conflict;name_conflict",
+            },
+        ]
+        matrix = encode_rows(rows, config)
+        context = "context:source_pair=app_users+ticketing"
+        interaction = f"{context} & evidence:exact_device_id"
+        self.assertEqual(len(names), 250)
+        self.assertEqual(matrix.shape, (2, 250))
+        self.assertEqual(matrix[0, names.index(context)], 1.0)
+        self.assertEqual(matrix[0, names.index(interaction)], 1.0)
+        self.assertEqual(matrix[1, names.index(context)], 0.0)
+        self.assertEqual(matrix[1, names.index(interaction)], 0.0)
+
     def test_evaluation_uses_the_same_six_decimal_boundary_as_scoring(self) -> None:
         metrics = _binary_metrics(
             np.asarray([1.0, 1.0]),
@@ -161,6 +189,52 @@ class LogisticChallengerTests(unittest.TestCase):
             self.assertTrue(by_id["safe"]["passes_zero_false_auto_merge_gate"])
             self.assertFalse(by_id["unsafe"]["passes_zero_false_auto_merge_gate"])
             self.assertEqual(result["frozen_test_status"], "not opened by logistic challenger")
+
+    def test_ticketing_candidate_must_improve_both_recalls_over_v1_baseline(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            validation = root / "validation.csv.gz"
+            candidates_path = root / "candidates.json"
+            write_labels(validation, "validation")
+            config = load_config(TICKETING_CONFIG_PATH)
+            names = feature_names(config)
+            coefficients = {name: 0.0 for name in names}
+            coefficients["evidence:exact_email"] = 6.0
+            coefficients["conflict:name_conflict"] = -6.0
+            candidates_path.write_text(
+                json.dumps(
+                    {
+                        "training_partition": "development",
+                        "feature_names": names,
+                        "configuration": {"sha256": sha256(TICKETING_CONFIG_PATH)},
+                        "input": {"sha256": "fixture-development"},
+                        "feature_contract": {"validation_or_test_labels_used": False},
+                        "candidates": [
+                            {
+                                "candidate_id": "safe_but_not_better",
+                                "l2_strength": 0.1,
+                                "intercept": -3.0,
+                                "coefficients": coefficients,
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            result = select_on_validation(
+                validation,
+                candidates_path,
+                root / "output",
+                config_path=TICKETING_CONFIG_PATH,
+                show_progress=False,
+            )
+            self.assertTrue(result["improvement_over_input_baseline_required"])
+            self.assertIsNone(result["selected_candidate"])
+            self.assertEqual(result["decision"], "reject logistic challenger")
+            self.assertFalse(
+                result["candidate_validation_metrics"][0]["eligible_for_selection"]
+            )
+            self.assertFalse((root / "output" / "logistic_model.json").exists())
 
     def test_frozen_model_scores_truth_free_pairs_deterministically(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
